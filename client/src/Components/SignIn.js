@@ -1,31 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Paper,
   TextField,
   Button,
-  Link,
   Box,
   Typography,
   Tab,
   Tabs,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import logoSrc from "../iHomeLogo.png"; // Ensure this path correctly points to your logo image
+import logoSrc from "../iHomeLogo.png"; // Adjust the path as necessary
 
-const SignUp = () => {
-  const [file, setFile] = useState("");
+const SignIn = () => {
   const navigate = useNavigate();
 
+  // Function to handle tab change
   const handleChangeTab = (event, newValue) => {
-    if (newValue === 0) {
-      navigate("/signin"); // Adjust the path as necessary
+    if (newValue === 1) {
+      navigate("/signup"); // Adjust the path as necessary
     } else {
-      navigate("/signup"); // Ensures we stay on the signUp page if the signUp tab is clicked again
+      navigate("/signin"); // Ensures we stay on the signIn page if the signIn tab is clicked again
     }
-  };
-
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
   };
 
   return (
@@ -56,12 +51,12 @@ const SignUp = () => {
         style={{
           padding: 20,
           width: "auto",
-          maxWidth: "500px",
+          maxWidth: "400px",
           backgroundColor: "#FFFFFF",
         }}
       >
         <Tabs
-          value={1} // Assuming SignUp is the second tab, so its index is 1
+          value={0} // Assuming SignIn is the first tab, so its index is 0
           onChange={handleChangeTab}
           indicatorColor="primary"
           textColor="primary"
@@ -71,20 +66,11 @@ const SignUp = () => {
           <Tab label="SIGN UP" />
         </Tabs>
         <form>
-          <TextField label="First Name" margin="normal" fullWidth required />
-          <TextField label="Last Name" margin="normal" fullWidth required />
           <TextField
             label="Email"
             margin="normal"
             fullWidth
             type="email"
-            required
-          />
-          <TextField
-            label="Phone Number"
-            margin="normal"
-            fullWidth
-            type="tel"
             required
           />
           <TextField
@@ -94,36 +80,13 @@ const SignUp = () => {
             type="password"
             required
           />
-          <Typography
-            variant="body2"
-            style={{ marginTop: 16, marginBottom: 8 }}
-          >
-            House File
-          </Typography>
-          <Button
-            variant="outlined"
-            component="label"
-            style={{
-              display: "block",
-              marginBottom: 16,
-              backgroundColor: file ? "#eceff1" : "",
-            }}
-          >
-            {file ? file.name : "Choose File"}
-            <input
-              type="file"
-              hidden
-              onChange={handleFileChange}
-              accept=".txt"
-            />
-          </Button>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             style={{ backgroundColor: "#0A1929", color: "white", margin: 8 }}
           >
-            Sign Up
+            Sign In
           </Button>
         </form>
       </Paper>
@@ -131,4 +94,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
