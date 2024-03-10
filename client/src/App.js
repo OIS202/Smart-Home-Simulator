@@ -1,11 +1,25 @@
-import './App.css';
-import HomePage from './HomePage';
+// App.js
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import SignUp from "./Components/SignUp";
+import HomePage from "./HomePage";
 
 function App() {
   return (
-    <div className="App">
-      <HomePage/>
-    </div>
+    <Router>
+      {" "}
+      {/* Router provides the routing context for the rest of the components */}
+      <div className="App">
+        <Routes>
+          {" "}
+          {/* Routes replaces Switch in react-router-dom v6 */}
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/signUp" element={<SignUp />} />
+          {/* Add additional routes here as needed */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
