@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import Core from "../sh-core";
 
 import { Button, Typography } from "@mui/material";
 
@@ -8,7 +9,7 @@ function ModuleController() {
 
   const modules = [
     <Typography variant="h6">Smart Home Simulator</Typography>,
-    <Typography variant="h6">Smart Home Core Functionality </Typography>,
+    <Core />,
     <Typography variant="h6">Smart Home Security</Typography>,
     <Typography variant="h6">Smart Home Heating</Typography>,
   ];
