@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton, Drawer, List, ListItem,ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import logoSrc from './iHomeLogo.png'; // Ensure the logo path is correct
+import logoSrc from '../iHomeLogo.png'; // Ensure the logo path is correct
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
