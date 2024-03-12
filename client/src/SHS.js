@@ -1,7 +1,6 @@
 import React from 'react';
 import NavBar from './Components/NavBar';
 import SimulationSidebar from './Components/SimulationSidebar';
-import UserProfileList from './Components/UserProfileList';
 import SignUp from './Components/SignUp';
 import SimulationParams from './Components/SimulationParams';
 import {
