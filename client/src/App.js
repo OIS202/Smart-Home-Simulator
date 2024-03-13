@@ -5,6 +5,7 @@ import "./App.css";
 import SignUp from "./Components/SignUp";
 import HomePage from "./HomePage";
 import SignIn from "./Components/SignIn";
+import SHS from "./SHS";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
+          <Route path="/SHS" element={<SHS />} />
           {/* Add additional routes here as needed */}
         </Routes>
       </div>
