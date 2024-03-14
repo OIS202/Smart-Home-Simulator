@@ -12,7 +12,7 @@ public class DeviceController {
     // @Autowired
     // private DeviceService deviceService;
 
-    @GetMapping("/")
+    @GetMapping("/sh-core")
     public void switchState(@RequestBody Device device) {
         if (device.getIsOn() == false){
             try {
