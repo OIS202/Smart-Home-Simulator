@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
 
-import { Button, Typography } from "@mui/material";
+import { Button, Box } from "@mui/material";
 
 function Lights() {
   return (
-    <div>
+    <Box>
       <input type="checkbox" id="light-kitchen" value="light" />
       <label for="light-kitchen">Kitchen</label>
       <br />
@@ -30,7 +30,7 @@ function Lights() {
       <br />
       <input type="checkbox" id="light-all" value="light" />
       <label for="light-all">All Lights</label>
-    </div>
+    </Box>
   );
 }
 

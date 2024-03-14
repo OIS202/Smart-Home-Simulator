@@ -13,22 +13,14 @@ const HomePage = () => {
       <NavBar />
       <Box sx={{ display: "flex", flexGrow: 1 }}>
         <SimulationSidebar />
-        <Box sx={{ display: "flex", flexGrow: 1 }}>
+        <Box>
           {/* MainContent taking up 70% of the window */}
-          <Box sx={{ width: "70%" }}>
+          <Box sx={{ display: "flex" }}>
             <ModuleController />
             <MainContent />
           </Box>
           {/* EditButton and its container taking up 30% of the window */}
-          <Box
-            sx={{
-              width: "30%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              p: 2,
-            }}
-          >
+          <Box>
             <EditButton />
           </Box>
         </Box>
