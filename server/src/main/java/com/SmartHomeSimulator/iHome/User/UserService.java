@@ -1,5 +1,7 @@
 package com.SmartHomeSimulator.iHome.User;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,17 @@ public class UserService {
         }
         User newUser = new User(firstName, lastName, email, phoneNumber, password);
         return userRepository.save(newUser);
+    }
+
+    public User authenticateUser(String email, String password) throws Exception{
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(!optionalUser.isPresent()){
+            throw new Exception("User doesn't exist");
+        }
+        User user = optionalUser.get();
+        if(!(user.getPassword().equals(password))){
+            throw new Exception("Invalid password");
+        }
+        return user;
     }
 }
