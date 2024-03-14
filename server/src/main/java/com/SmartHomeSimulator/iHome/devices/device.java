@@ -1,5 +1,41 @@
 package com.SmartHomeSimulator.iHome.devices;
 
-public class device {
-    
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "devices")
+public class Device {
+   
+    @Id
+    private String id;
+    private String type;
+    private String location;
+    private String name;
+    private boolean isOn;
+
+
+    // Constructors
+    public Device() { }
+
+    public Device(String type, String location, String name, boolean isOn) {
+        this.type = type;
+        this.location = location;
+        this.name = name;
+        this.isOn = isOn;
+    }
+
+
+    // Getters
+    public String getId() { return id; }
+    public String getType() { return type; }
+    public String getLocation() { return location; }
+    public String getName() { return name; }
+    public boolean getIsOn() { return isOn; }
+
+    // Setters
+    public void setId(String id) { this.id = id; }
+    public void setFirstName(String type) { this.type = type; }
+    public void setLastName(String location) { this.location = location; }
+    public void setEmail(String name) { this.name = name; }
+    public void setPhoneNumber(boolean isOn) { this.isOn = isOn; }
 }
