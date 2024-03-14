@@ -34,8 +34,8 @@ public class Device {
 
     // Setters
     public void setId(String id) { this.id = id; }
-    public void setFirstName(String type) { this.type = type; }
-    public void setLastName(String location) { this.location = location; }
-    public void setEmail(String name) { this.name = name; }
-    public void setPhoneNumber(boolean isOn) { this.isOn = isOn; }
+    public void setType(String type) { this.type = type; }
+    public void setLocation(String location) { this.location = location; }
+    public void setName(String name) { this.name = name; }
+    public void setIsOn(boolean isOn) { this.isOn = isOn; }
 }
