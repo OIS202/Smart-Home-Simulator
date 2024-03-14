@@ -17,11 +17,11 @@ public class Device {
     // Constructors
     public Device() { }
 
-    public Device(String type, String location, String name, boolean isOn) {
+    public Device(String type, String location, String name) {
         this.type = type;
         this.location = location;
         this.name = name;
-        this.isOn = isOn;
+        this.isOn = false;
     }
 
 
