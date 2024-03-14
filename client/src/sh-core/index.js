@@ -1,80 +1,131 @@
 import * as React from "react";
 import { useState } from "react";
 
-import { Button, Box } from "@mui/material";
+import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import DoorFrontOutlinedIcon from "@mui/icons-material/DoorFrontOutlined";
+import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
+// import {WindowOutlinedIcon, DoorFrontOutlinedIcon, LightbulbOutlinedIcon} from "@mui/icons-material";
+import {
+  Button,
+  Box,
+  ButtonGroup,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 
 function Lights() {
   return (
-    <Box>
-      <input type="checkbox" id="light-kitchen" value="light" />
-      <label for="light-kitchen">Kitchen</label>
+    <FormGroup sx={{ padding: "10px" }}>
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Kitchen"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Livingroom"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Bathroom"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Master Bedroom"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Kid Bedroom"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Garage"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Backyard"
+        onChange={() => {}}
+      />
       <br />
-      <input type="checkbox" id="light-livingroom" value="light" />
-      <label for="light-livingroom">Living room</label>
-      <br />
-      <input type="checkbox" id="light-bathroom" value="light" />
-      <label for="light-bathroom">Bathroom</label>
-      <br />
-      <input type="checkbox" id="light-master" value="light" />
-      <label for="light-master">Master Bedroom</label>
-      <br />
-      <input type="checkbox" id="light-bedroom1" value="light" />
-      <label for="light-bedroom1">Kid Bedroom</label>
-      <br />
-      <input type="checkbox" id="light-garage" value="light" />
-      <label for="light-garage">Garage</label>
-      <br />
-      <input type="checkbox" id="light-backyard" value="light" />
-      <label for="light-backyard">Backyard</label>
-      <br />
-      <br />
-      <input type="checkbox" id="light-all" value="light" />
-      <label for="light-all">All Lights</label>
-    </Box>
+      <FormControlLabel
+        control={<Checkbox />}
+        label="All Windows"
+        onChange={() => {}}
+      />
+    </FormGroup>
   );
 }
 
 function Doors() {
   return (
-    <div>
-      <input type="checkbox" id="door-front" value="door" />
-      <label for="door-front">Front Door</label>
+    <FormGroup sx={{ padding: "10px" }}>
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Front Door"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Back Door"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Garage Door"
+        onChange={() => {}}
+      />
       <br />
-      <input type="checkbox" id="door-back" value="door" />
-      <label for="door-back">Back Door</label>
-      <br />
-      <input type="checkbox" id="door-garage" value="door" />
-      <label for="door-garage">Garage Door</label>
-      <br />
-      <br />
-      <input type="checkbox" id="door-all" value="door" />
-      <label for="door-all">All Doors</label>
-    </div>
+      <FormControlLabel
+        control={<Checkbox />}
+        label="All Doors"
+        onChange={() => {}}
+      />
+    </FormGroup>
   );
 }
 
 function Windows() {
   return (
-    <div>
-      <input type="checkbox" id="window-kitchen" value="window" />
-      <label for="window-kitchen">Kitchen</label>
+    //can eventually add children in form group
+    <FormGroup sx={{ padding: "10px" }}>
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Kitchen"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Livingroom"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Master Bedroom"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Kid Bedroom"
+        onChange={() => {}}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Garage"
+        onChange={() => {}}
+      />
       <br />
-      <input type="checkbox" id="window-livingroom" value="window" />
-      <label for="window-livingroom">Livingroom</label>
-      <br />
-      <input type="checkbox" id="window-master" value="window" />
-      <label for="window-master">Master Bedroom</label>
-      <br />
-      <input type="checkbox" id="window-bedroom1" value="window" />
-      <label for="window-bedroom1">Kid Bedroom</label>
-      <br />
-      <input type="checkbox" id="window-garage" value="window" />
-      <label for="window-garage">Garage</label>
-      <br />
-      <br />
-      <input type="checkbox" id="window-all" value="window" />
-      <label for="window-all">All Windows</label>
-    </div>
+      <FormControlLabel
+        control={<Checkbox />}
+        label="All Windows"
+        onChange={() => {}}
+      />
+    </FormGroup>
   );
 }
 
@@ -91,7 +142,11 @@ function Core() {
   return (
     <div>
       <div id="tabs">
-        <menu>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="Basic button group"
+          sx={{ padding: "10px" }}
+        >
           <Button
             //   color="secondary"
             //   // variant="contained"
@@ -99,7 +154,7 @@ function Core() {
             className={activeContentIndex === 0 ? "active" : ""}
             onClick={() => setActiveContentIndex(0)}
           >
-            Lights
+            <LightbulbOutlinedIcon />
           </Button>
           <Button
             //   style ={{color:"#364cff"}}
@@ -108,7 +163,7 @@ function Core() {
             className={activeContentIndex === 1 ? "active" : ""}
             onClick={() => setActiveContentIndex(1)}
           >
-            Doors
+            <DoorFrontOutlinedIcon />
           </Button>
           <Button
             //   style ={{color:"#364cff"}}
@@ -117,10 +172,12 @@ function Core() {
             className={activeContentIndex === 2 ? "active" : ""}
             onClick={() => setActiveContentIndex(2)}
           >
-            Windows
+            <WindowOutlinedIcon />
           </Button>
-        </menu>
-        <div id="tab-content">{features[activeContentIndex]}</div>
+        </ButtonGroup>
+        <div id="tab-content" style={{ display: "flex" }}>
+          {features[activeContentIndex]}
+        </div>
       </div>
     </div>
   );
