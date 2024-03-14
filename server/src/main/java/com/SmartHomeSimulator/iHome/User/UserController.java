@@ -30,4 +30,15 @@ public class UserController {
         }
         return newUser;
     }
+    @GetMapping("/signin")
+    public User signIn(@RequestBody User user){
+        User ourUser = null;
+        try {
+            ourUser = userService.authenticateUser(user.getEmail(), user.getPassword());
+            return ourUser;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return ourUser;
+    }
 }
