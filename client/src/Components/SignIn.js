@@ -9,7 +9,7 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import logoSrc from "../iHomeLogo.png"; // Adjust the path as necessary
+import logoSrc from "../assets/iHomeLogo.png"; // Adjust the path as necessary
 
 const SignIn = () => {
   const navigate = useNavigate();

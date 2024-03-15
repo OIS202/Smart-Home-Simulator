@@ -17,9 +17,9 @@ function ModuleController() {
     <div>
       <div id="tabs">
         <ButtonGroup
-          variant="outlined"
+          variant="contained"
           aria-label="Basic button group"
-          sx={{ padding: "30px" }}
+          sx={{ padding: "30px", boxShadow: "none" }}
         >
           <Button
             //   color="secondary"

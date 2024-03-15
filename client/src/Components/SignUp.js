@@ -10,7 +10,7 @@ import {
   Tabs,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import logoSrc from "../iHomeLogo.png"; // Ensure this path correctly points to your logo image
+import logoSrc from "../assets/iHomeLogo.png"; // Ensure this path correctly points to your logo image
 
 const SignUp = () => {
   const [file, setFile] = useState("");
