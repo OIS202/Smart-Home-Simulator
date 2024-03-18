@@ -7,7 +7,7 @@ import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
 // import {WindowOutlinedIcon, DoorFrontOutlinedIcon, LightbulbOutlinedIcon} from "@mui/icons-material";
 import {
   Button,
-  Box,
+  // Box,
   ButtonGroup,
   FormGroup,
   FormControlLabel,
@@ -55,7 +55,7 @@ function Lights() {
       <br />
       <FormControlLabel
         control={<Checkbox />}
-        label="All Windows"
+        label="All Lights"
         onChange={() => {}}
       />
     </FormGroup>
@@ -130,7 +130,7 @@ function Windows() {
 }
 
 function Core() {
-  const [activeContentIndex, setActiveContentIndex] = useState();
+  const [activeContentIndex, setActiveContentIndex] = useState(0);
 
   const features = [
     //lights
@@ -148,8 +148,8 @@ function Core() {
           sx={{ padding: "10px" }}
         >
           <Button
-            //   color="secondary"
-            //   // variant="contained"
+            color={activeContentIndex === 0 ? "secondary" : "primary"}
+            variant="contained"
             //   size="large"
             className={activeContentIndex === 0 ? "active" : ""}
             onClick={() => setActiveContentIndex(0)}
@@ -157,8 +157,8 @@ function Core() {
             <LightbulbOutlinedIcon />
           </Button>
           <Button
-            //   style ={{color:"#364cff"}}
-            //   // variant="contained"
+            color={activeContentIndex === 1 ? "secondary" : "primary"}
+            variant="contained"
             //   size="large"
             className={activeContentIndex === 1 ? "active" : ""}
             onClick={() => setActiveContentIndex(1)}
@@ -167,9 +167,9 @@ function Core() {
           </Button>
           <Button
             //   style ={{color:"#364cff"}}
-            //   // variant="contained"
+            variant="contained"
             //   size="large"
-            className={activeContentIndex === 2 ? "active" : ""}
+            color={activeContentIndex === 2 ? "secondary" : "primary"}
             onClick={() => setActiveContentIndex(2)}
           >
             <WindowOutlinedIcon />
