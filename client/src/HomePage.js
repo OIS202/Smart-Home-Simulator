@@ -4,8 +4,8 @@ import { Box } from "@mui/material";
 import NavBar from "./Components/NavBar"; // Your NavBar component
 import SimulationSidebar from "./Components/SimulationSidebar"; // Your SimulationSidebar component
 import EditButton from "./Components/EditButton"; // The new EditButton component with modal
-import MainContent from "./Components/MainContent";
 import ModuleController from "./module-controller";
+import HouseLayout from "./Components/HouseLayout";
 
 const HomePage = () => {
   return (
@@ -17,7 +17,7 @@ const HomePage = () => {
           {/* MainContent taking up 70% of the window */}
           <Box sx={{ display: "flex" }}>
             <ModuleController />
-            <MainContent />
+            <HouseLayout />
           </Box>
           {/* EditButton and its container taking up 30% of the window */}
           <Box>

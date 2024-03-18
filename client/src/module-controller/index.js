@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import Core from "../sh-core";
-
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, ButtonGroup } from "@mui/material";
 
 function ModuleController() {
   const [activeContentIndex, setActiveContentIndex] = useState();
@@ -17,7 +16,11 @@ function ModuleController() {
   return (
     <div>
       <div id="tabs">
-        <menu>
+        <ButtonGroup
+          variant="contained"
+          aria-label="Basic button group"
+          sx={{ padding: "30px", boxShadow: "none" }}
+        >
           <Button
             //   color="secondary"
             //   // variant="contained"
@@ -54,7 +57,7 @@ function ModuleController() {
           >
             SHH
           </Button>
-        </menu>
+        </ButtonGroup>
         <div id="tab-content">{modules[activeContentIndex]}</div>
       </div>
     </div>

@@ -11,8 +11,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import logoSrc from "../iHomeLogo.png"; // Ensure this path correctly points to your logo image
-import backgroundSrc from "../Background.jpg"; // Adjust this path as necessary
+import logoSrc from "../assets/iHomeLogo.png"; // Adjust the path as necessary
 
 const SignIn = () => {
   const navigate = useNavigate();

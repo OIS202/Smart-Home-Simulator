@@ -11,8 +11,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import logoSrc from "../iHomeLogo.png"; // Ensure this path correctly points to your logo image
-import backgroundSrc from "../Background.jpg"; // Adjust this path as necessary
+import logoSrc from "../assets/iHomeLogo.png"; // Ensure this path correctly points to your logo image
 
 const SignUp = () => {
   const [file, setFile] = useState("");
