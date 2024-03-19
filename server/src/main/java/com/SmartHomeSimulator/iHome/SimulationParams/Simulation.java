@@ -1,4 +1,4 @@
-package com.SmartHomeSimulator.iHome.SHS;
+package com.SmartHomeSimulator.iHome.SimulationParams;
 import com.SmartHomeSimulator.iHome.User.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SHS {
+public class Simulation {
 
     @Id
     private List<User> users;
     private String date;
     private String time;
 
-    public SHS() {}
+    public Simulation() {}
 
-    public SHS(List<User> users, String date, String time ) {
+    public Simulation(List<User> users, String date, String time ) {
         this.users = users;
         this.date = date;
         this.time = time;
