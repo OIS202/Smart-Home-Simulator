@@ -1,4 +1,4 @@
-package com.SmartHomeSimulator.iHome.SHS;
+package com.SmartHomeSimulator.iHome.SimulationParams;
 
 import java.util.Optional;
 import java.util.ArrayList;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import com.SmartHomeSimulator.iHome.User.User;
 
 @Service
-public class SHSService {
+public class SimulationService {
 
     @Autowired
-    private SHSRepository shsRepository;
+    private SimulationRepository shsRepository;
 
-    public SHS registerSimulation(List<User> users, String date, String time) {
-        SHS newShs = new SHS(users, date, time);
+    public Simulation registerSimulation(List<User> users, String date, String time) {
+        Simulation newShs = new Simulation(users, date, time);
         return shsRepository.save(newShs);
     }
 

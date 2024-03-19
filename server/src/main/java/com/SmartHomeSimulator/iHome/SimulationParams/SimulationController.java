@@ -1,4 +1,4 @@
-package com.SmartHomeSimulator.iHome.SHS;
+package com.SmartHomeSimulator.iHome.SimulationParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.SmartHomeSimulator.iHome.User.User;
 
 @RestController
-public class SHSController {
+public class SimulationController {
 
     @Autowired
-    private SHSRepository shsRepository;
+    private SimulationRepository shsRepository;
     
     @Autowired
-    private SHSService shsService;
+    private SimulationService shsService;
 
     @PostMapping("/startsimulation")
-    public SHS startSimulation(@RequestBody SHS shs) {
-        SHS newSimulation = null;
+    public Simulation startSimulation(@RequestBody Simulation shs) {
+        Simulation newSimulation = null;
         try {
             newSimulation = shsService.registerSimulation(shs.getUsers(), shs.getDate(), shs.getTime());
             return newSimulation;
