@@ -24,7 +24,7 @@ import com.SmartHomeSimulator.iHome.Thermostat.ThermostatService;
 
 @Service
 public class SimulationService {
-     private static final Logger logger = LoggerFactory.getLogger(SimulationService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimulationService.class);
 
     @Autowired
     private ThermostatService thermostatService;
@@ -37,8 +37,8 @@ public class SimulationService {
         return shsRepository.save(newShs);
     }
 
-    public Map<String,Integer> readTemperatures(MultipartFile file) {
-        Map<String, Integer> temperatureMap =  new TreeMap<>();
+    public Map<String, Integer> readTemperatures(MultipartFile file) {
+        Map<String, Integer> temperatureMap = new TreeMap<>();
         try {
             temperatureMap = CsvTemperature.readCsvToMap(file);
             logger.info("csv getting pared");
