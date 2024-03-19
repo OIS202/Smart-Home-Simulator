@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import DoorFrontOutlinedIcon from "@mui/icons-material/DoorFrontOutlined";
@@ -12,7 +12,10 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Typography,
 } from "@mui/material";
+
+import { StateContext } from "../HomePage";
 
 function Lights() {
   return (
@@ -129,8 +132,13 @@ function Windows() {
   );
 }
 
+/**
+ * CORE FUNCTION
+ */
 function Core() {
   const [activeContentIndex, setActiveContentIndex] = useState(0);
+
+  const { state, setState } = useContext(StateContext);
 
   const features = [
     //lights
@@ -138,6 +146,10 @@ function Core() {
     <Doors />,
     <Windows />,
   ];
+
+  // function set(num) {
+  //   setState(num);
+  // }
 
   return (
     <div>
@@ -152,7 +164,10 @@ function Core() {
             variant="contained"
             //   size="large"
             className={activeContentIndex === 0 ? "active" : ""}
-            onClick={() => setActiveContentIndex(0)}
+            onClick={() => {
+              setActiveContentIndex(0);
+              setState(0);
+            }}
           >
             <LightbulbOutlinedIcon />
           </Button>
@@ -161,7 +176,10 @@ function Core() {
             variant="contained"
             //   size="large"
             className={activeContentIndex === 1 ? "active" : ""}
-            onClick={() => setActiveContentIndex(1)}
+            onClick={() => {
+              setActiveContentIndex(1);
+              setState(1);
+            }}
           >
             <DoorFrontOutlinedIcon />
           </Button>
@@ -170,7 +188,10 @@ function Core() {
             variant="contained"
             //   size="large"
             color={activeContentIndex === 2 ? "secondary" : "primary"}
-            onClick={() => setActiveContentIndex(2)}
+            onClick={() => {
+              setActiveContentIndex(2);
+              setState(2);
+            }}
           >
             <WindowOutlinedIcon />
           </Button>

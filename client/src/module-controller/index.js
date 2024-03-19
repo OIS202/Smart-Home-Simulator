@@ -3,7 +3,7 @@ import { useState } from "react";
 import Core from "../sh-core";
 import { Button, Typography, ButtonGroup } from "@mui/material";
 
-function ModuleController() {
+function ModuleController(props) {
   const [activeContentIndex, setActiveContentIndex] = useState(1);
 
   const modules = [
