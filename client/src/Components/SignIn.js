@@ -12,6 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import logoSrc from "../assets/iHomeLogo.png"; // Adjust the path as necessary
+import backgroundSrc from "../assets/Background.jpg";
 
 const SignIn = () => {
   const navigate = useNavigate();
