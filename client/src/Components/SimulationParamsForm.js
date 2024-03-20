@@ -10,9 +10,12 @@ import {
 import { useNavigate } from "react-router-dom";
 
 
-const SimulationParams = () => {
+const SimulationParamsForm = () => {
   return (
     <>
+      <Typography variant="h3">
+          Simulation Parameters
+      </Typography>
       <form>
         <Box 
           style={{
@@ -47,17 +50,46 @@ const SimulationParams = () => {
               <Divider></Divider>
           </Box>
   
-        <Input  name="hardcodedField1" value="John"></Input>
-        <Input  name="hardcodedField2" value="Doe"></Input>
-        <Input  name="hardcodedField3" value="Jane"></Input>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Input name="hardcodedField1" value="John" />
+        <Button
+            type="button"
+            variant="contained"
+            style={{ marginLeft: '10px' }} // Add margin between name and button
+        >
+            Log In
+        </Button>
+        </Box>
 
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Input name="hardcodedField1" value="Doe" />
+        <Button
+            type="button"
+            variant="contained"
+            style={{ marginLeft: '10px' }} // Add margin between name and button
+        >
+            Log In
+        </Button>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Input name="hardcodedField1" value="Jane" />
+        <Button
+            type="button"
+            variant="contained"
+            style={{ marginLeft: '10px' }} // Add margin between name and button
+        >
+            Log In
+        </Button>
+        </Box>
+{/* 
         <Button
         type="button"    
         variant="contained"
         style={{alignSelf: 'center'}}
         >
         Login user profile 
-        </Button>
+        </Button> */}
 
         </Box>
 
@@ -94,4 +126,4 @@ const SimulationParams = () => {
   );
 };
 
-export default SimulationParams;
+export default SimulationParamsForm;
