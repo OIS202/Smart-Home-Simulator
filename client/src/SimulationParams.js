@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './Components/NavBar';
 import SimulationSidebar from './Components/SimulationSidebar';
 import SignUp from './Components/SignUp';
-import SimulationParams from './Components/SimulationParams';
+import SimulationParamsForm from './Components/SimulationParamsForm';
 import {
     Paper,
     TextField,
@@ -15,16 +15,18 @@ import {
 } from "@mui/material";
 
 
-const SHS = () => {
+const SimulationParams = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
             <NavBar />
             <Box sx={{ display: 'flex', flexGrow: 1 }}>
+                
                 <SimulationSidebar /> 
+                
                 <Box
-                sx={{ width: '40%' }}
+                sx={{ width: '100%', height:'100vh', marginTop: '170px'  }}
                 >
-                    <SimulationParams></SimulationParams>
+                    <SimulationParamsForm></SimulationParamsForm>
                 </Box>
 
             </Box>
@@ -32,4 +34,4 @@ const SHS = () => {
     );
 }
 
-export default SHS;
+export default SimulationParams;
