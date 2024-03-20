@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import DoorFrontOutlinedIcon from "@mui/icons-material/DoorFrontOutlined";
@@ -7,12 +7,15 @@ import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
 // import {WindowOutlinedIcon, DoorFrontOutlinedIcon, LightbulbOutlinedIcon} from "@mui/icons-material";
 import {
   Button,
-  Box,
+  // Box,
   ButtonGroup,
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Typography,
 } from "@mui/material";
+
+import { StateContext } from "../HomePage";
 
 function Lights() {
   return (
@@ -55,7 +58,7 @@ function Lights() {
       <br />
       <FormControlLabel
         control={<Checkbox />}
-        label="All Windows"
+        label="All Lights"
         onChange={() => {}}
       />
     </FormGroup>
@@ -129,8 +132,13 @@ function Windows() {
   );
 }
 
+/**
+ * CORE FUNCTION
+ */
 function Core() {
-  const [activeContentIndex, setActiveContentIndex] = useState();
+  const [activeContentIndex, setActiveContentIndex] = useState(0);
+
+  const { state, setState } = useContext(StateContext);
 
   const features = [
     //lights
@@ -138,6 +146,10 @@ function Core() {
     <Doors />,
     <Windows />,
   ];
+
+  // function set(num) {
+  //   setState(num);
+  // }
 
   return (
     <div>
@@ -148,29 +160,38 @@ function Core() {
           sx={{ padding: "10px" }}
         >
           <Button
-            //   color="secondary"
-            //   // variant="contained"
+            color={activeContentIndex === 0 ? "secondary" : "primary"}
+            variant="contained"
             //   size="large"
             className={activeContentIndex === 0 ? "active" : ""}
-            onClick={() => setActiveContentIndex(0)}
+            onClick={() => {
+              setActiveContentIndex(0);
+              setState(0);
+            }}
           >
             <LightbulbOutlinedIcon />
           </Button>
           <Button
-            //   style ={{color:"#364cff"}}
-            //   // variant="contained"
+            color={activeContentIndex === 1 ? "secondary" : "primary"}
+            variant="contained"
             //   size="large"
             className={activeContentIndex === 1 ? "active" : ""}
-            onClick={() => setActiveContentIndex(1)}
+            onClick={() => {
+              setActiveContentIndex(1);
+              setState(1);
+            }}
           >
             <DoorFrontOutlinedIcon />
           </Button>
           <Button
             //   style ={{color:"#364cff"}}
-            //   // variant="contained"
+            variant="contained"
             //   size="large"
-            className={activeContentIndex === 2 ? "active" : ""}
-            onClick={() => setActiveContentIndex(2)}
+            color={activeContentIndex === 2 ? "secondary" : "primary"}
+            onClick={() => {
+              setActiveContentIndex(2);
+              setState(2);
+            }}
           >
             <WindowOutlinedIcon />
           </Button>

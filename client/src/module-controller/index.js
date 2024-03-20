@@ -3,8 +3,8 @@ import { useState } from "react";
 import Core from "../sh-core";
 import { Button, Typography, ButtonGroup } from "@mui/material";
 
-function ModuleController() {
-  const [activeContentIndex, setActiveContentIndex] = useState();
+function ModuleController(props) {
+  const [activeContentIndex, setActiveContentIndex] = useState(1);
 
   const modules = [
     <Typography variant="h6">Smart Home Simulator</Typography>,
@@ -22,7 +22,7 @@ function ModuleController() {
           sx={{ padding: "30px", boxShadow: "none" }}
         >
           <Button
-            //   color="secondary"
+            color={activeContentIndex === 0 ? "secondary" : "primary"}
             //   // variant="contained"
             //   size="large"
             className={activeContentIndex === 0 ? "active" : ""}
@@ -31,6 +31,7 @@ function ModuleController() {
             SHS
           </Button>
           <Button
+            color={activeContentIndex === 1 ? "secondary" : "primary"}
             //   style ={{color:"#364cff"}}
             //   // variant="contained"
             //   size="large"
@@ -40,6 +41,7 @@ function ModuleController() {
             SHC
           </Button>
           <Button
+            color={activeContentIndex === 2 ? "secondary" : "primary"}
             //   style ={{color:"#364cff"}}
             //   // variant="contained"
             //   size="large"
@@ -49,6 +51,7 @@ function ModuleController() {
             SHP
           </Button>
           <Button
+            color={activeContentIndex === 3 ? "secondary" : "primary"}
             //   style ={{color:"#364cff"}}
             //   // variant="contained"
             //   size="large"
