@@ -1,5 +1,6 @@
 package com.SmartHomeSimulator.iHome.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,9 @@ public class UserService {
         user.setLocation(location);
         return userRepository.save(user);
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
 }
