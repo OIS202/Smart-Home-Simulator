@@ -11,7 +11,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(String firstName, String lastName, String email, String phoneNumber, String password) throws Exception {
+    public User registerUser(String firstName, String lastName, String email, String phoneNumber, String password)
+            throws Exception {
         if (userRepository.existsByEmail(email)) {
             throw new Exception("Email already exists.");
         }
@@ -19,15 +20,25 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User authenticateUser(String email, String password) throws Exception{
+    public User authenticateUser(String email, String password) throws Exception {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-        if(!optionalUser.isPresent()){
+        if (!optionalUser.isPresent()) {
             throw new Exception("User doesn't exist");
         }
         User user = optionalUser.get();
-        if(!(user.getPassword().equals(password))){
+        if (!(user.getPassword().equals(password))) {
             throw new Exception("Invalid password");
         }
         return user;
+    }
+
+    public User updateUserLocation(String id, String location) throws Exception {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()) {
+            throw new Exception("User not found");
+        }
+        User user = userOptional.get();
+        user.setLocation(location);
+        return userRepository.save(user);
     }
 }
