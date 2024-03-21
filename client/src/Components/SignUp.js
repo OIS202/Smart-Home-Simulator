@@ -15,6 +15,11 @@ import logoSrc from "../assets/iHomeLogo.png"; // Ensure this path correctly poi
 import backgroundSrc from "../assets/Background.jpg";
 
 const SignUp = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [file, setFile] = useState("");
   const navigate = useNavigate();
   const theme = useTheme(); // Use the theme from MUI
@@ -27,6 +32,38 @@ const SignUp = () => {
       navigate("/signup");
     }
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const userData = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password,
+    };
+
+    try {
+      const response = await fetch('http://localhost:8080/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Correct header
+        },
+        body: JSON.stringify(userData), // Make sure to stringify the body
+    });
+        if (response.ok) {
+            // Handle success
+            console.log("Signup successful");
+        } else {
+            // Handle server errors or invalid inputs
+            console.error("Signup failed");
+        }
+    } catch (error) {
+        // Handle network errors
+        console.error("Error during signup:", error);
+    }
+  };
+
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -92,15 +129,31 @@ const SignUp = () => {
             <Tab label="SIGN IN" />
             <Tab label="SIGN UP" />
           </Tabs>
-          <form>
-            <TextField label="First Name" margin="normal" fullWidth required />
-            <TextField label="Last Name" margin="normal" fullWidth required />
+          <form onSubmit={handleSubmit}>
+          <TextField
+              label="First Name"
+              margin="normal"
+              fullWidth
+              required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <TextField
+              label="Last Name"
+              margin="normal"
+              fullWidth
+              required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
             <TextField
               label="Email"
               margin="normal"
               fullWidth
               type="email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               label="Phone Number"
@@ -108,6 +161,8 @@ const SignUp = () => {
               fullWidth
               type="tel"
               required
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
             <TextField
               label="Password"
@@ -115,6 +170,8 @@ const SignUp = () => {
               fullWidth
               type="password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Typography
               variant="body2"
