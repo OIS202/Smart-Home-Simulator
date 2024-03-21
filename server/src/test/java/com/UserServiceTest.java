@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.SmartHomeSimulator.iHome.User.User;
 import com.SmartHomeSimulator.iHome.User.UserRepository;
 import com.SmartHomeSimulator.iHome.User.UserService;
+import com.SmartHomeSimulator.iHome.User.User.UserType;
 
 import java.util.Optional;
 
@@ -26,11 +27,11 @@ public class UserServiceTest {
 
     @Test
     void whenRegisterUser_withNewEmail_thenSuccess() throws Exception {
-        User newUser = new User("John", "Doe", "john.doe@example.com", "1234567890", "password");
+        User newUser = new User("John", "Doe", "john.doe@example.com", "1234567890", "password", UserType.PARENT);
         when(userRepository.existsByEmail(anyString())).thenReturn(false);
         when(userRepository.save(any(User.class))).thenReturn(newUser);
 
-        User registeredUser = userService.registerUser("John", "Doe", "john.doe@example.com", "1234567890", "password");
+        User registeredUser = userService.registerUser("John", "Doe", "john.doe@example.com", "1234567890", "password", User.UserType.PARENT);
 
         assertNotNull(registeredUser);
         assertEquals("john.doe@example.com", registeredUser.getEmail());
@@ -41,7 +42,7 @@ public class UserServiceTest {
         when(userRepository.existsByEmail(anyString())).thenReturn(true);
 
         Exception exception = assertThrows(Exception.class, () ->
-            userService.registerUser("Jane", "Doe", "jane.doe@example.com", "0987654321", "password123")
+            userService.registerUser("Jane", "Doe", "jane.doe@example.com", "0987654321", "password123", User.UserType.GUEST)
         );
 
         assertEquals("Email already exists.", exception.getMessage());
@@ -49,7 +50,7 @@ public class UserServiceTest {
 
     @Test
     void whenAuthenticateUser_withCorrectCredentials_thenSuccess() throws Exception {
-        User existingUser = new User("John", "Doe", "john.doe@example.com", "1234567890", "password");
+        User existingUser = new User("John", "Doe", "john.doe@example.com", "1234567890", "password", User.UserType.PARENT);
         when(userRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.of(existingUser));
 
         User authenticatedUser = userService.authenticateUser("john.doe@example.com", "password");
@@ -71,7 +72,7 @@ public class UserServiceTest {
 
     @Test
     void whenAuthenticateUser_withIncorrectPassword_thenThrowException() {
-        User existingUser = new User("John", "Doe", "john.doe@example.com", "1234567890", "password");
+        User existingUser = new User("John", "Doe", "john.doe@example.com", "1234567890", "password", User.UserType.PARENT);
         when(userRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.of(existingUser));
 
         Exception exception = assertThrows(Exception.class, () ->

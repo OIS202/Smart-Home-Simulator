@@ -19,7 +19,7 @@ public class UserController {
     public String helloworld() { // Changed to public
         return "Hello World"; // Note: Fixed the string to have a space
     }
-        @PostMapping("/signup")
+    @PostMapping("/signup")
     public User signUp(@RequestBody User user) {
         User newUser =null;
         try{
