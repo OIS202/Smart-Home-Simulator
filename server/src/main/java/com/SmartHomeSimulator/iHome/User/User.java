@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
 
+
     @Id
     private String id;
     private String firstName;
@@ -16,6 +17,7 @@ public class User {
     private String location;
 
     // Constructors
+ 
     public User() {
     }
 
@@ -59,6 +61,7 @@ public class User {
     public String getLocation() {
         return location;
     }
+    
 
     // Setters
     public void setId(String id) {
@@ -87,5 +90,15 @@ public class User {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                // Notice we do not include the password for security reasons
+                '}';
     }
 }
