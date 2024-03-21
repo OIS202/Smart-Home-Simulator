@@ -13,7 +13,7 @@ public class User {
         GUEST,
         STRANGER
     }
-    
+
     @Id
     private ObjectId id;
     private String firstName;
@@ -28,7 +28,8 @@ public class User {
     private boolean hasSHCPermission;
     private boolean hasSHPPermission;
     private boolean hasSHHPermission;
-    private boolean isLocationIndependant; //if a user is required to be home to have permission to manage any of the modules
+    private boolean isLocationIndependant; // if a user is required to be home to have permission to manage any of the
+                                           // modules
 
     // Constructors
 
@@ -140,9 +141,9 @@ public class User {
         setPermissions();
     }
 
-    //set permissions based on the type of user
+    // set permissions based on the type of user
     private void setPermissions() {
-        switch(userType) {
+        switch (userType) {
             case PARENT:
                 hasSHSPermission = true;
                 hasSHCPermission = true;
@@ -158,7 +159,7 @@ public class User {
                 hasSHHPermission = true;
                 isLocationIndependant = false;
                 break;
-            
+
             case GUEST:
                 hasSHSPermission = true;
                 hasSHCPermission = true;
@@ -175,6 +176,17 @@ public class User {
                 isLocationIndependant = false;
                 break;
         }
+    }
+
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                // Notice we do not include the password for security reasons
+                '}';
     }
 
 }
