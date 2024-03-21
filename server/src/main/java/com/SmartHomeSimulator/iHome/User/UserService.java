@@ -19,6 +19,8 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;// importation for the logger 
 import org.slf4j.LoggerFactory;
 
+import com.SmartHomeSimulator.iHome.User.User.UserType;
+
 @Service
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);

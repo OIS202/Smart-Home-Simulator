@@ -70,28 +70,25 @@ public class UserController {
         }
     }
 
-
-
     @PostMapping("/adduser")
     public ResponseEntity<?> addUser(
-        @RequestParam("firstName") String firstName,
+            @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
             @RequestParam("email") String email,
             @RequestParam("phoneNumber") String phoneNumber,
             @RequestParam("password") String password,
             @RequestParam("houseId") ObjectId houseId,
-            @RequestParam("userType") UserType userType
-            ) {
+            @RequestParam("userType") UserType userType) {
         try {
             UserResponseDto newUserDto = userService.addUser(firstName, lastName, email, phoneNumber, password, houseId,
-                userType);
+                    userType);
             return ResponseEntity.ok(newUserDto);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    //TEKA CODE
+    // TEKA CODE
     @GetMapping("/getAllUsers")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
@@ -100,10 +97,8 @@ public class UserController {
 
     @GetMapping("/getUsersId")
     public ResponseEntity<List<User>> getUsersByHouseId(@RequestParam("houseId") ObjectId houseId) {
-        List<User> users = userService.getUsersByHouseId(houseId); 
+        List<User> users = userService.getUsersByHouseId(houseId);
         return ResponseEntity.ok(users);
     }
 
-
 }
-
