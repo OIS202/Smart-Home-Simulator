@@ -23,7 +23,7 @@ public class UserController {
     public User signUp(@RequestBody User user) {
         User newUser =null;
         try{
-            newUser =  userService.registerUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(),user.getPassword());
+            newUser =  userService.registerUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(),user.getPassword(), user.getUserType());
             return newUser;
         }catch(Exception e){
             System.err.println(e.getMessage());
