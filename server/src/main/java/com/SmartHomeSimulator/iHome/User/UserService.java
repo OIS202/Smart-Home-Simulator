@@ -22,7 +22,7 @@ public class UserService {
         if (userRepository.existsByEmail(email)) {
             throw new Exception("Email already exists.");
         }
-        User newUser = new User(firstName, lastName, email, phoneNumber, password);
+        User newUser = new User(firstName, lastName, email, phoneNumber, password,"outside");
         return userRepository.save(newUser);
     }
 
