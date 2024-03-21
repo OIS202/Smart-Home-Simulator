@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Paper,
@@ -11,19 +11,49 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import logoSrc from "../assets/iHomeLogo.png"; // Adjust the path as necessary
+import logoSrc from "../assets/iHomeLogo.png";
 import backgroundSrc from "../assets/Background.jpg";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const theme = useTheme(); // Use the theme from MUI
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Adjust breakpoint as necessary
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleChangeTab = (event, newValue) => {
     if (newValue === 1) {
       navigate("/signup");
     } else {
       navigate("/signin");
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8080/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        // Correctly await the parsing of the JSON response
+        const user = await response.json(); // This line was corrected
+        console.log("Sign in successful. User:", user);
+
+        // Optionally navigate to another route or set state here
+        // navigate("/home");
+      } else {
+        console.error("Sign in failed");
+        // Handle server errors or invalid inputs
+      }
+    } catch (error) {
+      console.error("Error during sign in:", error);
+      // Handle network errors
     }
   };
 
@@ -34,7 +64,7 @@ const SignIn = () => {
         display: "flex",
         flexDirection: isSmallScreen ? "column" : "row",
         alignItems: isSmallScreen ? "center" : undefined,
-        backgroundColor: "#2330A5", // Consistent background color
+        backgroundColor: "#2330A5",
       }}
     >
       <Box
@@ -87,13 +117,15 @@ const SignIn = () => {
             <Tab label="SIGN IN" />
             <Tab label="SIGN UP" />
           </Tabs>
-          <form>
+          <form onSubmit={handleSubmit}>
             <TextField
               label="Email"
               margin="normal"
               fullWidth
               type="email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               label="Password"
@@ -101,6 +133,8 @@ const SignIn = () => {
               fullWidth
               type="password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button
               type="submit"
