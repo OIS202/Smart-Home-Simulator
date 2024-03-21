@@ -10,6 +10,7 @@ import {
   Box,
   useMediaQuery,
   useTheme,
+  Snackbar,
 } from "@mui/material";
 import logoSrc from "../assets/iHomeLogo.png";
 import backgroundSrc from "../assets/Background.jpg";
@@ -17,6 +18,7 @@ import backgroundSrc from "../assets/Background.jpg";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -40,21 +42,23 @@ const SignIn = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         // Correctly await the parsing of the JSON response
-        const user = await response.json(); // This line was corrected
+        const user = await response.json();
         console.log("Sign in successful. User:", user);
-
-        // Optionally navigate to another route or set state here
-        // navigate("/home");
+        navigate("/"); // Navigate to the home page or dashboard
       } else {
-        console.error("Sign in failed");
-        // Handle server errors or invalid inputs
+        const errorMessage = await response.text(); // Get the error message as text
+        setError(errorMessage); // Set the error message to display in a Snackbar or similar component
       }
     } catch (error) {
       console.error("Error during sign in:", error);
-      // Handle network errors
+      setError("Network error, please try again later.");
     }
+  };
+
+  const handleCloseError = () => {
+    setError("");
   };
 
   return (
@@ -151,6 +155,13 @@ const SignIn = () => {
           </form>
         </Paper>
       </Box>
+      <Snackbar
+        open={!!error}
+        onClose={handleCloseError}
+        autoHideDuration={5000}
+        message={error}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      />
     </Box>
   );
 };
