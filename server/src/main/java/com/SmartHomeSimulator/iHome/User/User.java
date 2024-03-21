@@ -7,6 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
 
+    public enum UserType {
+        PARENT,
+        CHILD,
+        GUEST,
+        STRANGER
+    }
+    
     @Id
     private ObjectId id;
     private String firstName;
@@ -16,6 +23,12 @@ public class User {
     private String password;
     private String location;
     private ObjectId houseId;
+    private UserType userType;
+    private boolean hasSHSPermission;
+    private boolean hasSHCPermission;
+    private boolean hasSHPPermission;
+    private boolean hasSHHPermission;
+    private boolean isLocationIndependant; //if a user is required to be home to have permission to manage any of the modules
 
     // Constructors
 
@@ -23,7 +36,7 @@ public class User {
     }
 
     public User(String firstName, String lastName, String email, String phoneNumber, String password, String location,
-            ObjectId houseId) {
+            ObjectId houseId, UserType userType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -31,6 +44,8 @@ public class User {
         this.password = password;
         this.location = location;
         this.houseId = houseId;
+        this.userType = userType;
+        setPermissions();
     }
 
     // Getters and Setters
@@ -68,6 +83,14 @@ public class User {
     public ObjectId getHouseId() {
         return houseId;
     }
+    public UserType getUserType() { return userType; }
+    public boolean getHasSHSPermission() { return hasSHSPermission; }
+    public boolean getHasSHCPermission() { return hasSHCPermission; }
+    public boolean getHasSHPPermission() { return hasSHPPermission; }
+    public boolean getHasSHHPermission() { return hasSHHPermission; }
+    public boolean getisLocationIndepandant() { return isLocationIndependant; }
+    
+   
 
     // Setters
     public void setId(ObjectId id) {
@@ -112,4 +135,46 @@ public class User {
                 // Notice we do not include the password for security reasons
                 '}';
     }
+    public void setUserType(UserType userType) { 
+        this.userType = userType; 
+        setPermissions();
+    }
+
+    //set permissions based on the type of user
+    private void setPermissions() {
+        switch(userType) {
+            case PARENT:
+                hasSHSPermission = true;
+                hasSHCPermission = true;
+                hasSHPPermission = true;
+                hasSHHPermission = true;
+                isLocationIndependant = true;
+                break;
+
+            case CHILD:
+                hasSHSPermission = true;
+                hasSHCPermission = true;
+                hasSHPPermission = true;
+                hasSHHPermission = true;
+                isLocationIndependant = false;
+                break;
+            
+            case GUEST:
+                hasSHSPermission = true;
+                hasSHCPermission = true;
+                hasSHPPermission = true;
+                hasSHHPermission = true;
+                isLocationIndependant = false;
+                break;
+
+            case STRANGER:
+                hasSHSPermission = false;
+                hasSHCPermission = false;
+                hasSHPPermission = false;
+                hasSHHPermission = false;
+                isLocationIndependant = false;
+                break;
+        }
+    }
+
 }
