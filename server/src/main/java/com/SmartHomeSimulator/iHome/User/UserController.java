@@ -39,29 +39,15 @@ public class UserController {
         }
     }
 
-    // @PostMapping("/signup")
-    // public User signUp(@RequestBody User user) {
-    // User newUser = null;
-    // try {
-    // newUser = userService.registerUser(user.getFirstName(), user.getLastName(),
-    // user.getEmail(),
-    // user.getPhoneNumber(), user.getPassword());
-    // return newUser;
-    // } catch (Exception e) {
-    // System.err.println(e.getMessage());
-    // }
-    // return newUser;
-    // }
-
     @PostMapping("/signin")
-    public User signIn(@RequestBody User user) {
-        User ourUser = null;
+    public ResponseEntity<?> signIn(@RequestBody User user) {
         try {
-            ourUser = userService.authenticateUser(user.getEmail(), user.getPassword());
-            return ourUser;
+            User authenticatedUser = userService.authenticateUser(user.getEmail(), user.getPassword());
+            UserResponseDto userResponseDto = new UserResponseDto(authenticatedUser);
+            return ResponseEntity.ok(userResponseDto);
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ourUser;
     }
 }
