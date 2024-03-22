@@ -38,21 +38,18 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userData = {
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      password,
-    };
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("password", password);
+    formData.append("file", file);
 
     try {
       const response = await fetch("http://localhost:8080/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+        body: formData,
       });
 
       if (response.status == 200) {
@@ -202,7 +199,7 @@ const SignUp = () => {
                 type="file"
                 hidden
                 onChange={handleFileChange}
-                accept=".txt"
+                accept=".csv"
               />
             </Button>
             <Button
