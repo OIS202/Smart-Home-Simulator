@@ -1,12 +1,13 @@
 package com.SmartHomeSimulator.iHome.House;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "houses")
 public class House {
     @Id
-    private String id;
+    private ObjectId id;
     private int livingRoom;
     private int bedroom;
     private int bathroom;
@@ -29,11 +30,11 @@ public class House {
     }
 
     // Getters and Setters
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
