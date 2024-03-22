@@ -1,12 +1,20 @@
 package com.SmartHomeSimulator.iHome.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.SmartHomeSimulator.iHome.House.House;
+import com.SmartHomeSimulator.iHome.House.HouseService;
+import com.SmartHomeSimulator.iHome.Util.CsvUtil;
+
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;// importation for the logger 
 import org.slf4j.LoggerFactory;
 
@@ -17,13 +25,37 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(String firstName, String lastName, String email, String phoneNumber, String password)
-            throws Exception {
+    @Autowired
+    private HouseService houseService;
+
+    public UserResponseDto registerUser(String firstName, String lastName, String email,
+            String phoneNumber, String password, MultipartFile file) throws Exception {
         if (userRepository.existsByEmail(email)) {
-            throw new Exception("Email already exists.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists.");
         }
-        User newUser = new User(firstName, lastName, email, phoneNumber, password,"outside");
-        return userRepository.save(newUser);
+
+        Map<String, Integer> roomCounts = CsvUtil.parseCsvToMap(file);
+        House house = houseService.createHouse(roomCounts);
+
+        // Create a new User object
+        User newUser = new User();
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
+        newUser.setPhoneNumber(phoneNumber);
+        newUser.setPassword(password); // Make sure to encode the password in real scenarios
+        newUser.setHouseId(house.getId());
+
+        // Save the User object to the database
+        newUser = userRepository.save(newUser);
+
+        // Convert the User object to a UserResponseDto object
+        UserResponseDto userResponseDto = new UserResponseDto(newUser);
+
+        // Optionally log the result
+        logger.info("User registered with ID: {}", userResponseDto.getId());
+
+        return userResponseDto;
     }
 
     public User authenticateUser(String email, String password) throws Exception {
