@@ -23,7 +23,7 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String password,
+    public User(String firstName, String lastName, String email, String phoneNumber, String password,String location,
             ObjectId houseId) {
         this.firstName = firstName;
         this.lastName = lastName;
