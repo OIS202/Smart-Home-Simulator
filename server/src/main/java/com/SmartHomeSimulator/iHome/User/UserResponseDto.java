@@ -8,6 +8,7 @@ public class UserResponseDto {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private String location;
     private String houseId;
 
     // Constructor that takes a User object and initializes DTO fields
@@ -18,6 +19,7 @@ public class UserResponseDto {
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();
         this.houseId = user.getHouseId().toHexString();
+        this.location = user.getLocation();
     }
 
     // Getters
@@ -45,6 +47,10 @@ public class UserResponseDto {
         return houseId;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
     // Setters
     public void setId(String id) {
         this.id = id;
@@ -70,6 +76,10 @@ public class UserResponseDto {
         this.houseId = houseId;
     }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     // toString method for logging or debugging purposes
     @Override
     public String toString() {
@@ -80,6 +90,7 @@ public class UserResponseDto {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", houseId='" + houseId + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

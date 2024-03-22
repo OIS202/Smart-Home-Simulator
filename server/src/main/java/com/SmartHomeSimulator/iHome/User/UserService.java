@@ -45,6 +45,7 @@ public class UserService {
         newUser.setPhoneNumber(phoneNumber);
         newUser.setPassword(password); // Make sure to encode the password in real scenarios
         newUser.setHouseId(house.getId());
+        newUser.setLocation("outside");
 
         // Save the User object to the database
         newUser = userRepository.save(newUser);
