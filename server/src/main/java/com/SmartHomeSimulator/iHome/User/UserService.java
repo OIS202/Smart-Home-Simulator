@@ -12,6 +12,12 @@ import org.springframework.web.server.ResponseStatusException;
 import com.SmartHomeSimulator.iHome.House.House;
 import com.SmartHomeSimulator.iHome.House.HouseService;
 import com.SmartHomeSimulator.iHome.Util.CsvUtil;
+import com.SmartHomeSimulator.iHome.Session.Session;
+import com.SmartHomeSimulator.iHome.Session.SessionRepository;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;// importation for the logger 
@@ -26,6 +32,9 @@ public class UserService {
 
     @Autowired
     private HouseService houseService;
+
+    @Autowired
+    private SessionRepository sessionRepository;
 
     public UserResponseDto registerUser(String firstName, String lastName, String email,
             String phoneNumber, String password, MultipartFile file) throws Exception {
@@ -69,5 +78,31 @@ public class UserService {
         // logger.info("Authenticated user: {}", user);// example on how to log in the
         // server terminal
         return user;
+    }
+
+    public void createSession(String userId, HttpServletResponse response, HttpServletRequest request) {
+        Session session = new Session();
+        session.setSessionId(request.getSession().getId());
+        session.setUserId(userId);
+        session.setCreatedAt(System.currentTimeMillis());
+        sessionRepository.save(session);
+
+        Cookie sessionCookie = new Cookie("SESSIONID", session.getSessionId());
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setPath("/");
+        sessionCookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
+        response.addCookie(sessionCookie);
+    }
+
+    public void deleteSession(HttpServletRequest request, HttpServletResponse response) {
+        Cookie sessionCookie = new Cookie("SESSIONID", null);
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setPath("/");
+        sessionCookie.setMaxAge(0); // Delete cookie
+        response.addCookie(sessionCookie);
+
+        String sessionId = request.getSession().getId();
+        sessionRepository.deleteBySessionId(sessionId);
+        request.getSession().invalidate();
     }
 }

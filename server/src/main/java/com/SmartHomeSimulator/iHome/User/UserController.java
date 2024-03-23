@@ -2,6 +2,8 @@ package com.SmartHomeSimulator.iHome.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.Authentication;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -40,9 +47,10 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(@RequestBody User user) {
+    public ResponseEntity<?> signIn(@RequestBody User user, HttpServletResponse response, HttpServletRequest request) {
         try {
             User authenticatedUser = userService.authenticateUser(user.getEmail(), user.getPassword());
+            userService.createSession(authenticatedUser.getId().toHexString(), response, request);
             UserResponseDto userResponseDto = new UserResponseDto(authenticatedUser);
             return ResponseEntity.ok(userResponseDto);
         } catch (Exception e) {
@@ -50,4 +58,13 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        // Call deleteSession method from UserService to invalidate the session and clear the cookie
+        userService.deleteSession(request, response);
+    
+        return ResponseEntity.ok("Logged out successfully");
+    }
+    
 }
