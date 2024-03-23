@@ -10,6 +10,7 @@ import {
   useMediaQuery,
   useTheme,
   Snackbar,
+  Snackbar,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import logoSrc from "../assets/iHomeLogo.png";
@@ -21,10 +22,19 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [file, setFile] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -38,21 +48,18 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userData = {
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      password,
-    };
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("password", password);
+    formData.append("file", file);
 
     try {
       const response = await fetch("http://localhost:8080/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+        body: formData,
       });
 
       if (response.status == 200) {
@@ -79,6 +86,13 @@ const SignUp = () => {
     setSuccessMessage("");
   };
 
+  const handleCloseError = () => {
+    setError("");
+  };
+  const handleCloseSuccessMessage = () => {
+    setSuccessMessage("");
+  };
+
   return (
     <Box
       style={{
@@ -86,6 +100,7 @@ const SignUp = () => {
         display: "flex",
         flexDirection: isSmallScreen ? "column" : "row",
         alignItems: isSmallScreen ? "center" : undefined,
+        backgroundColor: "#2330A5",
         backgroundColor: "#2330A5",
       }}
     >
@@ -155,12 +170,31 @@ const SignUp = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="First Name"
+              margin="normal"
+              fullWidth
+              required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <TextField
+              label="Last Name"
+              margin="normal"
+              fullWidth
+              required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
             <TextField
               label="Email"
               margin="normal"
               fullWidth
               type="email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -172,6 +206,8 @@ const SignUp = () => {
               required
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
             <TextField
               label="Password"
@@ -179,6 +215,8 @@ const SignUp = () => {
               fullWidth
               type="password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -202,7 +240,7 @@ const SignUp = () => {
                 type="file"
                 hidden
                 onChange={handleFileChange}
-                accept=".txt"
+                accept=".csv"
               />
             </Button>
             <Button
@@ -214,12 +252,31 @@ const SignUp = () => {
                 color: "white",
                 margin: "8px 0",
               }}
+              style={{
+                backgroundColor: "#0A1929",
+                color: "white",
+                margin: "8px 0",
+              }}
             >
               Sign Up
             </Button>
           </form>
         </Paper>
       </Box>
+      <Snackbar
+        open={!!error}
+        onClose={handleCloseError}
+        autoHideDuration={4000}
+        message={error}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }} // Error message will appear at the top-center
+      />
+      <Snackbar
+        open={!!successMessage}
+        onClose={handleCloseSuccessMessage}
+        autoHideDuration={5000}
+        message={successMessage}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      />
       <Snackbar
         open={!!error}
         onClose={handleCloseError}
