@@ -78,4 +78,34 @@ public class UserService {
         // server terminal
         return user;
     }
+
+    public UserResponseDto addUser(String firstName, String lastName, String email,
+            String phoneNumber, String password, ObjectId houseId, UserType userType)
+            throws Exception {
+        if (userRepository.existsByEmail(email)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists.");
+        }
+
+        houseId = new ObjectId("65fcdf7132513f5cebd28837"); //hard-coded object ID until further notice 
+        // Create a new User object
+        User newUser = new User();
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
+        newUser.setPhoneNumber(phoneNumber);
+        newUser.setPassword(password); // Make sure to encode the password in real scenarios
+        newUser.setHouseId(houseId);
+        newUser.setUserType(userType);
+
+        // Save the User object to the database
+        newUser = userRepository.save(newUser);
+
+        // Convert the User object to a UserResponseDto object
+        UserResponseDto userResponseDto = new UserResponseDto(newUser);
+
+        // Optionally log the result
+        logger.info("User registered with ID: {}", userResponseDto.getId());
+
+        return userResponseDto;
+    }
 }

@@ -1,5 +1,6 @@
 package com.SmartHomeSimulator.iHome.User;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -54,4 +55,26 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/adduser")
+    public ResponseEntity<?> addUser(
+        @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("email") String email,
+            @RequestParam("phoneNumber") String phoneNumber,
+            @RequestParam("password") String password,
+            @RequestParam("houseId") ObjectId houseId,
+            @RequestParam("userType") UserType userType
+            ) {
+        try {
+            UserResponseDto newUserDto = userService.addUser(firstName, lastName, email, phoneNumber, password, houseId,
+                userType);
+            return ResponseEntity.ok(newUserDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
+
 }
+
