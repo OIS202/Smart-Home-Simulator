@@ -12,6 +12,7 @@ public class Room {
     private ObjectId id;
     private String name;
     private ObjectId zoneId;
+    private ObjectId houseId;
     private double actualTemp;
     private double desiredTemp;
 
@@ -19,10 +20,11 @@ public class Room {
     public Room() {
     }
 
-    public Room(String name, double actualTemp, double desiredTemp, ObjectId zoneId) {
+    public Room(String name, double actualTemp, double desiredTemp, ObjectId housId, ObjectId zoneId) {
         this.name = name;
         this.actualTemp = actualTemp;
         this.desiredTemp = desiredTemp;
+        this.houseId = housId;
         this.zoneId = zoneId;
     }
 
@@ -46,6 +48,10 @@ public class Room {
         return zoneId;
     }
 
+    public ObjectId getHouseId() {
+        return houseId;
+    }
+
     public void setActualTemp(double actualTemp) {
         this.actualTemp = actualTemp;
     }
@@ -64,6 +70,10 @@ public class Room {
 
     public void setZoneId(ObjectId zoneId) {
         this.zoneId = zoneId;
+    }
+
+    public void setHouseId(ObjectId houseId) {
+        this.houseId = houseId;
     }
 
 }
