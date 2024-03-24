@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext } from "react";
+// import { useContext } from "react";
 
 import DoorFrontIcon from "@mui/icons-material/DoorFront";
 
@@ -65,7 +65,7 @@ export default function Doors(props) {
         </IconButton>
       </>
     );
-  } else if (props.source == "core") {
+  } else if (props.source === "core") {
     return (
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel

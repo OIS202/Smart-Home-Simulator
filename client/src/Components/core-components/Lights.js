@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext } from "react";
+// import { useContext } from "react";
 
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 
@@ -143,7 +143,7 @@ export default function Lights(props) {
         </IconButton>
       </>
     );
-  } else if (props.source == "core") {
+  } else if (props.source === "core") {
     return (
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel

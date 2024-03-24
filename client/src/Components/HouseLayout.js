@@ -1,6 +1,12 @@
 // HouseLayout.js
-import React, { useState, useContext } from "react";
-import { Box, Button, IconButton } from "@mui/material";
+import React, {
+  // useState,
+  useContext,
+} from "react";
+import {
+  Box,
+  //  Button, IconButton
+} from "@mui/material";
 import house from "../assets/layout2.jpeg";
 
 // import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
