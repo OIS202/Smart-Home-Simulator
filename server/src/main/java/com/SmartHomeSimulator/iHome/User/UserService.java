@@ -1,5 +1,6 @@
 package com.SmartHomeSimulator.iHome.User;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -107,5 +108,14 @@ public class UserService {
         logger.info("User registered with ID: {}", userResponseDto.getId());
 
         return userResponseDto;
+    }
+
+    //TEKA CODE
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    
+    public List<User> getUsersByHouseId(ObjectId houseId) {
+        return userRepository.findAllByHouseId(houseId);
     }
 }

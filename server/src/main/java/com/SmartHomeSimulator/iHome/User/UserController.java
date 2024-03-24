@@ -1,5 +1,7 @@
 package com.SmartHomeSimulator.iHome.User;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -73,8 +75,21 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
+
+    //TEKA CODE
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/getUsersId")
+    public ResponseEntity<List<User>> getUsersByHouseId(@RequestParam("houseId") ObjectId houseId) {
+        List<User> users = userService.getUsersByHouseId(houseId); 
+        return ResponseEntity.ok(users);
+    }
+
 
 }
 

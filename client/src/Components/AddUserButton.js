@@ -1,5 +1,5 @@
 // EditButton.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Dialog,
@@ -18,14 +18,23 @@ import { useNavigate } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-
-
 const AddUserButton = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
   const userSelection = ['PARENT', 'CHILD', 'GUEST', 'STRANGER'];
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("");
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleOpenEditModal = () => {
     setIsEditModalOpen(true);
@@ -39,26 +48,8 @@ const AddUserButton = () => {
   if (reason === 'clickaway') {
     return;
   }
-
   setSnackbarOpen(false);
 };
-
-
-  //////////////////////////
-    const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("");
-
-  const [successMessage, setSuccessMessage] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
- 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,7 +61,6 @@ const AddUserButton = () => {
     formData.append("password", password);
     formData.append("houseId", '65fcdf7132513f5cebd28837') //hardcoded house id until furthter notice 
     formData.append("userType", userType);
- 
 
     try {
       const response = await fetch("http://localhost:8080/adduser", {
@@ -81,9 +71,12 @@ const AddUserButton = () => {
       if (response.status == 200) {
         console.log("Add User successful");
         handleCloseEditModal();
-        setSuccessMessage("Successfully added a user"); // Set success message
-        setTimeout(() => navigate("/simulationparameters"), 1000); // Navigate to sign-in page after 5 seconds
+        setSuccessMessage("Successfully added a user"); 
         setSnackbarOpen(true); // Open Snackbar
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000)
+    
       } else {
         const errorText = await response.text();
         setError(errorText || "Add User failed");
@@ -92,14 +85,6 @@ const AddUserButton = () => {
       setError("Network error, please try again later.");
     }
   };
-
-  const handleCloseError = () => {
-    setError("");
-  };
-  const handleCloseSuccessMessage = () => {
-    setSuccessMessage("");
-  };
-
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
@@ -193,7 +178,7 @@ const AddUserButton = () => {
 
       <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
         <MuiAlert elevation={6} variant="filled" onClose={handleCloseSnackbar} severity="success">
-        Adding user successful
+        Adding user successful! The page will now refresh
         </MuiAlert>
       </Snackbar>
     </Box>
