@@ -1,5 +1,6 @@
 package com.SmartHomeSimulator.iHome.User;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,6 +45,7 @@ public class UserService {
         newUser.setPhoneNumber(phoneNumber);
         newUser.setPassword(password); // Make sure to encode the password in real scenarios
         newUser.setHouseId(house.getId());
+        newUser.setLocation("outside");
 
         // Save the User object to the database
         newUser = userRepository.save(newUser);
@@ -70,4 +72,19 @@ public class UserService {
         // server terminal
         return user;
     }
+
+    public User updateUserLocation(String email, String location) throws Exception {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (!userOptional.isPresent()) {
+            throw new Exception("User not found");
+        }
+        User user = userOptional.get();
+        user.setLocation(location);
+        return userRepository.save(user);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
 }
