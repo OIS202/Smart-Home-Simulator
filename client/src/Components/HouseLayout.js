@@ -8,9 +8,9 @@ import house from "../assets/layout2.jpeg";
 // import DoorFrontIcon from "@mui/icons-material/DoorFront";
 // import WindowIcon from "@mui/icons-material/Window";
 
-import Lights from "../sh-core/Lights";
-import Doors from "../sh-core/Doors";
-import Windows from "../sh-core/Windows";
+import Lights from "./core-components/Lights";
+import Doors from "./core-components/Doors";
+import Windows from "./core-components/Windows";
 
 import { CoreContext } from "../HomePage";
 import DeviceContext from "../Components/DeviceContext";

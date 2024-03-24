@@ -18,9 +18,9 @@ import {
 import { CoreContext } from "../HomePage";
 import DeviceContext from "../Components/DeviceContext";
 
-import Doors from "./Doors";
-import Lights from "./Lights";
-import Windows from "./Windows";
+import Doors from "../Components/core-components/Doors";
+import Lights from "../Components/core-components/Lights";
+import Windows from "../Components/core-components/Windows";
 
 /**
  * CORE FUNCTION
