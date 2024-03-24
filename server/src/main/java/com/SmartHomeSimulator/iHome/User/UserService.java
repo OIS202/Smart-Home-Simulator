@@ -73,8 +73,8 @@ public class UserService {
         return user;
     }
 
-    public User updateUserLocation(String id, String location) throws Exception {
-        Optional<User> userOptional = userRepository.findById(id);
+    public User updateUserLocation(String email, String location) throws Exception {
+        Optional<User> userOptional = userRepository.findByEmail(email);
         if (!userOptional.isPresent()) {
             throw new Exception("User not found");
         }

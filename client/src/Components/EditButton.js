@@ -19,7 +19,6 @@ import {
   Box,
 } from "@mui/material";
 
-// Mock data for windows, you can replace it with your actual data
 const windows = [
   { id: 1, location: "Living Room" },
   { id: 2, location: "Kitchen" },
@@ -53,7 +52,7 @@ const EditButton = () => {
       const initialUserLocations = data.reduce(
         (acc, user) => ({
           ...acc,
-          [user.id]: user.location,
+          [user.email]: user.location, // Use email as the key
         }),
         {}
       );
@@ -71,10 +70,8 @@ const EditButton = () => {
     setIsEditModalOpen(false);
   };
 
-  const handleUserLocationChange = (userId, newLocation) => {
-    setUserLocations((prev) => ({ ...prev, [userId]: newLocation }));
-    console.log(userId);
-    console.log(newLocation);
+  const handleUserLocationChange = (email, newLocation) => {
+    setUserLocations((prev) => ({ ...prev, [email]: newLocation }));
   };
 
   const handleWindowBlockChange = (windowId, event) => {
@@ -82,30 +79,31 @@ const EditButton = () => {
   };
 
   const handleSave = async () => {
-    // Save user locations
-    await Promise.all(
-      users.map(async (user) => {
-        if (userLocations[user.id] !== user.location) {
-          await updateUserLocation(user.id, userLocations[user.id]);
-        }
-      })
-    );
-
-    // TODO: Save window blocks here. Implement this part based on how your backend expects to receive this information.
-
+    for (let user of users) {
+      if (userLocations[user.email] !== user.location) {
+        await updateUserLocation(user.email, userLocations[user.email]);
+      }
+    }
     handleCloseEditModal();
     fetchAllUsers(); // Refresh users list after update
   };
 
-  const updateUserLocation = async (userId, newLocation) => {
+  const updateUserLocation = async (email, newLocation) => {
     try {
-      await fetch("http://localhost:8080/updateUserLocation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: userId, location: newLocation }),
-      });
+      const response = await fetch(
+        "http://localhost:8080/updateUserLocation",
+        {
+          // Adjust this endpoint as needed
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, location: newLocation }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
     } catch (error) {
-      console.error("Error updating user location", error);
+      console.error("Error updating user location:", error);
     }
   };
 
@@ -142,7 +140,9 @@ const EditButton = () => {
               </TableHead>
               <TableBody>
                 {users.map((user) => (
-                  <TableRow key={user.id}>
+                  <TableRow key={user.email}>
+                    {" "}
+                    {/* Use email as key for mapping */}
                     <TableCell>
                       {user.firstName} {user.lastName}
                     </TableCell>
@@ -151,11 +151,11 @@ const EditButton = () => {
                       <FormControl fullWidth>
                         <InputLabel>Location</InputLabel>
                         <Select
-                          value={userLocations[user.id] || ""}
+                          value={userLocations[user.email] || ""}
                           label="Location"
                           onChange={(event) =>
                             handleUserLocationChange(
-                              user.id,
+                              user.email,
                               event.target.value
                             )
                           }
@@ -196,7 +196,7 @@ const EditButton = () => {
                       <FormControl fullWidth>
                         <InputLabel>Block with</InputLabel>
                         <Select
-                          value={windowBlocks[window.id] || "None"} // Default to 'None' if not set
+                          value={windowBlocks[window.id] || "None"}
                           label="Block with"
                           onChange={(event) =>
                             handleWindowBlockChange(window.id, event)

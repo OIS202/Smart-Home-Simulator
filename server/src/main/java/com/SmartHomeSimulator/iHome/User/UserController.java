@@ -56,7 +56,7 @@ public class UserController {
     @PostMapping("/updateUserLocation")
     public ResponseEntity<?> updateUserLocation(@RequestBody User user) {
         try {
-            User existingUser = userService.updateUserLocation(user.getId().toHexString(), user.getLocation());
+            User existingUser = userService.updateUserLocation(user.getEmail(), user.getLocation());
             return ResponseEntity.ok(existingUser);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
