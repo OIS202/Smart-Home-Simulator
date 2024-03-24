@@ -50,6 +50,7 @@ const AddUserButton = () => {
   }
   setSnackbarOpen(false);
 };
+  const houseId = '65fcdf7132513f5cebd28837';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,7 +60,7 @@ const AddUserButton = () => {
     formData.append("email", email);
     formData.append("phoneNumber", phoneNumber);
     formData.append("password", password);
-    formData.append("houseId", '65fcdf7132513f5cebd28837') //hardcoded house id until furthter notice 
+    formData.append("houseId", houseId) //hardcoded house id until furthter notice 
     formData.append("userType", userType);
 
     try {
