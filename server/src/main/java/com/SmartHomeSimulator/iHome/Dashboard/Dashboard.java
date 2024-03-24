@@ -24,12 +24,12 @@ public class Dashboard {
         return instance;
     }
 
-    public void display(Observer o){
-        System.out.println("Here is the details of the module: "+o);
+    public void display(Observer o) {
+        System.out.println("Here is the details of the module: " + o);
     }
 
-    public void updateSHS(SmartHomeSimulator shs){
-        System.out.println("The shs "+ shs+" has been updated");
+    public void updateSHS(SmartHomeSimulator shs) {
+        System.out.println("The shs " + shs + " has been updated");
     }
     // Dashboard related methods
 }
