@@ -34,7 +34,7 @@ export const CoreContext = createContext();
 
 const HomePage = () => {
   const [state, setState] = useState(0);
-  const [deviceState, setDeviceState] = useState({});
+  // const [deviceState, setDeviceState] = useState({});
 
   // function checkDevices() {
   //   return deviceState.forEach((element) => {
@@ -74,10 +74,10 @@ const HomePage = () => {
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavBar />
       <CoreContext.Provider value={{ state, setState }}>
-        <Typography>core context state: {state}</Typography>
+        {/* <Typography>core context state: {state}</Typography> */}
         <DeviceProvider>
           {/* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */}
-          <Typography>device context state: {deviceState[0]}</Typography>
+          {/* <Typography>device context state: {deviceState[0]}</Typography> */}
           {/* <Mata
             activeTab={activeTab}
             buttons={tabs}
