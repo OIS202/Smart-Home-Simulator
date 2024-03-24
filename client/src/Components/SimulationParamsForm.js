@@ -1,17 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddUserButton from "./AddUserButton";
 import {
   TextField,
   Button,
   Box,
   Typography,
-  Input,
-  Divider
+  Table,
+  TableBody,
+  TableCell,
+  TableRow
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
 
 
 const SimulationParamsForm = () => {
+
+  const [users,setUsers] = useState([]);
+  useEffect(() => {
+    fetchUserId();
+  }, []);
+
+  const houseId = '65fcdf7132513f5cebd28837';
+  const fetchUserId = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/getUsersId?houseId=${houseId}`);
+      const data = await response.json();
+      setUsers(data);
+    }
+    catch(error) {
+    console.error("faled to fetch specided users", error);
+    }
+  } 
+
   return (
     <>
       <Typography variant="h3">
@@ -31,7 +51,6 @@ const SimulationParamsForm = () => {
           }}
         >
 
-        
           <Box
             style={{
               display: "flex",
@@ -45,31 +64,20 @@ const SimulationParamsForm = () => {
             </Typography>
             <AddUserButton />
           </Box>
+
+          <Table>
+            <TableBody>
+              {users.map((user) => (
+                  <TableRow>
+                    <TableCell>
+                      {user.firstName} {user.lastName}
+                    </TableCell>
+                  </TableRow>
+
+              ))}
+            </TableBody>
+          </Table>
           
-  
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Input name="hardcodedField1" value="John" />
-        </Box>
-
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Input name="hardcodedField1" value="Doe" />
-        </Box>
-
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Input name="hardcodedField1" value="Jane" />
-        </Box>
-{/* 
-        <Button
-        type="button"    
-        variant="contained"
-        style={{alignSelf: 'center'}}
-        >
-        Login user profile 
-        </Button> */}
-        <Box>
-      
-        </Box>
-
         </Box>
 
         <Box

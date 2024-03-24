@@ -120,4 +120,13 @@ public class UserService {
 
         return userResponseDto;
     }
+
+    //TEKA CODE
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    
+    public List<User> getUsersByHouseId(ObjectId houseId) {
+        return userRepository.findAllByHouseId(houseId);
+    }
 }
