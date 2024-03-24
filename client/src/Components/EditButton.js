@@ -30,7 +30,7 @@ const EditButton = () => {
   const [users, setUsers] = useState([]);
   const [userLocations, setUserLocations] = useState({});
   const [windowBlocks, setWindowBlocks] = useState(
-    windows.reduce((acc, cur) => ({ ...acc, [cur.id]: "" }), {})
+    windows.reduce((acc, cur) => ({ ...acc, [cur.id]: "" }), {}),
   );
   const locations = [
     "Living Room",
@@ -54,7 +54,7 @@ const EditButton = () => {
           ...acc,
           [user.email]: user.location, // Use email as the key
         }),
-        {}
+        {},
       );
       setUserLocations(initialUserLocations);
     } catch (error) {
@@ -90,15 +90,12 @@ const EditButton = () => {
 
   const updateUserLocation = async (email, newLocation) => {
     try {
-      const response = await fetch(
-        "http://localhost:8080/updateUserLocation",
-        {
-          // Adjust this endpoint as needed
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, location: newLocation }),
-        }
-      );
+      const response = await fetch("http://localhost:8080/updateUserLocation", {
+        // Adjust this endpoint as needed
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, location: newLocation }),
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -156,7 +153,7 @@ const EditButton = () => {
                           onChange={(event) =>
                             handleUserLocationChange(
                               user.email,
-                              event.target.value
+                              event.target.value,
                             )
                           }
                         >

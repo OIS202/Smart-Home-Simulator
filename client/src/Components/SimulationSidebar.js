@@ -1,18 +1,18 @@
 // SimulationSidebar.js
-import React from 'react';
-import { Box, Typography, Switch, Slider, Avatar } from '@mui/material';
+import React from "react";
+import { Box, Typography, Switch, Slider, Avatar } from "@mui/material";
 
 const SimulationSidebar = () => {
   return (
     <Box
       sx={{
         width: 200,
-        bgcolor: 'grey.300', // Set to a grey color from the theme
+        bgcolor: "grey.300", // Set to a grey color from the theme
         padding: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        overflowY: 'auto'
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        overflowY: "auto",
       }}
     >
       <Typography variant="h6" gutterBottom>
@@ -33,7 +33,11 @@ const SimulationSidebar = () => {
       <Typography variant="caption" display="block" gutterBottom>
         19:30:55
       </Typography>
-      <Typography variant="caption" display="block" sx={{ alignSelf: 'flex-start' }}>
+      <Typography
+        variant="caption"
+        display="block"
+        sx={{ alignSelf: "flex-start" }}
+      >
         Time speed
       </Typography>
       <Slider defaultValue={30} aria-label="Time speed" />

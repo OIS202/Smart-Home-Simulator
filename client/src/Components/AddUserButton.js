@@ -1,5 +1,5 @@
 // EditButton.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -12,15 +12,15 @@ import {
   Box,
   useTheme,
   useMediaQuery,
-    TextField,
-} from '@mui/material';
+  TextField,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const AddUserButton = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const userSelection = ['PARENT', 'CHILD', 'GUEST', 'STRANGER'];
+  const userSelection = ["PARENT", "CHILD", "GUEST", "STRANGER"];
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const [firstName, setFirstName] = useState("");
@@ -45,12 +45,12 @@ const AddUserButton = () => {
   };
 
   const handleCloseSnackbar = (event, reason) => {
-  if (reason === 'clickaway') {
-    return;
-  }
-  setSnackbarOpen(false);
-};
-  const houseId = '65fcdf7132513f5cebd28837';
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+  const houseId = "65fcdf7132513f5cebd28837";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,7 +60,7 @@ const AddUserButton = () => {
     formData.append("email", email);
     formData.append("phoneNumber", phoneNumber);
     formData.append("password", password);
-    formData.append("houseId", houseId) //hardcoded house id until furthter notice 
+    formData.append("houseId", houseId); //hardcoded house id until furthter notice
     formData.append("userType", userType);
 
     try {
@@ -72,12 +72,11 @@ const AddUserButton = () => {
       if (response.status == 200) {
         console.log("Add User successful");
         handleCloseEditModal();
-        setSuccessMessage("Successfully added a user"); 
+        setSuccessMessage("Successfully added a user");
         setSnackbarOpen(true); // Open Snackbar
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.reload();
-        }, 3000)
-    
+        }, 3000);
       } else {
         const errorText = await response.text();
         setError(errorText || "Add User failed");
@@ -88,14 +87,24 @@ const AddUserButton = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
-      <Button variant="contained" onClick={handleOpenEditModal} size="small" sx={{ my: 2 }}>
+    <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+      <Button
+        variant="contained"
+        onClick={handleOpenEditModal}
+        size="small"
+        sx={{ my: 2 }}
+      >
         Add New User
       </Button>
-      <Dialog open={isEditModalOpen} onClose={handleCloseEditModal} maxWidth="md" fullWidth>
+      <Dialog
+        open={isEditModalOpen}
+        onClose={handleCloseEditModal}
+        maxWidth="md"
+        fullWidth
+      >
         <DialogTitle>Add a user</DialogTitle>
         <DialogContent>
-              <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextField
               label="First Name"
               margin="normal"
@@ -151,10 +160,11 @@ const AddUserButton = () => {
               required
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
-
             >
-                {userSelection.map((object) => (
-                <MenuItem key={object} value={object}>{object}</MenuItem>
+              {userSelection.map((object) => (
+                <MenuItem key={object} value={object}>
+                  {object}
+                </MenuItem>
               ))}
             </Select>
 
@@ -177,9 +187,18 @@ const AddUserButton = () => {
         </DialogActions>
       </Dialog>
 
-      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-        <MuiAlert elevation={6} variant="filled" onClose={handleCloseSnackbar} severity="success">
-        Adding user successful! The page will now refresh
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          onClose={handleCloseSnackbar}
+          severity="success"
+        >
+          Adding user successful! The page will now refresh
         </MuiAlert>
       </Snackbar>
     </Box>
