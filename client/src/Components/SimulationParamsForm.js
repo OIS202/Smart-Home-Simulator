@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddUserButton from "./AddUserButton";
 import {
   TextField,
   Button,
@@ -30,57 +31,32 @@ const SimulationParamsForm = () => {
           }}
         >
 
+        
           <Box
-              marginBottom={5}
-              style={{
+            style={{
+              display: "flex",
               alignItems: "center",
-              justifyContent: "normal",
-          }}
+              justifyContent: "space-between",
+              width: "100%"
+            }}
           > 
             <Typography variant="h4">
               List of User Profiles
             </Typography>
-              <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              >
-              Edit List 
-              </Button>
-              <Divider></Divider>
+            <AddUserButton />
           </Box>
+          
   
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Input name="hardcodedField1" value="John" />
-        <Button
-            type="button"
-            variant="contained"
-            style={{ marginLeft: '10px' }} // Add margin between name and button
-        >
-            Log In
-        </Button>
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Input name="hardcodedField1" value="Doe" />
-        <Button
-            type="button"
-            variant="contained"
-            style={{ marginLeft: '10px' }} // Add margin between name and button
-        >
-            Log In
-        </Button>
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Input name="hardcodedField1" value="Jane" />
-        <Button
-            type="button"
-            variant="contained"
-            style={{ marginLeft: '10px' }} // Add margin between name and button
-        >
-            Log In
-        </Button>
         </Box>
 {/* 
         <Button
@@ -90,6 +66,9 @@ const SimulationParamsForm = () => {
         >
         Login user profile 
         </Button> */}
+        <Box>
+      
+        </Box>
 
         </Box>
 
