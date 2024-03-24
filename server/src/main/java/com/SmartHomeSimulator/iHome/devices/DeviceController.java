@@ -14,7 +14,7 @@ public class DeviceController {
 
     @GetMapping("/sh-core")
     public void switchState(@RequestBody Device device) {
-        if (device.getIsOn() == false){
+        if (device.getIsOn() == false) {
             try {
                 device.setIsOn(true);
             } catch (Exception e) {
@@ -28,4 +28,4 @@ public class DeviceController {
             }
         }
     }
-}  
+}

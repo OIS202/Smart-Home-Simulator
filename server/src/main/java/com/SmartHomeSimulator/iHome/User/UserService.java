@@ -47,6 +47,7 @@ public class UserService {
         newUser.setPhoneNumber(phoneNumber);
         newUser.setPassword(password); // Make sure to encode the password in real scenarios
         newUser.setHouseId(house.getId());
+        newUser.setLocation("outside");
         newUser.setUserType(userType);
 
         // Save the User object to the database
@@ -118,4 +119,15 @@ public class UserService {
     public List<User> getUsersByHouseId(ObjectId houseId) {
         return userRepository.findAllByHouseId(houseId);
     }
+
+    public User updateUserLocation(String email, String location) throws Exception {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (!userOptional.isPresent()) {
+            throw new Exception("User not found");
+        }
+        User user = userOptional.get();
+        user.setLocation(location);
+        return userRepository.save(user);
+    }
+
 }

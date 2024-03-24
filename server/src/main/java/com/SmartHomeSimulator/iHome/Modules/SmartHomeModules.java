@@ -9,8 +9,7 @@ public class SmartHomeModules implements Observer {
 
     @Override
     public void update(String context) {
-        System.out.println("Recieved update on :"+context);
+        System.out.println("Recieved update on :" + context);
     }
 
-    
 }

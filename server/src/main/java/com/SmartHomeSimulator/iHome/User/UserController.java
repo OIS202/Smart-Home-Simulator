@@ -2,6 +2,8 @@ package com.SmartHomeSimulator.iHome.User;
 
 import java.util.List;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +59,18 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/updateUserLocation")
+    public ResponseEntity<?> updateUserLocation(@RequestBody User user) {
+        try {
+            User existingUser = userService.updateUserLocation(user.getEmail(), user.getLocation());
+            return ResponseEntity.ok(existingUser);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 
     @PostMapping("/adduser")
     public ResponseEntity<?> addUser(

@@ -21,6 +21,7 @@ public class User {
     private String email;
     private String phoneNumber;
     private String password;
+    private String location;
     private ObjectId houseId;
     private UserType userType;
     private boolean hasSHSPermission;
@@ -31,11 +32,12 @@ public class User {
                                            // modules
 
     // Constructors
+
     public User() {
     }
 
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String password,
+    public User(String firstName, String lastName, String email, String phoneNumber, String password, String location,
             ObjectId houseId,
             UserType userType) {
         this.firstName = firstName;
@@ -43,6 +45,7 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.location = location;
         this.houseId = houseId;
         this.userType = userType;
         setPermissions();
@@ -90,6 +93,10 @@ public class User {
     public String getPassword() {
        
         return password;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public ObjectId getHouseId() {
@@ -161,6 +168,11 @@ public class User {
        
         this.password = password;
    
+    }
+
+   
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public void setHouseId(ObjectId housId) {

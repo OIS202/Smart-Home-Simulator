@@ -23,7 +23,7 @@ public class WebSecurityConfig {
                     .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                     .csrf(AbstractHttpConfigurer::disable)
                     .authorizeHttpRequests(req ->
-                            req.requestMatchers("/signup","/signin").permitAll()
+                            req.requestMatchers("/signup","/signin","/").permitAll()
                                 .anyRequest().permitAll()
                     );
     
