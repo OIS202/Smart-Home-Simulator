@@ -15,141 +15,251 @@ import {
   Typography,
 } from "@mui/material";
 
-import { StateContext } from "../HomePage";
-
-function Lights() {
-  return (
-    <FormGroup sx={{ padding: "10px" }}>
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Kitchen"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Livingroom"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Bathroom"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Master Bedroom"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Kid Bedroom"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Garage"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Backyard"
-        onChange={() => {}}
-      />
-      <br />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="All Lights"
-        onChange={() => {}}
-      />
-    </FormGroup>
-  );
-}
-
-function Doors() {
-  return (
-    <FormGroup sx={{ padding: "10px" }}>
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Front Door"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Back Door"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Garage Door"
-        onChange={() => {}}
-      />
-      <br />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="All Doors"
-        onChange={() => {}}
-      />
-    </FormGroup>
-  );
-}
-
-function Windows() {
-  return (
-    //can eventually add children in form group
-    <FormGroup sx={{ padding: "10px" }}>
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Kitchen"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Livingroom"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Master Bedroom"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Kid Bedroom"
-        onChange={() => {}}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Garage"
-        onChange={() => {}}
-      />
-      <br />
-      <FormControlLabel
-        control={<Checkbox />}
-        label="All Windows"
-        onChange={() => {}}
-      />
-    </FormGroup>
-  );
-}
-
+import { CoreContext } from "../HomePage";
+import DeviceContext from "../Components/DeviceContext";
 /**
  * CORE FUNCTION
  */
-function Core() {
+const Core = () => {
   const [activeContentIndex, setActiveContentIndex] = useState(0);
 
-  const { state, setState } = useContext(StateContext);
+  const { state, setState } = useContext(CoreContext);
+  const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 
-  const features = [
-    //lights
-    <Lights />,
-    <Doors />,
-    <Windows />,
-  ];
+  // const { deviceState, setDeviceState } = useContext(DeviceContext);
+
+  // const { toggleDevice } = useDeviceContext();
+
+  // const handleDeviceToggle = (device) => {
+  //   toggleDevice(device);
+  // };
+
+  // const handleBtn = (btnId) => (e) => {
+  //   e.preventDefault();
+  //   setDeviceState((deviceState) => ({
+  //     ...deviceState,
+  //     [btnId]: deviceState[btnId],
+  //   }));
+  // };
+
+  const features = [<Lights />, <Doors />, <Windows />];
 
   // function set(num) {
   //   setState(num);
   // }
+
+  // const [stateBtn, setStateBtm] = useState({
+  //   Kitchen: true,
+  //   Livingroom: true,
+  //   Bathroom: false,
+  // });
+
+  // const handleChange = (event) => {
+  //   setState({
+  //     ...stateBtn,
+  //     [event.target.name]: event.target.checked,
+  //   });
+  // };
+
+  // const ToggleButton = ({ index }) => {
+  // const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
+  // const isOn = buttonStates[index];
+  // return (
+  //   <button onClick={() => toggleDeviceState(index)}>
+  //     {isOn ? "On" : "Off"}
+  //   </button>
+  // );
+  // };
+
+  // export default ToggleButton;
+
+  function Lights({ index }) {
+    // const isOn = deviceStates[index];
+
+    return (
+      <FormGroup sx={{ padding: "10px" }}>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Kitchen"
+          checked={deviceStates[0]}
+          // context={DeviceContext}
+          onChange={() => {
+            toggleDeviceState(0);
+            // handleDeviceToggle("btn1")
+            // handleChange
+            // setDeviceState([0]);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Living Room"
+          checked={deviceStates[1]}
+          onChange={() => {
+            toggleDeviceState(1);
+            // setDeviceState([1]);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Kid Bedroom"
+          checked={deviceStates[2]}
+          onChange={() => {
+            toggleDeviceState(2);
+            // setDeviceState([2]);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Master Bedroom"
+          checked={deviceStates[4]}
+          onChange={() => {
+            toggleDeviceState(4);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Bathroom"
+          checked={deviceStates[5]}
+          onChange={() => {
+            toggleDeviceState(5);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Garage"
+          checked={deviceStates[3]}
+          onChange={() => {
+            toggleDeviceState(3);
+            // setDeviceState([3]);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Backyard"
+          checked={deviceStates[6]}
+          onChange={() => {
+            toggleDeviceState(6);
+          }}
+        />
+        <br />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="All Lights"
+          checked={deviceStates[7]}
+          onChange={() => {
+            // all(deviceStates);
+            toggleDeviceState(7);
+          }}
+        />
+      </FormGroup>
+    );
+  }
+  // function all(allStates) {
+  //   for (let i = 0; i < allStates.length; i++) {
+  //     allStates[i] = true;
+  //   }
+
+  // allStates.forEach((state) => {
+  //   return (state = true);
+  // });
+  // allStates[0] = true;
+  // }
+  function Doors() {
+    return (
+      <FormGroup sx={{ padding: "10px" }}>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Front Door"
+          checked={deviceStates[8]}
+          onChange={() => {
+            toggleDeviceState(8);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Back Door"
+          checked={deviceStates[9]}
+          onChange={() => {
+            toggleDeviceState(9);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Garage Door"
+          checked={deviceStates[10]}
+          onChange={() => {
+            toggleDeviceState(10);
+          }}
+        />
+        <br />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="All Doors"
+          checked={deviceStates[11]}
+          onChange={() => {
+            toggleDeviceState(11);
+          }}
+        />
+      </FormGroup>
+    );
+  }
+
+  function Windows() {
+    return (
+      //can eventually add children in form group
+      <FormGroup sx={{ padding: "10px" }}>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Master Bedroom"
+          checked={deviceStates[12]}
+          onChange={() => {
+            toggleDeviceState(12);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Kid Bedroom"
+          checked={deviceStates[13]}
+          onChange={() => {
+            toggleDeviceState(13);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Living Room"
+          checked={deviceStates[14]}
+          onChange={() => {
+            toggleDeviceState(14);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Kitchen"
+          checked={deviceStates[15]}
+          onChange={() => {
+            toggleDeviceState(15);
+          }}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Garage"
+          checked={deviceStates[16]}
+          onChange={() => {
+            toggleDeviceState(16);
+          }}
+        />
+        <br />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="All Windows"
+          checked={deviceStates[17]}
+          onChange={() => {
+            toggleDeviceState(17);
+          }}
+        />
+      </FormGroup>
+    );
+  }
 
   return (
     <div>
@@ -202,6 +312,6 @@ function Core() {
       </div>
     </div>
   );
-}
+};
 
 export default Core;

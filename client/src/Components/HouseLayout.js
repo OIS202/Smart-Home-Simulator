@@ -10,20 +10,31 @@ import WindowIcon from "@mui/icons-material/Window";
 
 import Lights from "../sh-core/Lights";
 
-import { StateContext } from "../HomePage";
+import { CoreContext } from "../HomePage";
+import DeviceContext from "../Components/DeviceContext";
+// import { DeviceProvider } from "../Components/DeviceContext";
 
-const HouseLayout = () => {
-  const [activeBtn, setActiveBtn] = useState("activeBtn");
-  const [isOn, setIsOn] = useState({});
+// import { useDeviceContext } from "./DeviceContext";
 
-  const { state, setState } = useContext(StateContext);
+const HouseLayout = ({ index }) => {
+  // const [activeBtn, setActiveBtn] = useState("activeBtn");
+
+  const { state, setState } = useContext(CoreContext);
+
+  const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
+  // const isOnn = deviceStates[index];
+  // const { deviceState, setDeviceState } = useContext(DeviceContext);
+
+  // const [isOn, setIsOn] = useState({});
 
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
-    setIsOn((state) => ({
-      ...state,
-      [btnId]: !state[btnId],
-    }));
+    toggleDeviceState(btnId);
+    // setIsOn((state) => ({
+    //   ...state,
+    //   [btnId]: !state[btnId],
+    // }));
+    // selectedDevices(btnId);
   };
 
   // const [clicked, setClicked] = useState(false);
@@ -41,41 +52,50 @@ const HouseLayout = () => {
    *
    */
 
+  // const { selectedDevices } = useDeviceContext();
+
   function LightBtns() {
     return (
       <>
         <IconButton
           color="white"
-          className={`btn1 ${isOn["btn1"] && activeBtn}`}
-          onClick={handleBtn("btn1")}
+          // className={selectedDevices.includes("light") ? "active" : ""}
+          // className={`btn1 ${selectedDevices.includes("btn1") && activeBtn}`}
+
+          // className={` ${deviceStates[0]}`}
+          onClick={handleBtn(0)}
           sx={{
             position: "absolute",
             top: "18%",
             left: "52%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn1"] ? "gold" : "lightgrey",
+            "&:hover": "none",
+            // backgroundColor: isOn["btn1"] ? "gold" : "lightgrey",
+            backgroundColor: deviceStates[0] ? "gold" : "lightgrey",
           }}
         >
           <LightbulbIcon />
         </IconButton>
         <IconButton
           color="white"
-          className={`btn2 ${isOn["btn2"] && activeBtn}`}
-          onClick={handleBtn("btn2")}
+          // className={`btn2 ${deviceStates[1] && activeBtn}`}
+          // onClick={handleBtn("btn2", 1)}
+          onClick={handleBtn(1)}
           sx={{
             position: "absolute",
             top: "15%",
             left: "75%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn2"] ? "gold" : "lightgrey",
+            backgroundColor: deviceStates[1] ? "gold" : "lightgrey",
           }}
         >
           <LightbulbIcon />
         </IconButton>
         <IconButton
           color="white"
-          className={`btn3 ${isOn["btn3"] && activeBtn}`}
-          onClick={handleBtn("btn3")}
+          // className={`btn3 ${deviceStates[2] && activeBtn}`}
+          // onClick={handleBtn("btn3")}
+          onClick={handleBtn(2)}
           sx={{
             position: "absolute",
             // width: "10%",
@@ -83,7 +103,7 @@ const HouseLayout = () => {
             top: "56%",
             left: "78%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn3"] ? "gold" : "lightgrey",
+            backgroundColor: deviceStates[2] ? "gold" : "lightgrey",
           }}
         >
           <LightbulbIcon
@@ -95,8 +115,9 @@ const HouseLayout = () => {
         </IconButton>
         <IconButton
           color="white"
-          className={`btn4 ${isOn["btn4"] && activeBtn}`}
-          onClick={handleBtn("btn4")}
+          // className={`btn4 ${isOn["btn4"] && activeBtn}`}
+          // onClick={handleBtn("btn4")}
+          onClick={handleBtn(3)}
           sx={{
             position: "absolute",
             // width: "3rem",
@@ -104,15 +125,15 @@ const HouseLayout = () => {
             top: "55%",
             left: "27%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn4"] ? "gold" : "lightgrey",
+            // backgroundColor: isOn["btn4"] ? "gold" : "lightgrey",
+            backgroundColor: deviceStates[3] ? "gold" : "lightgrey",
           }}
         >
           <LightbulbIcon />
         </IconButton>
         <IconButton
           color="white"
-          className={`btn5 ${isOn["btn5"] && activeBtn}`}
-          onClick={handleBtn("btn5")}
+          onClick={handleBtn(4)}
           sx={{
             position: "absolute",
             // width: "3rem",
@@ -120,15 +141,14 @@ const HouseLayout = () => {
             top: "75%",
             left: "75%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn5"] ? "gold" : "lightgrey",
+            backgroundColor: deviceStates[4] ? "gold" : "lightgrey",
           }}
         >
           <LightbulbIcon />
         </IconButton>
         <IconButton
           color="white"
-          className={`btn6 ${isOn["btn6"] && activeBtn}`}
-          onClick={handleBtn("btn6")}
+          onClick={handleBtn(5)}
           sx={{
             position: "absolute",
             // width: "3rem",
@@ -136,15 +156,14 @@ const HouseLayout = () => {
             top: "55%",
             left: "58%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn6"] ? "gold" : "lightgrey",
+            backgroundColor: deviceStates[5] ? "gold" : "lightgrey",
           }}
         >
           <LightbulbIcon />
         </IconButton>
         <IconButton
           color="white"
-          className={`btn7 ${isOn["btn7"] && activeBtn}`}
-          onClick={handleBtn("btn7")}
+          onClick={handleBtn(6)}
           sx={{
             position: "absolute",
             // width: "3rem",
@@ -152,7 +171,7 @@ const HouseLayout = () => {
             top: "37%",
             left: "33%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn7"] ? "gold" : "lightgrey",
+            backgroundColor: deviceStates[6] ? "gold" : "lightgrey",
           }}
         >
           <LightbulbIcon />
@@ -173,42 +192,39 @@ const HouseLayout = () => {
       <>
         <IconButton
           color="red"
-          className={`btn8 ${isOn["btn8"] && activeBtn}`}
-          onClick={handleBtn("btn8")}
+          onClick={handleBtn(8)}
           sx={{
             position: "absolute",
             top: "37%",
             left: "84%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn8"] ? "lightgreen" : "lightgrey",
+            backgroundColor: deviceStates[8] ? "lightgreen" : "lightgrey",
           }}
         >
           <DoorFrontIcon />
         </IconButton>
         <IconButton
           color="red"
-          className={`btn9 ${isOn["btn9"] && activeBtn}`}
-          onClick={handleBtn("btn9")}
+          onClick={handleBtn(9)}
           sx={{
             position: "absolute",
             top: "38%",
             left: "43%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn9"] ? "lightgreen" : "lightgrey",
+            backgroundColor: deviceStates[9] ? "lightgreen" : "lightgrey",
           }}
         >
           <DoorFrontIcon />
         </IconButton>
         <IconButton
           color="red"
-          className={`btn10 ${isOn["btn10"] && activeBtn}`}
-          onClick={handleBtn("btn10")}
+          onClick={handleBtn(10)}
           sx={{
             position: "absolute",
             top: "90%",
             left: "27%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn10"] ? "lightgreen" : "lightgrey",
+            backgroundColor: deviceStates[10] ? "lightgreen" : "lightgrey",
           }}
         >
           <DoorFrontIcon />
@@ -221,73 +237,68 @@ const HouseLayout = () => {
    *
    *
    * Window buttons
-   * btn 11 through btn15
+   * btn 12 through btn15
    *
    */
   function WindowBtns() {
     return (
       <>
         <IconButton
-          className={`btn11 ${isOn["btn11"] && activeBtn}`}
-          onClick={handleBtn("btn11")}
+          onClick={handleBtn(12)}
           sx={{
             position: "absolute",
             top: "80%",
             left: "85%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn11"] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[12] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
         </IconButton>
         <IconButton
-          className={`btn12 ${isOn["btn12"] && activeBtn}`}
-          onClick={handleBtn("btn12")}
+          onClick={handleBtn(13)}
           sx={{
             position: "absolute",
             top: "55%",
             left: "85%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn12"] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[13] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
         </IconButton>
         <IconButton
-          className={`btn13 ${isOn["btn13"] && activeBtn}`}
-          onClick={handleBtn("btn13")}
+          onClick={handleBtn(14)}
           sx={{
             position: "absolute",
             top: "23%",
             left: "85%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn13"] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[14] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
         </IconButton>
         <IconButton
-          className={`btn14 ${isOn["btn14"] && activeBtn}`}
-          onClick={handleBtn("btn14")}
+          onClick={handleBtn(15)}
           sx={{
             position: "absolute",
             top: "17%",
             left: "43%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn14"] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[15] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
         </IconButton>
         <IconButton
-          className={`btn15 ${isOn["btn15"] && activeBtn}`}
-          onClick={handleBtn("btn15")}
+          onClick={handleBtn(16)}
           sx={{
             position: "absolute",
             top: "48%",
             left: "16%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: isOn["btn15"] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[16] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
