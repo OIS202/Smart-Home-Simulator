@@ -84,14 +84,30 @@ public class User {
     public ObjectId getHouseId() {
         return houseId;
     }
-    public UserType getUserType() { return userType; }
-    public boolean getHasSHSPermission() { return hasSHSPermission; }
-    public boolean getHasSHCPermission() { return hasSHCPermission; }
-    public boolean getHasSHPPermission() { return hasSHPPermission; }
-    public boolean getHasSHHPermission() { return hasSHHPermission; }
-    public boolean getisLocationIndepandant() { return isLocationIndependant; }
-    
-   
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public boolean getHasSHSPermission() {
+        return hasSHSPermission;
+    }
+
+    public boolean getHasSHCPermission() {
+        return hasSHCPermission;
+    }
+
+    public boolean getHasSHPPermission() {
+        return hasSHPPermission;
+    }
+
+    public boolean getHasSHHPermission() {
+        return hasSHHPermission;
+    }
+
+    public boolean getisLocationIndepandant() {
+        return isLocationIndependant;
+    }
 
     // Setters
     public void setId(ObjectId id) {
@@ -136,8 +152,9 @@ public class User {
                 // Notice we do not include the password for security reasons
                 '}';
     }
-    public void setUserType(UserType userType) { 
-        this.userType = userType; 
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
         setPermissions();
     }
 
@@ -176,17 +193,6 @@ public class User {
                 isLocationIndependant = false;
                 break;
         }
-    }
-
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                // Notice we do not include the password for security reasons
-                '}';
     }
 
 }
