@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import com.SmartHomeSimulator.iHome.Rooms.Room;
 
-@Document(collection = "rooms")
+@Document(collection = "zones")
 public class Zone {
     @Id
     private ObjectId id;
