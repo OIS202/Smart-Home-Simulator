@@ -6,10 +6,16 @@ import java.util.List;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.SmartHomeSimulator.iHome.User.User;
+import com.SmartHomeSimulator.iHome.Util.CsvTemperature;
 
 @Service
 public class SimulationService {
@@ -20,6 +26,17 @@ public class SimulationService {
     public Simulation registerSimulation(List<User> users, Date date, LocalTime time) {
         Simulation newShs = new Simulation(users, date, time);
         return shsRepository.save(newShs);
+    }
+
+    public Map<String,Integer> readTemperatures(MultipartFile file) {
+        Map<String, Integer> temperatureMap =  new TreeMap<>();
+        try {
+            temperatureMap = CsvTemperature.readCsvToMap(file);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return temperatureMap;
     }
 
 }
