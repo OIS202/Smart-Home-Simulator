@@ -20,6 +20,7 @@ import Windows from "./core-module/Windows";
 
 import { CoreContext } from "../HomePage";
 import DeviceContext from "./contexts/DeviceContext";
+import ModuleContext from "./contexts/ModuleContext";
 // import { DeviceProvider } from "../Components/DeviceContext";
 
 // import { useDeviceContext } from "./DeviceContext";
@@ -52,25 +53,39 @@ const HouseLayout = () => {
 
   //
 
-  const { state, setState } = useContext(CoreContext);
+  // const { state, setState } = useContext(CoreContext);
   const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
+  const { getActiveModule, getActiveFeature } = useContext(ModuleContext);
 
+  const activeModule = getActiveModule();
+  const activeFeature = getActiveFeature();
   const feature = [
-    <Lights
-      source="layout"
-      deviceStates={deviceStates}
-      toggleDeviceState={toggleDeviceState}
-    />,
-    <Doors
-      source="layout"
-      deviceStates={deviceStates}
-      toggleDeviceState={toggleDeviceState}
-    />,
-    <Windows
-      source="layout"
-      deviceStates={deviceStates}
-      toggleDeviceState={toggleDeviceState}
-    />,
+    {},
+    {
+      1: (
+        <Lights
+          source="layout"
+          // deviceStates={deviceStates}
+          // toggleDeviceState={toggleDeviceState}
+        />
+      ),
+      2: (
+        <Doors
+          source="layout"
+          // deviceStates={deviceStates}
+          // toggleDeviceState={toggleDeviceState}
+        />
+      ),
+      3: (
+        <Windows
+          source="layout"
+          // deviceStates={deviceStates}
+          // toggleDeviceState={toggleDeviceState}
+        />
+      ),
+    },
+    {},
+    {},
   ];
 
   return (
@@ -90,7 +105,7 @@ const HouseLayout = () => {
        * What needs to be figured out is how to
        * automatically generate the buttons and place them accordingly
        */}
-      <>{feature[state]}</>
+      <>{feature[activeModule - 1][activeFeature]}</>
       {/* <LightBtns /> */}
     </Box>
   );

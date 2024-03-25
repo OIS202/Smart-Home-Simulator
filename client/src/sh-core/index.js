@@ -7,8 +7,9 @@ import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
 
 import { Button, ButtonGroup } from "@mui/material";
 
-import { CoreContext } from "../HomePage";
-import DeviceContext from "../Components/contexts/DeviceContext";
+// import { CoreContext } from "../HomePage";
+// import DeviceContext from "../Components/contexts/DeviceContext";
+import ModuleContext from "../Components/contexts/ModuleContext";
 
 import Doors from "../Components/core-module/Doors";
 import Lights from "../Components/core-module/Lights";
@@ -20,41 +21,29 @@ import Windows from "../Components/core-module/Windows";
 const Core = () => {
   const [activeContentIndex, setActiveContentIndex] = useState(0);
 
-  const { state, setState } = useContext(CoreContext);
-  const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
+  //match layout with module feature (e.g. light control)
+  // const { state, setState } = useContext(CoreContext);
+  const { toggleActiveFeature } = useContext(ModuleContext);
 
-  // const { deviceState, setDeviceState } = useContext(DeviceContext);
-
-  // const { toggleDevice } = useDeviceContext();
-
-  // const handleDeviceToggle = (device) => {
-  //   toggleDevice(device);
-  // };
-
-  // const handleBtn = (btnId) => (e) => {
-  //   e.preventDefault();
-  //   setDeviceState((deviceState) => ({
-  //     ...deviceState,
-  //     [btnId]: deviceState[btnId],
-  //   }));
-  // };
+  //match on/off on layout and module feature
+  // const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 
   const features = [
     <Lights
       source="core"
-      deviceStates={deviceStates}
-      toggleDeviceState={toggleDeviceState}
+      // deviceStates={deviceStates}
+      // toggleDeviceState={toggleDeviceState}
     />,
 
     <Doors
       source="core"
-      deviceStates={deviceStates}
-      toggleDeviceState={toggleDeviceState}
+      // deviceStates={deviceStates}
+      // toggleDeviceState={toggleDeviceState}
     />,
     <Windows
       source="core"
-      deviceStates={deviceStates}
-      toggleDeviceState={toggleDeviceState}
+      // deviceStates={deviceStates}
+      // toggleDeviceState={toggleDeviceState}
     />,
   ];
 
@@ -73,7 +62,8 @@ const Core = () => {
             className={activeContentIndex === 0 ? "active" : ""}
             onClick={() => {
               setActiveContentIndex(0);
-              setState(0);
+              toggleActiveFeature(2, 1);
+              // setState(0);
             }}
           >
             <LightbulbOutlinedIcon />
@@ -85,7 +75,8 @@ const Core = () => {
             className={activeContentIndex === 1 ? "active" : ""}
             onClick={() => {
               setActiveContentIndex(1);
-              setState(1);
+              toggleActiveFeature(2, 2);
+              // setState(1);
             }}
           >
             <DoorFrontOutlinedIcon />
@@ -97,7 +88,8 @@ const Core = () => {
             color={activeContentIndex === 2 ? "secondary" : "primary"}
             onClick={() => {
               setActiveContentIndex(2);
-              setState(2);
+              toggleActiveFeature(2, 3);
+              // setState(2);
             }}
           >
             <WindowOutlinedIcon />
@@ -112,6 +104,22 @@ const Core = () => {
 };
 
 export default Core;
+
+// const { deviceState, setDeviceState } = useContext(DeviceContext);
+
+// const { toggleDevice } = useDeviceContext();
+
+// const handleDeviceToggle = (device) => {
+//   toggleDevice(device);
+// };
+
+// const handleBtn = (btnId) => (e) => {
+//   e.preventDefault();
+//   setDeviceState((deviceState) => ({
+//     ...deviceState,
+//     [btnId]: deviceState[btnId],
+//   }));
+// };
 
 // function set(num) {
 //   setState(num);

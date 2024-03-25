@@ -3,7 +3,10 @@ import React, { createContext, useState } from "react";
 const HeatingContext = createContext();
 
 export const HeatingProvider = ({ children }) => {
-  const [heatingStates, setHeatingStates] = useState(() => Array(7).fill(20));
+  const [heatingStates, setHeatingStates] = useState(() => Array(7).fill(21));
+  const [heatingZones, setHeatingZones] = useState(() =>
+    Array(3).fill({ rooms: {}, temperature: 21 })
+  );
 
   const reading = () => {
     for (var i = 0; i < heatingStates.length; i++) {
@@ -23,7 +26,15 @@ export const HeatingProvider = ({ children }) => {
   };
 
   return (
-    <HeatingContext.Provider value={{}}>{children}</HeatingContext.Provider>
+    <HeatingContext.Provider
+      value={{
+        thermostat: [heatingStates, toggleHeatingState],
+        zones: [heatingZones, setHeatingZones],
+        // add: [deviceInfos, addDevices],
+      }}
+    >
+      {children}
+    </HeatingContext.Provider>
   );
 };
 

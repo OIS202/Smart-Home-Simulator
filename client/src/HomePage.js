@@ -1,5 +1,5 @@
 // HomePage.js
-import React, { useState, createContext } from "react";
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import NavBar from "./Components/NavBar"; // Your NavBar component
 import SimulationSidebar from "./Components/SimulationSidebar"; // Your SimulationSidebar component
@@ -11,9 +11,9 @@ import HouseLayout from "./Components/HouseLayout";
 
 import { DeviceProvider } from "./Components/contexts/DeviceContext";
 import { HeatingProvider } from "./Components/contexts/HeatingContext";
+import { ModuleProvider } from "./Components/contexts/ModuleContext";
 
-export const CoreContext = createContext();
-export const HeatingContext = createContext();
+// export const CoreContext = createContext();
 // export const DeviceContext = createContext();
 
 // export const DeviceProvider = ({ children }) => {
@@ -73,15 +73,16 @@ const HomePage = () => {
   //   { id: "btn5", data: "data5" },
   // ];
 
-  const [state, setState] = useState(0);
-  const [heatingState, setHeatingState] = useState(1);
+  // const [state, setState] = useState(0);
+  // const [heatingState, setHeatingState] = useState(1);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavBar />
-      <CoreContext.Provider value={{ state, setState }}>
+      <ModuleProvider>
+        {/* <CoreContext.Provider value={{ state, setState }}> */}
         {/* <Typography>core context state: {state}</Typography> */}
-        <HeatingContext.Provider value={{ heatingState, setHeatingState }}>
+        <HeatingProvider>
           <DeviceProvider>
             <Box sx={{ display: "flex", flexGrow: 1 }}>
               <SimulationSidebar />
@@ -106,8 +107,9 @@ const HomePage = () => {
             </Box>
           </DeviceProvider>
           {/* </DeviceContext.Provider> */}
-        </HeatingContext.Provider>
-      </CoreContext.Provider>
+        </HeatingProvider>
+        {/* </CoreContext.Provider> */}
+      </ModuleProvider>
     </Box>
   );
 };
