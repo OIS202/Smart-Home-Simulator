@@ -1,7 +1,10 @@
 import * as React from "react";
 import { useState } from "react";
-import Core from "../sh-core";
+
 import { Button, Typography, ButtonGroup } from "@mui/material";
+
+import Core from "../sh-core";
+import Heating from "../sh-heating";
 
 function ModuleController() {
   const [activeContentIndex, setActiveContentIndex] = useState(1);
@@ -10,7 +13,7 @@ function ModuleController() {
     <Typography variant="h6">Smart Home Simulator</Typography>,
     <Core />,
     <Typography variant="h6">Smart Home Security</Typography>,
-    <Typography variant="h6">Smart Home Heating</Typography>,
+    <Heating />,
   ];
 
   return (

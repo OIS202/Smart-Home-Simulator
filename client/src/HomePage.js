@@ -10,8 +10,10 @@ import ModuleController from "./module-controller";
 import HouseLayout from "./Components/HouseLayout";
 
 import { DeviceProvider } from "./Components/DeviceContext";
+import { HeatingProvider } from "./Components/HeatingContext";
 
 export const CoreContext = createContext();
+export const HeatingContext = createContext();
 // export const DeviceContext = createContext();
 
 // export const DeviceProvider = ({ children }) => {
@@ -35,7 +37,6 @@ export const CoreContext = createContext();
 // export const useDeviceContext = () => useContext(DeviceContext);
 
 const HomePage = () => {
-  const [state, setState] = useState(0);
   // const [deviceState, setDeviceState] = useState({});
 
   // function checkDevices() {
@@ -72,15 +73,55 @@ const HomePage = () => {
   //   { id: "btn5", data: "data5" },
   // ];
 
+  const [state, setState] = useState(0);
+  const [heatingState, setHeatingState] = useState(1);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavBar />
       <CoreContext.Provider value={{ state, setState }}>
         {/* <Typography>core context state: {state}</Typography> */}
-        <DeviceProvider>
-          {/* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */}
-          {/* <Typography>device context state: {deviceState[0]}</Typography> */}
-          {/* <Mata
+        <HeatingContext.Provider value={{ heatingState, setHeatingState }}>
+          <DeviceProvider>
+            <Box sx={{ display: "flex", flexGrow: 1 }}>
+              <SimulationSidebar />
+              <Box>
+                {/* MainContent taking up 70% of the window */}
+                <Box sx={{ display: "flex" }}>
+                  <ModuleController />
+                  <HouseLayout />
+                </Box>
+                {/* EditButton and its container taking up 30% of the window */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "right",
+                  }}
+                >
+                  <AddDevice />
+                  <EditDevice />
+                  <EditButton />
+                </Box>
+              </Box>
+            </Box>
+          </DeviceProvider>
+          {/* </DeviceContext.Provider> */}
+        </HeatingContext.Provider>
+      </CoreContext.Provider>
+    </Box>
+  );
+};
+
+export default HomePage;
+
+{
+  /* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */
+}
+{
+  /* <Typography>device context state: {deviceState[0]}</Typography> */
+}
+{
+  /* <Mata
             activeTab={activeTab}
             buttons={tabs}
             setActiveTab={setActiveTab}
@@ -90,33 +131,5 @@ const HomePage = () => {
             <div>Social Media</div>
           ) : (
             <div>{tabs[activeTab].data}</div>
-          )} */}
-          <Box sx={{ display: "flex", flexGrow: 1 }}>
-            <SimulationSidebar />
-            <Box>
-              {/* MainContent taking up 70% of the window */}
-              <Box sx={{ display: "flex" }}>
-                <ModuleController />
-                <HouseLayout />
-              </Box>
-              {/* EditButton and its container taking up 30% of the window */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "right",
-                }}
-              >
-                <AddDevice />
-                <EditDevice />
-                <EditButton />
-              </Box>
-            </Box>
-          </Box>
-        </DeviceProvider>
-        {/* </DeviceContext.Provider> */}
-      </CoreContext.Provider>
-    </Box>
-  );
-};
-
-export default HomePage;
+          )} */
+}

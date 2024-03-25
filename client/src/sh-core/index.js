@@ -4,16 +4,8 @@ import { useState, useContext } from "react";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import DoorFrontOutlinedIcon from "@mui/icons-material/DoorFrontOutlined";
 import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
-// import {WindowOutlinedIcon, DoorFrontOutlinedIcon, LightbulbOutlinedIcon} from "@mui/icons-material";
-import {
-  Button,
-  ButtonGroup,
-  // Box,
-  // FormGroup,
-  // FormControlLabel,
-  // Checkbox,
-  // Typography,
-} from "@mui/material";
+
+import { Button, ButtonGroup } from "@mui/material";
 
 import { CoreContext } from "../HomePage";
 import DeviceContext from "../Components/DeviceContext";
