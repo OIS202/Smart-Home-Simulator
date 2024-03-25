@@ -30,7 +30,7 @@ public class SimulationController {
     public Simulation startSimulation(@RequestBody Simulation shs) {
         Simulation newSimulation = null;
         try {
-            newSimulation = shsService.registerSimulation(shs.getUsers(), shs.getDate(), shs.getTime());
+            newSimulation = shsService.registerSimulation(shs.getUsers(), shs.getDate(), shs.getTime(),shs.getHouseId());
             return newSimulation;
         }
         catch (Exception e) {

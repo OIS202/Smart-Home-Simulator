@@ -9,6 +9,8 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;// importation for the logger 
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +34,8 @@ public class SimulationService {
     @Autowired
     private SimulationRepository shsRepository;
 
-    public Simulation registerSimulation(List<User> users, Date date, LocalTime time) {
-        Simulation newShs = new Simulation(users, date, time);
+    public Simulation registerSimulation(List<User> users, Date date, LocalTime time, ObjectId houseId) {
+        Simulation newShs = new Simulation(users, date, time, houseId);
         return shsRepository.save(newShs);
     }
 
