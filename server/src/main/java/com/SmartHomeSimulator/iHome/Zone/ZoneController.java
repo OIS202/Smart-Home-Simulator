@@ -1,5 +1,6 @@
 package com.SmartHomeSimulator.iHome.Zone;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,9 @@ public class ZoneController {
 
     @PostMapping
     public ResponseEntity<Zone> addZone(@RequestBody Zone zone) {
-        Zone newZone = zoneService.addZone(zone.getName(), zone.getActualTemp(), zone.getDesiredTemp());
+        // Assuming zone includes houseId as a String and is correctly parsed
+        Zone newZone = zoneService.addZone(zone.getName(), zone.getActualTemp(), zone.getDesiredTemp(),
+                zone.getHouseId());
         return ResponseEntity.ok(newZone);
     }
 }

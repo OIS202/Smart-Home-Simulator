@@ -39,18 +39,22 @@ public class RoomService {
     }
 
     // RoomService.java modification
-    public boolean assignRoomToZoneByName(String roomName, String zoneName) {
-        Optional<Room> roomOpt = roomRepository.findByName(roomName);
-        Optional<Zone> zoneOpt = zoneRepository.findByName(zoneName);
+    public boolean assignRoomToZone(ObjectId roomId, ObjectId zoneId) {
+        Optional<Room> roomOpt = roomRepository.findById(roomId);
+        Optional<Zone> zoneOpt = zoneRepository.findById(zoneId);
 
-        if (roomOpt.isPresent() && zoneOpt.isPresent() && roomOpt.get().getZoneId() == null) {
+        if (roomOpt.isPresent() && zoneOpt.isPresent()) {
             Room room = roomOpt.get();
             Zone zone = zoneOpt.get();
-            room.setZoneId(zone.getId());
-            roomRepository.save(room);
-            return true;
+
+            // Validate that the room and zone have matching house IDs before linking
+            if (room.getHouseId() != null && room.getHouseId().equals(zone.getHouseId())) {
+                room.setZoneId(zoneId);
+                roomRepository.save(room);
+                return true;
+            }
         }
-        return false;
+        return false; // Room or zone not found, or house IDs do not match
     }
 
     public List<Room> findUnassignedRooms() {
