@@ -1,17 +1,25 @@
 package com.SmartHomeSimulator.iHome.Rooms;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.SmartHomeSimulator.iHome.Zone.Zone;
+import com.SmartHomeSimulator.iHome.Zone.ZoneRepository;
 
 @Service
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final ZoneRepository zoneRepository;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository) {
+    public RoomService(RoomRepository roomRepository, ZoneRepository zoneRepository) {
         this.roomRepository = roomRepository;
+        this.zoneRepository = zoneRepository;
     }
 
     /**
@@ -29,4 +37,24 @@ public class RoomService {
 
         return roomRepository.save(newRoom);
     }
+
+    // RoomService.java modification
+    public boolean assignRoomToZoneByName(String roomName, String zoneName) {
+        Optional<Room> roomOpt = roomRepository.findByName(roomName);
+        Optional<Zone> zoneOpt = zoneRepository.findByName(zoneName);
+
+        if (roomOpt.isPresent() && zoneOpt.isPresent() && roomOpt.get().getZoneId() == null) {
+            Room room = roomOpt.get();
+            Zone zone = zoneOpt.get();
+            room.setZoneId(zone.getId());
+            roomRepository.save(room);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Room> findUnassignedRooms() {
+        return roomRepository.findByZoneIdIsNull();
+    }
+
 }
