@@ -114,8 +114,7 @@ const SimulationParamsForm = () => {
           >
             <Typography variant="h4">List of User Profiles</Typography>
             <AddUserButton />
-            <AddTemperatureCsvButton/>
-
+            <AddTemperatureCsvButton />
           </Box>
 
           <Table>

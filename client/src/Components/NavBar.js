@@ -46,7 +46,10 @@ const NavBar = () => {
           <ListItem button>
             <ListItemText primary="Settings" />
           </ListItem>
-          <ListItem button onClick={() => handleListItemClick("/simulationParameters")}>
+          <ListItem
+            button
+            onClick={() => handleListItemClick("/simulationParameters")}
+          >
             <ListItemText primary="Simulation Parameters" />
           </ListItem>
           {isMobile && (
