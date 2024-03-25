@@ -57,8 +57,16 @@ public class RoomService {
         return false; // Room or zone not found, or house IDs do not match
     }
 
-    public List<Room> findUnassignedRooms() {
-        return roomRepository.findByZoneIdIsNull();
+    public List<Room> getRoomsByZoneId(ObjectId zoneId) {
+        return roomRepository.findByZoneId(zoneId);
+    }
+
+    public List<Room> getRoomsByHouseId(ObjectId houseId) {
+        return roomRepository.findByHouseId(houseId);
+    }
+
+    public List<Room> getUnassignedRoomsByHouseId(ObjectId houseId) {
+        return roomRepository.findByHouseIdAndZoneIdIsNull(houseId);
     }
 
 }

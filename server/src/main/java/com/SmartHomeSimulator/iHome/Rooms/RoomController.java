@@ -1,6 +1,8 @@
 // RoomController.java
 package com.SmartHomeSimulator.iHome.Rooms;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +35,21 @@ public class RoomController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Invalid ID format.");
         }
+    }
+
+    @GetMapping("/byZone/{zoneId}")
+    public ResponseEntity<List<Room>> getRoomsByZoneId(@PathVariable String zoneId) {
+        return ResponseEntity.ok(roomService.getRoomsByZoneId(new ObjectId(zoneId)));
+    }
+
+    @GetMapping("/byHouse/{houseId}")
+    public ResponseEntity<List<Room>> getRoomsByHouseId(@PathVariable String houseId) {
+        return ResponseEntity.ok(roomService.getRoomsByHouseId(new ObjectId(houseId)));
+    }
+
+    @GetMapping("/unassigned/byHouse/{houseId}")
+    public ResponseEntity<List<Room>> getUnassignedRoomsByHouseId(@PathVariable String houseId) {
+        List<Room> unassignedRooms = roomService.getUnassignedRoomsByHouseId(new ObjectId(houseId));
+        return ResponseEntity.ok(unassignedRooms);
     }
 }
