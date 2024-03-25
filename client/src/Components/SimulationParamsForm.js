@@ -10,6 +10,7 @@ import {
   TableBody,
   TableCell,
   TableRow,
+  TableHead
 } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -43,7 +44,7 @@ const SimulationParamsForm = () => {
       const data = await response.json();
       setUsers(data);
     } catch (error) {
-      console.error("faled to fetch specided users", error);
+      console.error("faled to fetch specified users", error);
     }
   };
 
@@ -118,16 +119,34 @@ const SimulationParamsForm = () => {
           </Box>
 
           <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell >Users</TableCell>
+                <TableCell >Type of User</TableCell>
+                <TableCell >Has SHS Access</TableCell>
+                <TableCell >Has SHC Access</TableCell>
+                <TableCell>Has SHP Access</TableCell>
+                <TableCell >Has SHH Access</TableCell>
+                <TableCell >Location Dependancy</TableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>
               {users.map((user) => (
                 <TableRow>
-                  <TableCell>
+                  <TableCell sx={{ display: 'flex',justifyContent: 'space-between', alignItems: 'center' }}>
                     <TextField
                       value={`${user.firstName} ${user.lastName}`}
                       InputProps={{
                         readOnly: true,
                       }}
                     />
+                  </TableCell>
+                  <TableCell> {`${user.userType}`}</TableCell>
+                  <TableCell>  {`${user.hasSHSPermission}`}</TableCell>
+                  <TableCell>  {`${user.hasSHCPermission}`}</TableCell>
+                  <TableCell>  {`${user.hasSHPPermission}`}</TableCell>
+                  <TableCell>  {`${user.hasSHHPermission}`}</TableCell>
+                  <TableCell>  {user.userType === "PARENT" ? 'Independant of Location' : 'Must be Inside House'}
                   </TableCell>
                 </TableRow>
               ))}
