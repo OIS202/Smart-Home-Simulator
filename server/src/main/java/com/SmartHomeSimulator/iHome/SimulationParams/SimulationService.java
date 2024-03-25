@@ -9,16 +9,25 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import org.slf4j.Logger;// importation for the logger 
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.SmartHomeSimulator.iHome.User.User;
+import com.SmartHomeSimulator.iHome.User.UserService;
 import com.SmartHomeSimulator.iHome.Util.CsvTemperature;
+import com.SmartHomeSimulator.iHome.Thermostat.Thermostat;
+import com.SmartHomeSimulator.iHome.Thermostat.ThermostatService;
 
 @Service
 public class SimulationService {
+     private static final Logger logger = LoggerFactory.getLogger(SimulationService.class);
+
+    @Autowired
+    private ThermostatService thermostatService;
 
     @Autowired
     private SimulationRepository shsRepository;
@@ -32,6 +41,9 @@ public class SimulationService {
         Map<String, Integer> temperatureMap =  new TreeMap<>();
         try {
             temperatureMap = CsvTemperature.readCsvToMap(file);
+            logger.info("csv getting pared");
+            thermostatService.createThermostat(temperatureMap);
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
