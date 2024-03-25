@@ -2,8 +2,12 @@ package com.SmartHomeSimulator.iHome.User;
 
 import java.util.List;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.SmartHomeSimulator.iHome.User.User.UserType;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -31,10 +37,11 @@ public class UserController {
             @RequestParam("email") String email,
             @RequestParam("phoneNumber") String phoneNumber,
             @RequestParam("password") String password,
-            @RequestParam("file") MultipartFile file) {
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("userType") UserType userType) {
         try {
             UserResponseDto newUserDto = userService.registerUser(firstName, lastName, email, phoneNumber, password,
-                    file);
+                    file, userType);
             return ResponseEntity.ok(newUserDto);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -63,10 +70,40 @@ public class UserController {
         }
     }
 
+
+
+    @PostMapping("/adduser")
+    public ResponseEntity<?> addUser(
+        @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("email") String email,
+            @RequestParam("phoneNumber") String phoneNumber,
+            @RequestParam("password") String password,
+            @RequestParam("houseId") ObjectId houseId,
+            @RequestParam("userType") UserType userType
+            ) {
+        try {
+            UserResponseDto newUserDto = userService.addUser(firstName, lastName, email, phoneNumber, password, houseId,
+                userType);
+            return ResponseEntity.ok(newUserDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    //TEKA CODE
     @GetMapping("/getAllUsers")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/getUsersId")
+    public ResponseEntity<List<User>> getUsersByHouseId(@RequestParam("houseId") ObjectId houseId) {
+        List<User> users = userService.getUsersByHouseId(houseId); 
+        return ResponseEntity.ok(users);
+    }
+
+
 }
+

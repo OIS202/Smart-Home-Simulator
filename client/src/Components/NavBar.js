@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -20,9 +21,14 @@ const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
+  };
+  const handleListItemClick = (route) => {
+    navigate(route);
+    setDrawerOpen(false); // Close drawer after redirecting
   };
 
   const drawer = (
@@ -39,6 +45,12 @@ const NavBar = () => {
           </ListItem>
           <ListItem button>
             <ListItemText primary="Settings" />
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => handleListItemClick("/simulationParameters")}
+          >
+            <ListItemText primary="Simulation Parameters" />
           </ListItem>
           {isMobile && (
             <>

@@ -84,6 +84,7 @@ const SignUp = () => {
         flexDirection: isSmallScreen ? "column" : "row",
         alignItems: isSmallScreen ? "center" : undefined,
         backgroundColor: "#2330A5",
+        backgroundColor: "#2330A5",
       }}
     >
       <Box
@@ -217,6 +218,20 @@ const SignUp = () => {
           </form>
         </Paper>
       </Box>
+      <Snackbar
+        open={!!error}
+        onClose={handleCloseError}
+        autoHideDuration={4000}
+        message={error}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }} // Error message will appear at the top-center
+      />
+      <Snackbar
+        open={!!successMessage}
+        onClose={handleCloseSuccessMessage}
+        autoHideDuration={5000}
+        message={successMessage}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      />
       <Snackbar
         open={!!error}
         onClose={handleCloseError}
