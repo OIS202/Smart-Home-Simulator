@@ -13,6 +13,27 @@ import {
 // import DeviceContext from "../Components/DeviceContext";
 
 export default function Doors(props) {
+  let doors = [
+    { id: 1, type: "door", top: "10%", bottom: "10%" },
+    { id: 2, type: "door", top: "90%", bottom: "90%" },
+  ];
+
+  if (props.source === "test") {
+    <IconButton
+      color="red"
+      onClick={handleBtn(1)}
+      sx={{
+        position: "absolute",
+        top: "37%",
+        left: "84%",
+        // transform: "translate(-50%, -50%)",
+        backgroundColor: props.deviceStates[1] ? "lightgreen" : "lightgrey",
+      }}
+    >
+      <DoorFrontIcon />
+    </IconButton>;
+  }
+
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
     props.toggleDeviceState(btnId);

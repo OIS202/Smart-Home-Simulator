@@ -28,7 +28,11 @@ import React, { createContext, useState } from "react";
 const DeviceContext = createContext();
 
 export const DeviceProvider = ({ children }) => {
-  const [deviceStates, setDeviceStates] = useState([]);
+  const [deviceStates, setDeviceStates] = useState(() => Array(17).fill(false));
+
+  // const initializeArray = (size) => {
+  //   setDeviceState(Array(size).fill(false));
+  // };
 
   const toggleDeviceState = (index) => {
     setDeviceStates((prevState) => {

@@ -13,6 +13,8 @@ import {
 // import DeviceContext from "../Components/DeviceContext";
 
 export default function Lights(props) {
+  let lights = [{}];
+
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
     props.toggleDeviceState(btnId);

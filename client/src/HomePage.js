@@ -4,6 +4,8 @@ import { Box, Typography } from "@mui/material";
 import NavBar from "./Components/NavBar"; // Your NavBar component
 import SimulationSidebar from "./Components/SimulationSidebar"; // Your SimulationSidebar component
 import EditButton from "./Components/EditButton"; // The new EditButton component with modal
+import EditDevice from "./Components/EditDevice"; // The new EditButton component with modal
+import AddDevice from "./Components/AddDevice"; // The new EditButton component with modal
 import ModuleController from "./module-controller";
 import HouseLayout from "./Components/HouseLayout";
 
@@ -98,7 +100,14 @@ const HomePage = () => {
                 <HouseLayout />
               </Box>
               {/* EditButton and its container taking up 30% of the window */}
-              <Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "right",
+                }}
+              >
+                <AddDevice />
+                <EditDevice />
                 <EditButton />
               </Box>
             </Box>
