@@ -8,11 +8,11 @@ import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
 import { Button, ButtonGroup } from "@mui/material";
 
 import { CoreContext } from "../HomePage";
-import DeviceContext from "../Components/DeviceContext";
+import DeviceContext from "../Components/contexts/DeviceContext";
 
-import Doors from "../Components/core-components/Doors";
-import Lights from "../Components/core-components/Lights";
-import Windows from "../Components/core-components/Windows";
+import Doors from "../Components/core-module/Doors";
+import Lights from "../Components/core-module/Lights";
+import Windows from "../Components/core-module/Windows";
 
 /**
  * CORE FUNCTION

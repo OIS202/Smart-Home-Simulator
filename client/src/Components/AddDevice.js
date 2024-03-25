@@ -16,9 +16,9 @@ import {
 import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
 
-import Lights from "./core-components/Lights";
+import Lights from "./core-module/Lights";
 
-import DeviceContext from "../Components/DeviceContext";
+import DeviceContext from "./contexts/DeviceContext";
 
 const types = ["Light", "Door", "Window"];
 

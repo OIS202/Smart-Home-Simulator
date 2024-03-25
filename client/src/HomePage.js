@@ -9,8 +9,8 @@ import AddDevice from "./Components/AddDevice"; // The new EditButton component 
 import ModuleController from "./module-controller";
 import HouseLayout from "./Components/HouseLayout";
 
-import { DeviceProvider } from "./Components/DeviceContext";
-import { HeatingProvider } from "./Components/HeatingContext";
+import { DeviceProvider } from "./Components/contexts/DeviceContext";
+import { HeatingProvider } from "./Components/contexts/HeatingContext";
 
 export const CoreContext = createContext();
 export const HeatingContext = createContext();

@@ -21,6 +21,7 @@ import { HeatingContext } from "../HomePage";
 const Heating = () => {
   const [activeContentIndex, setActiveContentIndex] = useState(0);
 
+  //keeps the context of which feature is being used among all components
   const { heatingState, setHeatingState } = useContext(HeatingContext);
 
   const features = [

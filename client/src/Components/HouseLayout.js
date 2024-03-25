@@ -14,12 +14,12 @@ import house from "../assets/layout2.jpeg";
 // import DoorFrontIcon from "@mui/icons-material/DoorFront";
 // import WindowIcon from "@mui/icons-material/Window";
 
-import Lights from "./core-components/Lights";
-import Doors from "./core-components/Doors";
-import Windows from "./core-components/Windows";
+import Lights from "./core-module/Lights";
+import Doors from "./core-module/Doors";
+import Windows from "./core-module/Windows";
 
 import { CoreContext } from "../HomePage";
-import DeviceContext from "../Components/DeviceContext";
+import DeviceContext from "./contexts/DeviceContext";
 // import { DeviceProvider } from "../Components/DeviceContext";
 
 // import { useDeviceContext } from "./DeviceContext";

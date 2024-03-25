@@ -10,7 +10,7 @@ import {
   IconButton,
 } from "@mui/material";
 
-import DeviceContext from "../DeviceContext";
+import DeviceContext from "../contexts/DeviceContext";
 
 export default function Lights(props) {
   const { isOn, info } = useContext(DeviceContext);
