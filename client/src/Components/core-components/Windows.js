@@ -1,5 +1,5 @@
 import * as React from "react";
-// import { useContext } from "react";
+import { useContext } from "react";
 
 import WindowIcon from "@mui/icons-material/Window";
 
@@ -10,12 +10,14 @@ import {
   IconButton,
 } from "@mui/material";
 
-// import DeviceContext from "../Components/DeviceContext";
+import DeviceContext from "../DeviceContext";
 
 export default function Windows(props) {
+  const { isOn, info } = useContext(DeviceContext);
+  const [deviceStates, toggleDeviceState] = isOn;
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
-    props.toggleDeviceState(btnId);
+    toggleDeviceState(btnId);
   };
   //   const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 
@@ -29,7 +31,7 @@ export default function Windows(props) {
             top: "80%",
             left: "85%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: props.deviceStates[12] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[12] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
@@ -41,7 +43,7 @@ export default function Windows(props) {
             top: "55%",
             left: "85%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: props.deviceStates[13] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[13] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
@@ -53,7 +55,7 @@ export default function Windows(props) {
             top: "23%",
             left: "85%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: props.deviceStates[14] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[14] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
@@ -65,7 +67,7 @@ export default function Windows(props) {
             top: "17%",
             left: "43%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: props.deviceStates[15] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[15] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
@@ -77,7 +79,7 @@ export default function Windows(props) {
             top: "48%",
             left: "16%",
             // transform: "translate(-50%, -50%)",
-            backgroundColor: props.deviceStates[16] ? "lightblue" : "lightgrey",
+            backgroundColor: deviceStates[16] ? "lightblue" : "lightgrey",
           }}
         >
           <WindowIcon />
@@ -91,50 +93,50 @@ export default function Windows(props) {
         <FormControlLabel
           control={<Checkbox />}
           label="Master Bedroom"
-          checked={props.deviceStates[12]}
+          checked={deviceStates[12]}
           onChange={() => {
-            props.toggleDeviceState(12);
+            toggleDeviceState(12);
           }}
         />
         <FormControlLabel
           control={<Checkbox />}
           label="Kid Bedroom"
-          checked={props.deviceStates[13]}
+          checked={deviceStates[13]}
           onChange={() => {
-            props.toggleDeviceState(13);
+            toggleDeviceState(13);
           }}
         />
         <FormControlLabel
           control={<Checkbox />}
           label="Living Room"
-          checked={props.deviceStates[14]}
+          checked={deviceStates[14]}
           onChange={() => {
-            props.toggleDeviceState(14);
+            toggleDeviceState(14);
           }}
         />
         <FormControlLabel
           control={<Checkbox />}
           label="Kitchen"
-          checked={props.deviceStates[15]}
+          checked={deviceStates[15]}
           onChange={() => {
-            props.toggleDeviceState(15);
+            toggleDeviceState(15);
           }}
         />
         <FormControlLabel
           control={<Checkbox />}
           label="Garage"
-          checked={props.deviceStates[16]}
+          checked={deviceStates[16]}
           onChange={() => {
-            props.toggleDeviceState(16);
+            toggleDeviceState(16);
           }}
         />
         <br />
         <FormControlLabel
           control={<Checkbox />}
           label="All Windows"
-          checked={props.deviceStates[17]}
+          checked={deviceStates[17]}
           onChange={() => {
-            props.toggleDeviceState(17);
+            toggleDeviceState(17);
           }}
         />
       </FormGroup>

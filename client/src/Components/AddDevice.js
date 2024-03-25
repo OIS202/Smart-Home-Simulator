@@ -1,5 +1,5 @@
 // AddDevice.js
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Dialog,
@@ -11,135 +11,174 @@ import {
   Select,
   MenuItem,
   Typography,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
   Box,
 } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Slider from "@mui/material/Slider";
 
-// Mock data for dropdowns
-const inhabitants = ["John", "Doe", "Jane"];
-const windows = [
-  { id: 1, location: "Living Room" },
-  { id: 2, location: "Kitchen" },
-];
-const locations = ["Living Room", "Kitchen", "Bedroom", "Bathroom", "Outside"];
-const objectsToBlock = ["Chair", "Table", "Box", "None"];
+import Lights from "./core-components/Lights";
+
+import DeviceContext from "../Components/DeviceContext";
+
+const types = ["Light", "Door", "Window"];
 
 const AddDevice = () => {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [inhabitantLocations, setInhabitantLocations] = useState(
-    inhabitants.reduce((acc, cur) => ({ ...acc, [cur]: "" }), {})
-  );
-  const [windowBlocks, setWindowBlocks] = useState(
-    windows.reduce((acc, cur) => ({ ...acc, [cur.id]: "" }), {})
-  );
+  const { deviceInfos, addDevices } = useContext(DeviceContext);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [type, setType] = useState("");
+  const [name, setName] = useState("");
 
-  const handleOpenEditModal = () => {
-    setIsEditModalOpen(true);
+  const handleOpenAddModal = () => {
+    setIsAddModalOpen(true);
   };
 
-  const handleCloseEditModal = () => {
-    setIsEditModalOpen(false);
+  const handleCloseAddModal = () => {
+    setIsAddModalOpen(false);
   };
 
   const handleSave = () => {
-    console.log("Inhabitant Locations:", inhabitantLocations);
-    console.log("Window Blocks:", windowBlocks);
-    handleCloseEditModal(); // Close the modal after saving
+    console.log("Name of device:", name);
+    console.log("Type of Device:", type);
+    console.log("Top %:", topSlider);
+    console.log("Left %:", leftSlider);
+
+    handleCloseAddModal();
+    // addDevices({
+    //   source: "add",
+    //   name: { name },
+    //   type: { type },
+    //   top: { topSlider },
+    //   left: { leftSlider },
+    // });
+    return (
+      <Lights
+        source="add"
+        // name={name}
+        // type={type}
+        // top={topSlider}
+        // left={leftSlider}
+        // deviceInfos={deviceInfos}
+        addition={{
+          //   source: "add", //DONT GIVE THE SOURCE. DOESNT MATTER
+          name: { name },
+          type: { type },
+          top: { topSlider },
+          left: { leftSlider },
+        }}
+        // deviceStates={deviceStates}
+        // toggleDeviceState={toggleDeviceState}
+      />
+    );
+  };
+  // return (
+  //   <IconButton
+  //     color="white"
+  //     //   onClick={handleBtn(6)}
+  //     sx={{
+  //       position: "absolute",
+  //       top: "37%",
+  //       left: "33%",
+  //       // transform: "translate(-50%, -50%)",
+  //       backgroundColor: "red",
+  //     }}
+  //   >
+  //     <LightbulbIcon />
+  //   </IconButton>
+  // );
+  //   export { handleSave };
+
+  //   const handleType = (typeChosen, event) => {};
+
+  const [topSlider, setTopSlider] = useState(30);
+
+  const handleTopSlider = (event, newTopSlider) => {
+    setTopSlider(newTopSlider);
   };
 
-  const handleInhabitantLocationChange = (inhabitant, event) => {
-    setInhabitantLocations({
-      ...inhabitantLocations,
-      [inhabitant]: event.target.value,
-    });
-  };
+  const [leftSlider, setLeftSlider] = useState(30);
 
-  const handleWindowBlockChange = (windowId, event) => {
-    setWindowBlocks({ ...windowBlocks, [windowId]: event.target.value });
+  const handleLeftSlider = (event, newLeftSlider) => {
+    setLeftSlider(newLeftSlider);
   };
 
   return (
     <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
       <Button
         variant="contained"
-        onClick={handleOpenEditModal}
+        onClick={handleOpenAddModal}
         size="small"
         sx={{ my: 2 }}
       >
         Add Device
       </Button>
       <Dialog
-        open={isEditModalOpen}
-        onClose={handleCloseEditModal}
+        open={isAddModalOpen}
+        onClose={handleCloseAddModal}
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Edit House Settings</DialogTitle>
+        <DialogTitle>Add a New Device</DialogTitle>
         <DialogContent>
-          <Typography variant="h6">Assign Inhabitants</Typography>
-          {inhabitants.map((name) => (
-            <FormControl fullWidth margin="normal" key={name}>
-              <InputLabel>{`${name}'s Location`}</InputLabel>
-              <Select
-                value={inhabitantLocations[name]}
-                label={`${name}'s Location`}
-                onChange={(event) =>
-                  handleInhabitantLocationChange(name, event)
-                }
-              >
-                {locations.map((location) => (
-                  <MenuItem key={location} value={location}>
-                    {location}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          ))}
-          <TableContainer component={Box} sx={{ mt: 2 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Window ID</TableCell>
-                  <TableCell align="right">Location</TableCell>
-                  <TableCell align="right">Block Movement</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {windows.map((window) => (
-                  <TableRow key={window.id}>
-                    <TableCell>{window.id}</TableCell>
-                    <TableCell align="right">{window.location}</TableCell>
-                    <TableCell align="right">
-                      <FormControl fullWidth>
-                        <InputLabel>Block with</InputLabel>
-                        <Select
-                          value={windowBlocks[window.id]}
-                          label="Block with"
-                          onChange={(event) =>
-                            handleWindowBlockChange(window.id, event)
-                          }
-                        >
-                          {objectsToBlock.map((object) => (
-                            <MenuItem key={object} value={object}>
-                              {object}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Typography variant="h6">Name of Device</Typography>
+          <FormControl fullWidth margin="normal" key="name">
+            <TextField
+              id="name"
+              label="Device Name"
+              variant="outlined"
+              //   value={name}
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+            />
+          </FormControl>
+
+          <Typography variant="h6">Type of Device</Typography>
+          <FormControl fullWidth margin="normal" key="type">
+            <InputLabel>Type</InputLabel>
+            <Select
+              //   value={inhabitantLocations[name]}
+              defaultValue=""
+              label="Type"
+              onChange={(event) => {
+                setType(event.target.value);
+              }}
+            >
+              {types.map((typeOption) => (
+                <MenuItem key={typeOption} value={typeOption}>
+                  {typeOption}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <br />
+          <br />
+          <br />
+          <Typography variant="h6">Device Position</Typography>
+          <br />
+          <br />
+          <FormControl fullWidth margin="normal" key="position">
+            <Typography>% from the top</Typography>
+            <Slider
+              aria-label="Top"
+              defaultValue={30}
+              valueLabelDisplay="auto"
+              value={topSlider}
+              onChange={handleTopSlider}
+            />
+            <Typography>% from the left</Typography>
+            <br />
+            <br />
+            <Slider
+              aria-label="Left"
+              defaultValue={30}
+              valueLabelDisplay="auto"
+              value={leftSlider}
+              onChange={handleLeftSlider}
+            />
+          </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseEditModal}>Cancel</Button>
+          <Button onClick={handleCloseAddModal}>Cancel</Button>
           <Button onClick={handleSave}>Save</Button>
         </DialogActions>
       </Dialog>
@@ -148,3 +187,4 @@ const AddDevice = () => {
 };
 
 export default AddDevice;
+// export { handleSave };

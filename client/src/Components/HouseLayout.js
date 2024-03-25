@@ -76,10 +76,10 @@ const HouseLayout = () => {
   return (
     <Box
       sx={{
-        position: "relative",
         // display: "flex",
         // justifyContent: "center",
         // alignItems: "center",
+        position: "relative",
         height: "100%", // Adjust as needed
         width: "100%", // Adjust as needed
       }}

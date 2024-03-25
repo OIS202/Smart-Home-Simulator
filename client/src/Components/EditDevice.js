@@ -26,6 +26,8 @@ const windows = [
   { id: 1, location: "Living Room" },
   { id: 2, location: "Kitchen" },
 ];
+const device = ["light", "door", "window"];
+
 const locations = ["Living Room", "Kitchen", "Bedroom", "Bathroom", "Outside"];
 const objectsToBlock = ["Chair", "Table", "Box", "None"];
 
@@ -79,64 +81,25 @@ const EditDevice = () => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Edit House Settings</DialogTitle>
+        <DialogTitle>Edit Device</DialogTitle>
         <DialogContent>
-          <Typography variant="h6">Assign Inhabitants</Typography>
-          {inhabitants.map((name) => (
-            <FormControl fullWidth margin="normal" key={name}>
-              <InputLabel>{`${name}'s Location`}</InputLabel>
-              <Select
-                value={inhabitantLocations[name]}
-                label={`${name}'s Location`}
-                onChange={(event) =>
-                  handleInhabitantLocationChange(name, event)
-                }
-              >
-                {locations.map((location) => (
-                  <MenuItem key={location} value={location}>
-                    {location}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          ))}
-          <TableContainer component={Box} sx={{ mt: 2 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Window ID</TableCell>
-                  <TableCell align="right">Location</TableCell>
-                  <TableCell align="right">Block Movement</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {windows.map((window) => (
-                  <TableRow key={window.id}>
-                    <TableCell>{window.id}</TableCell>
-                    <TableCell align="right">{window.location}</TableCell>
-                    <TableCell align="right">
-                      <FormControl fullWidth>
-                        <InputLabel>Block with</InputLabel>
-                        <Select
-                          value={windowBlocks[window.id]}
-                          label="Block with"
-                          onChange={(event) =>
-                            handleWindowBlockChange(window.id, event)
-                          }
-                        >
-                          {objectsToBlock.map((object) => (
-                            <MenuItem key={object} value={object}>
-                              {object}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Typography variant="h6">Choose The Device</Typography>
+          <FormControl fullWidth margin="normal" key={device}>
+            <InputLabel>{`Device`}</InputLabel>
+            <Select
+              value={device}
+              label={`device`}
+              onChange={(event) =>
+                handleInhabitantLocationChange(device, event)
+              }
+            >
+              {device.map((dev) => (
+                <MenuItem key={dev} value={dev}>
+                  {dev}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEditModal}>Cancel</Button>
