@@ -18,6 +18,8 @@ import Lights from "./core-module/Lights";
 import Doors from "./core-module/Doors";
 import Windows from "./core-module/Windows";
 
+import Thermostats from "./heating-module/Thermostats";
+
 import { CoreContext } from "../HomePage";
 import DeviceContext from "./contexts/DeviceContext";
 import ModuleContext from "./contexts/ModuleContext";
@@ -85,7 +87,15 @@ const HouseLayout = () => {
       ),
     },
     {},
-    {},
+    {
+      2: (
+        <Thermostats
+          source="layout"
+          // deviceStates={deviceStates}
+          // toggleDeviceState={toggleDeviceState}
+        />
+      ),
+    },
   ];
 
   return (

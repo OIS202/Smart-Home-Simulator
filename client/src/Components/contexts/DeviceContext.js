@@ -28,7 +28,7 @@ import React, { createContext, useState } from "react";
 const DeviceContext = createContext();
 
 export const DeviceProvider = ({ children }) => {
-  const [deviceStates, setDeviceStates] = useState(() => Array(20).fill(false));
+  const [deviceStates, setDeviceStates] = useState(() => Array(30).fill(false));
 
   const [deviceInfos, setDeviceInfos] = useState(() => Array(20).fill({}));
   // const initializeArray = (size) => {

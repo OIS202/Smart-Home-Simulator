@@ -15,6 +15,8 @@ import {
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import HvacIcon from "@mui/icons-material/Hvac";
 
+import Thermostats from "../Components/heating-module/Thermostats";
+
 import HeatingContext from "../Components/contexts/HeatingContext";
 import ModuleContext from "../Components/contexts/ModuleContext";
 // import DeviceContext from "../Components/DeviceContext";
@@ -31,8 +33,10 @@ const Heating = () => {
   const { toggleActiveFeature } = useContext(ModuleContext);
 
   const features = [
-    <Typography>ON/OFF SHH System</Typography>,
-    <Typography>Thermostats</Typography>,
+    // <Typography>ON/OFF SHH System</Typography>,
+    // <div></div>,
+    <Thermostats source="heating" />,
+    ,
     <Typography>Zones</Typography>,
   ];
 
@@ -44,8 +48,9 @@ const Heating = () => {
   return (
     <div>
       <div id="tabs">
+        <Typography>Heating Simulation</Typography>
         <FormControlLabel
-          className={activeContentIndex === 0 ? "active" : ""}
+          //   className={activeContentIndex === 0 ? "active" : ""}
           control={
             <Switch
               checked={checked}
@@ -63,6 +68,7 @@ const Heating = () => {
         <ButtonGroup
           variant="outlined"
           aria-label="Basic button group"
+          disabled={checked == false ? true : false}
           sx={{ padding: "10px" }}
         >
           <Button
@@ -93,7 +99,7 @@ const Heating = () => {
           </Button>
         </ButtonGroup>
         <div id="tab-content" style={{ display: "flex" }}>
-          {features[activeContentIndex]}
+          {features[activeContentIndex - 1]}
         </div>
       </div>
     </div>
