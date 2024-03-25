@@ -17,11 +17,11 @@ public class Simulation {
     private ObjectId id;
     private List<User> users;
     private Date date;
-    private LocalTime time;
+    private Time time; 
 
     public Simulation() {}
 
-    public Simulation(List<User> users, Date date, LocalTime time ) {
+    public Simulation(List<User> users, Date date, Time time) {
         this.users = users;
         this.date = date;
         this.time = time;
@@ -30,10 +30,10 @@ public class Simulation {
     public ObjectId getId() {return id;}
     public List<User> getUsers() {return users;}
     public Date getDate() { return date;}
-    public LocalTime getTime() {return time;}
+    public Time getTime() { return time; }
 
     public void setUsers(List<User> users) {this.users = users;}
     public void setDate(Date date) {this.date = date;}
-    public void setTime(LocalTime time) {this.time = time;}
+    public void setTime(Time time) { this.time = time; }
 
 }

@@ -1,4 +1,5 @@
 package com.SmartHomeSimulator.iHome.SimulationParams;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,27 +23,26 @@ public class SimulationController {
 
     @Autowired
     private SimulationRepository shsRepository;
-    
+
     @Autowired
     private SimulationService shsService;
 
+    
     @PostMapping("/startsimulation")
     public Simulation startSimulation(@RequestBody Simulation shs) {
         Simulation newSimulation = null;
         try {
             newSimulation = shsService.registerSimulation(shs.getUsers(), shs.getDate(), shs.getTime());
             return newSimulation;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return newSimulation;
     }
 
-
     @PostMapping("/readtemperatures")
     public Map<String, Integer> mapTemperature(@RequestParam("file") MultipartFile file) {
-        Map<String,Integer> temperatureMap = new TreeMap<>();
+        Map<String, Integer> temperatureMap = new TreeMap<>();
         try {
             logger.info("reached try block");
             temperatureMap = shsService.readTemperatures(file);
@@ -52,4 +52,5 @@ public class SimulationController {
         }
         return temperatureMap;
     }
+    
 }
