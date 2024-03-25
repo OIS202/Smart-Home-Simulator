@@ -23,7 +23,6 @@ const AddTemperatureCsvButton = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [file, setFile] = useState("");
 
-
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -44,39 +43,36 @@ const AddTemperatureCsvButton = () => {
     }
     setSnackbarOpen(false);
   };
-    const handleFileChange = (event) => {
+  const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-        const response = await fetch("http://localhost:8080/readtemperatures", {
+      const response = await fetch("http://localhost:8080/readtemperatures", {
         method: "POST",
         body: formData,
-        });
+      });
 
-        if (response.status == 200) {
+      if (response.status == 200) {
         handleCloseEditModal();
         setSuccessMessage("Successfully added the temperature CSV file");
         setSnackbarOpen(true); // Open Snackbar
         setTimeout(function () {
           window.location.reload();
         }, 3000);
-        } else {
+      } else {
         const errorText = await response.text();
         setError(errorText || "Add User failed");
       }
     } catch (error) {
-        setError("Network error, please try again later.");
+      setError("Network error, please try again later.");
     }
-    
-  }
-
+  };
 
   return (
     <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
@@ -94,7 +90,9 @@ const AddTemperatureCsvButton = () => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Insert the CSV file containaing the list of temperatures </DialogTitle>
+        <DialogTitle>
+          Insert the CSV file containaing the list of temperatures{" "}
+        </DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <Button
