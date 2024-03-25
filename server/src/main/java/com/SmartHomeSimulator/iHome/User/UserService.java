@@ -64,7 +64,6 @@ public class UserService {
         return userResponseDto;
     }
 
-   
     public User authenticateUser(String email, String password) throws Exception {
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
@@ -125,6 +124,11 @@ public class UserService {
         User user = userOptional.get();
         user.setLocation(location);
         return userRepository.save(user);
+    }
+
+    // TEKA CODE
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }
