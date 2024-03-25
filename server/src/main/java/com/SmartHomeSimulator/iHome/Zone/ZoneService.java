@@ -1,5 +1,7 @@
 package com.SmartHomeSimulator.iHome.Zone;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +31,9 @@ public class ZoneService {
         newZone.setDesiredTemp(desiredTemp);
         newZone.setHouseId(houseId);
         return zoneRepository.save(newZone);
+    }
+
+    public List<Zone> getZonesByHouseId(ObjectId houseId) {
+        return zoneRepository.findByHouseId(houseId);
     }
 }

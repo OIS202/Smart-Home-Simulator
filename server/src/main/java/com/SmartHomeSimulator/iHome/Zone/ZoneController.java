@@ -1,5 +1,7 @@
 package com.SmartHomeSimulator.iHome.Zone;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +24,13 @@ public class ZoneController {
         Zone newZone = zoneService.addZone(zone.getName(), zone.getActualTemp(), zone.getDesiredTemp(),
                 zone.getHouseId());
         return ResponseEntity.ok(newZone);
+    }
+
+    @GetMapping("/byHouseId/{houseId}")
+    public ResponseEntity<List<Zone>> getZonesByHouseId(@PathVariable String houseId) {
+        System.out.println("Request to get zones by house ID: " + houseId);
+
+        List<Zone> zones = zoneService.getZonesByHouseId(new ObjectId(houseId));
+        return ResponseEntity.ok(zones);
     }
 }
