@@ -13,6 +13,7 @@ public class Zone {
     private String name;
     private double actualTemp;
     private double desiredTemp;
+    private ObjectId houseId;
 
     // Default constructor
     public Zone() {
@@ -27,6 +28,10 @@ public class Zone {
     // Getters
     public ObjectId getId() {
         return id;
+    }
+
+    public ObjectId getHouseId() {
+        return houseId;
     }
 
     public String getName() {
@@ -56,5 +61,13 @@ public class Zone {
 
     public void setDesiredTemp(double desiredTemp) {
         this.desiredTemp = desiredTemp;
+    }
+
+    public void setHouseId(ObjectId houseId) {
+        this.houseId = houseId;
+    }
+
+    public void setHouseId(String houseId) {
+        this.houseId = new ObjectId(houseId);
     }
 }

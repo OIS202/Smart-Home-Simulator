@@ -22,12 +22,12 @@ public class ZoneService {
      * @param desiredTemp The desired temperature of the zone.
      * @return The saved zone entity.
      */
-    public Zone addZone(String name, double actualTemp, double desiredTemp) {
-        Zone newZone = new Zone();
+    public Zone addZone(String name, double actualTemp, double desiredTemp, ObjectId houseId) {
+        Zone newZone = new Zone(); // Assuming the constructor or setters handle houseId appropriately
         newZone.setName(name);
         newZone.setActualTemp(actualTemp);
         newZone.setDesiredTemp(desiredTemp);
-
+        newZone.setHouseId(houseId);
         return zoneRepository.save(newZone);
     }
 }

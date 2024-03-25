@@ -1,6 +1,7 @@
 // RoomController.java
 package com.SmartHomeSimulator.iHome.Rooms;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +17,21 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @PatchMapping(path = "/assignRoomToZone", consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<?> assignRoomToZone(@RequestParam String roomName, @RequestParam String zoneName) {
-        boolean success = roomService.assignRoomToZoneByName(roomName, zoneName);
-        if (success) {
-            return ResponseEntity.ok("Room assigned to zone successfully.");
-        } else {
-            return ResponseEntity.badRequest().body("Assignment failed. Check the names or room already assigned.");
+    @PatchMapping("/assignRoomToZone")
+    public ResponseEntity<?> assignRoomToZone(@RequestParam String roomId, @RequestParam String zoneId) {
+        try {
+            ObjectId roomObjId = new ObjectId(roomId);
+            ObjectId zoneObjId = new ObjectId(zoneId);
+            boolean success = roomService.assignRoomToZone(roomObjId, zoneObjId);
+
+            if (success) {
+                return ResponseEntity.ok().body("Room successfully assigned to zone.");
+            } else {
+                return ResponseEntity.badRequest().body(
+                        "Failed to assign room to zone. Ensure the room and zone exist, and belong to the same house.");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid ID format.");
         }
     }
-
 }
