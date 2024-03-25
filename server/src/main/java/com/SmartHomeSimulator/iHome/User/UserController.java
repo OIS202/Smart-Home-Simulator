@@ -2,8 +2,6 @@ package com.SmartHomeSimulator.iHome.User;
 
 import java.util.List;
 
-import java.util.List;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +39,7 @@ public class UserController {
             @RequestParam("userType") UserType userType) {
         try {
             UserResponseDto newUserDto = userService.registerUser(firstName, lastName, email, phoneNumber, password,
-                    file, userType);
+                    file, UserType.PARENT);
             return ResponseEntity.ok(newUserDto);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -1,4 +1,5 @@
-package com;
+package com.SmartHomeSimulator.iHome.User;
+// package com;
 
 // import org.bson.types.ObjectId;
 // import org.junit.jupiter.api.Test;
@@ -11,13 +12,12 @@ package com;
 // import org.springframework.web.multipart.MultipartFile;
 // import org.springframework.web.server.ResponseStatusException;
 
-import com.SmartHomeSimulator.iHome.House.House;
-import com.SmartHomeSimulator.iHome.House.HouseService;
-import com.SmartHomeSimulator.iHome.User.User;
-import com.SmartHomeSimulator.iHome.User.UserRepository;
-import com.SmartHomeSimulator.iHome.User.UserResponseDto;
-import com.SmartHomeSimulator.iHome.User.UserService;
-import com.SmartHomeSimulator.iHome.User.User.UserType;
+// import com.SmartHomeSimulator.iHome.House.House;
+// import com.SmartHomeSimulator.iHome.House.HouseService;
+// import com.SmartHomeSimulator.iHome.User.User;
+// import com.SmartHomeSimulator.iHome.User.UserRepository;
+// import com.SmartHomeSimulator.iHome.User.UserResponseDto;
+// import com.SmartHomeSimulator.iHome.User.UserService;
 
 // import java.io.ByteArrayInputStream;
 // import java.io.InputStream;
@@ -62,7 +62,7 @@ import com.SmartHomeSimulator.iHome.User.User.UserType;
 // the User if necessary
 
 // User newUser = new User("John", "Doe", "john.doe@example.com", "1234567890",
-// "password", houseId, UserType.PARENT);
+// "password", houseId);
 // newUser.setId(userId); // Don't forget to set the ID for the newUser, as it's
 // not set in the
 // // constructor
@@ -72,7 +72,7 @@ import com.SmartHomeSimulator.iHome.User.User.UserType;
 // // Call the method under test
 // UserResponseDto registeredUser = userService.registerUser("John", "Doe",
 // "john.doe@example.com", "1234567890",
-// "password", file, UserType.PARENT);
+// "password", file);
 
 // // Assertions
 // assertNotNull(registeredUser);
@@ -86,8 +86,8 @@ import com.SmartHomeSimulator.iHome.User.User.UserType;
 
 // Exception exception = assertThrows(ResponseStatusException.class, () ->
 // userService.registerUser("Jane", "Doe",
-// "jane.doe@example.com", "0987654321", "password123", 
-// mock(MultipartFile.class), User.UserType.GUEST));
+// "jane.doe@example.com", "0987654321", "password123",
+// mock(MultipartFile.class)));
 
 // assertTrue(exception.getMessage().contains("400 BAD_REQUEST \"Email already
 // exists.\""));
@@ -98,8 +98,7 @@ import com.SmartHomeSimulator.iHome.User.User.UserType;
 // Exception {
 // ObjectId userId = new ObjectId();
 // User existingUser = new User("John", "Doe", "john.doe@example.com",
-// "1234567890", "password", new ObjectId(), 
-//                        User.UserType.PARENT);
+// "1234567890", "password", new ObjectId());
 // existingUser.setId(userId); // Set the user ID manually
 // when(userRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.of(existingUser));
 
@@ -124,8 +123,7 @@ import com.SmartHomeSimulator.iHome.User.User.UserType;
 // @Test
 // void whenAuthenticateUser_withIncorrectPassword_thenThrowException() {
 // User existingUser = new User("John", "Doe", "john.doe@example.com",
-// "1234567890", "password", new ObjectId(), 
-//                        User.UserType.PARENT);
+// "1234567890", "password", new ObjectId());
 // when(userRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.of(existingUser));
 
 // Exception exception = assertThrows(ResponseStatusException.class,

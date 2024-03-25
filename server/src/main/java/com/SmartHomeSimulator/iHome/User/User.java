@@ -38,8 +38,7 @@ public class User {
 
 
     public User(String firstName, String lastName, String email, String phoneNumber, String password, String location,
-            ObjectId houseId,
-            UserType userType) {
+            ObjectId houseId, UserType userType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
