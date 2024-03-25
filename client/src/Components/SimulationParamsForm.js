@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddUserButton from "./AddUserButton";
+import AddTemperatureCsvButton from "./AddTemperatureCsvButton";
 import {
   TextField,
   Button,
@@ -113,6 +114,8 @@ const SimulationParamsForm = () => {
           >
             <Typography variant="h4">List of User Profiles</Typography>
             <AddUserButton />
+            <AddTemperatureCsvButton/>
+
           </Box>
 
           <Table>
