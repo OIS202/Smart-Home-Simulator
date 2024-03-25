@@ -10,7 +10,7 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  TableHead
+  TableHead,
 } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -121,19 +121,25 @@ const SimulationParamsForm = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell >Users</TableCell>
-                <TableCell >Type of User</TableCell>
-                <TableCell >Has SHS Access</TableCell>
-                <TableCell >Has SHC Access</TableCell>
+                <TableCell>Users</TableCell>
+                <TableCell>Type of User</TableCell>
+                <TableCell>Has SHS Access</TableCell>
+                <TableCell>Has SHC Access</TableCell>
                 <TableCell>Has SHP Access</TableCell>
-                <TableCell >Has SHH Access</TableCell>
-                <TableCell >Location Dependancy</TableCell>
+                <TableCell>Has SHH Access</TableCell>
+                <TableCell>Location Dependancy</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {users.map((user) => (
                 <TableRow>
-                  <TableCell sx={{ display: 'flex',justifyContent: 'space-between', alignItems: 'center' }}>
+                  <TableCell
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     <TextField
                       value={`${user.firstName} ${user.lastName}`}
                       InputProps={{
@@ -142,11 +148,15 @@ const SimulationParamsForm = () => {
                     />
                   </TableCell>
                   <TableCell> {`${user.userType}`}</TableCell>
-                  <TableCell>  {`${user.hasSHSPermission}`}</TableCell>
-                  <TableCell>  {`${user.hasSHCPermission}`}</TableCell>
-                  <TableCell>  {`${user.hasSHPPermission}`}</TableCell>
-                  <TableCell>  {`${user.hasSHHPermission}`}</TableCell>
-                  <TableCell>  {user.userType === "PARENT" ? 'Independant of Location' : 'Must be Inside House'}
+                  <TableCell> {`${user.hasSHSPermission}`}</TableCell>
+                  <TableCell> {`${user.hasSHCPermission}`}</TableCell>
+                  <TableCell> {`${user.hasSHPPermission}`}</TableCell>
+                  <TableCell> {`${user.hasSHHPermission}`}</TableCell>
+                  <TableCell>
+                    {" "}
+                    {user.userType === "PARENT"
+                      ? "Independant of Location"
+                      : "Must be Inside House"}
                   </TableCell>
                 </TableRow>
               ))}
