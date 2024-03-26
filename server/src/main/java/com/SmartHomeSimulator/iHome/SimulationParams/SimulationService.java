@@ -52,5 +52,10 @@ public class SimulationService {
         }
         return temperatureMap;
     }
+    public LocalTime getSimulationTimeByHouseId(ObjectId houseId) {
+        // This is a placeholder. You need to implement the logic to fetch the actual simulation time by houseId.
+        // For demonstration, we return the current system time. Adjust this to your actual logic.
+        return LocalTime.now();}
+    
 
 }

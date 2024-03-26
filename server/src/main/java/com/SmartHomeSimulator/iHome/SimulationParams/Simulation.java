@@ -18,7 +18,7 @@ public class Simulation {
     private ObjectId houseId;
     private List<User> users;
     private Date date;
-    private Time time; 
+    private LocalTime time; 
 
     public Simulation() {}
 
