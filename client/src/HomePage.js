@@ -1,11 +1,11 @@
 // HomePage.js
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import NavBar from "./Components/NavBar"; // Your NavBar component
+import NavBar from "./Components/layout/NavBar"; // Your NavBar component
 import SimulationSidebar from "./Components/SimulationSidebar"; // Your SimulationSidebar component
 import EditButton from "./Components/EditButton"; // The new EditButton component with modal
-import EditDevice from "./Components/EditDevice"; // The new EditButton component with modal
-import AddDevice from "./Components/AddDevice"; // The new EditButton component with modal
+import EditDevice from "./Components/mod-device/EditDevice"; // The new EditButton component with modal
+import AddDevice from "./Components/mod-device/AddDevice"; // The new EditButton component with modal
 import ModuleController from "./module-controller";
 import HouseLayout from "./Components/HouseLayout";
 

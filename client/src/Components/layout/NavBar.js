@@ -14,7 +14,7 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import logoSrc from "../assets/iHomeLogo.png"; // Ensure the logo path is correct
+import logoSrc from "../../assets/iHomeLogo.png"; // Ensure the logo path is correct
 
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
