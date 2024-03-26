@@ -55,9 +55,9 @@ export default function Thermostats(props) {
             top: "18%",
             left: "50%",
             backgroundColor:
-              deviceStates[18] && heatingStates[0] >= 19
+              deviceStates[18] && heatingStates[0].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[18] && heatingStates[0] < 19
+                : deviceStates[18] && heatingStates[0].temperature < 19
                 ? "lightblue"
                 : "lightgrey",
           }}
@@ -76,7 +76,7 @@ export default function Thermostats(props) {
             variant="h8"
             sx={{ margin: deviceStates[18] ? "5px 10px" : "15px 15px" }}
           >
-            {`${heatingStates[0]}°C`}
+            {`${heatingStates[0].temperature}°C`}
           </Typography>
 
           <IconButton
@@ -101,9 +101,9 @@ export default function Thermostats(props) {
             top: "15%",
             left: "70%",
             backgroundColor:
-              deviceStates[19] && heatingStates[1] >= 19
+              deviceStates[19] && heatingStates[1].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[19] && heatingStates[1] < 19
+                : deviceStates[19] && heatingStates[1].temperature < 19
                 ? "lightblue"
                 : "lightgrey",
           }}
@@ -121,7 +121,7 @@ export default function Thermostats(props) {
             variant="h8"
             sx={{ margin: deviceStates[19] ? "5px 10px" : "15px 15px" }}
           >
-            {`${heatingStates[1]}°C`}
+            {`${heatingStates[1].temperature}°C`}
           </Typography>
 
           <IconButton
@@ -140,9 +140,9 @@ export default function Thermostats(props) {
             top: "50%",
             left: "72%",
             backgroundColor:
-              deviceStates[20] && heatingStates[2] >= 19
+              deviceStates[20] && heatingStates[2].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[20] && heatingStates[2] < 19
+                : deviceStates[20] && heatingStates[2].temperature < 19
                 ? "lightblue"
                 : "lightgrey",
           }}
@@ -160,7 +160,7 @@ export default function Thermostats(props) {
             variant="h8"
             sx={{ margin: deviceStates[20] ? "5px 10px" : "15px 15px" }}
           >
-            {`${heatingStates[2]}°C`}
+            {`${heatingStates[2].temperature}°C`}
           </Typography>
 
           <IconButton
@@ -179,9 +179,9 @@ export default function Thermostats(props) {
             top: "75%",
             left: "70%",
             backgroundColor:
-              deviceStates[21] && heatingStates[3] >= 19
+              deviceStates[21] && heatingStates[3].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[21] && heatingStates[3] < 19
+                : deviceStates[21] && heatingStates[3].temperature < 19
                 ? "lightblue"
                 : "lightgrey",
           }}
@@ -197,9 +197,11 @@ export default function Thermostats(props) {
 
           <Typography
             variant="h8"
-            sx={{ margin: deviceStates[21] ? "5px 10px" : "15px 15px" }}
+            sx={{
+              margin: deviceStates[21].temperature ? "5px 10px" : "15px 15px",
+            }}
           >
-            {`${heatingStates[3]}°C`}
+            {`${heatingStates[3].temperature}°C`}
           </Typography>
 
           <IconButton
@@ -218,9 +220,9 @@ export default function Thermostats(props) {
             top: "60%",
             left: "52%",
             backgroundColor:
-              deviceStates[22] && heatingStates[4] >= 19
+              deviceStates[22] && heatingStates[4].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[22] && heatingStates[4] < 19
+                : deviceStates[22] && heatingStates[4].temperature < 19
                 ? "lightblue"
                 : "lightgrey",
           }}
@@ -238,7 +240,7 @@ export default function Thermostats(props) {
             variant="h8"
             sx={{ margin: deviceStates[22] ? "5px 10px" : "15px 15px" }}
           >
-            {`${heatingStates[4]}°C`}
+            {`${heatingStates[4].temperature}°C`}
           </Typography>
 
           <IconButton
@@ -257,9 +259,9 @@ export default function Thermostats(props) {
             top: "55%",
             left: "22%",
             backgroundColor:
-              deviceStates[23] && heatingStates[5] >= 19
+              deviceStates[23] && heatingStates[5].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[23] && heatingStates[5] < 19
+                : deviceStates[23] && heatingStates[5].temperature < 19
                 ? "lightblue"
                 : "lightgrey",
           }}
@@ -277,7 +279,7 @@ export default function Thermostats(props) {
             variant="h8"
             sx={{ margin: deviceStates[23] ? "5px 10px" : "15px 15px" }}
           >
-            {`${heatingStates[5]}°C`}
+            {`${heatingStates[5].temperature}°C`}
           </Typography>
 
           <IconButton
@@ -386,7 +388,7 @@ export default function Thermostats(props) {
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel
           control={<Checkbox />}
-          label={`Kitchen: ${heatingStates[0]}°C`}
+          label={`Kitchen: ${heatingStates[0].temperature}°C`}
           checked={deviceStates[18]}
           // context={DeviceContext}
           onChange={() => {
@@ -398,7 +400,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Living Room: ${heatingStates[1]}°C`}
+          label={`Living Room: ${heatingStates[1].temperature}°C`}
           checked={deviceStates[19]}
           onChange={() => {
             toggleDeviceState(19);
@@ -406,7 +408,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Kid Bedroom: ${heatingStates[2]}°C`}
+          label={`Kid Bedroom: ${heatingStates[2].temperature}°C`}
           checked={deviceStates[20]}
           onChange={() => {
             toggleDeviceState(20);
@@ -414,7 +416,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Master Bedroom: ${heatingStates[3]}°C`}
+          label={`Master Bedroom: ${heatingStates[3].temperature}°C`}
           checked={deviceStates[21]}
           onChange={() => {
             toggleDeviceState(21);
@@ -422,7 +424,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Bathroom: ${heatingStates[4]}°C`}
+          label={`Bathroom: ${heatingStates[4].temperature}°C`}
           checked={deviceStates[22]}
           onChange={() => {
             toggleDeviceState(22);
@@ -430,7 +432,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Garage: ${heatingStates[5]}°C`}
+          label={`Garage: ${heatingStates[5].temperature}°C`}
           checked={deviceStates[23]}
           onChange={() => {
             toggleDeviceState(23);
