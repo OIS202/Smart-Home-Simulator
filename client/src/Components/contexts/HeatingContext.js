@@ -7,6 +7,7 @@ export const HeatingProvider = ({ children }) => {
   const [heatingZones, setHeatingZones] = useState(() =>
     Array(3).fill({ rooms: {}, temperature: 21 })
   );
+  const [simulationState, setSimulationState] = useState(false);
 
   const reading = () => {
     for (var i = 0; i < heatingStates.length; i++) {
@@ -14,16 +15,16 @@ export const HeatingProvider = ({ children }) => {
     }
   };
 
-  const toggleHeatingState = (index) => {
-    setHeatingStates((prevState) => {
-      reading();
-      const newState = [...prevState];
-      newState[index] = !newState[index]; // Toggle state at index
-      console.log("heating state was changed:");
-      console.log(newState);
-      return newState;
-    });
-  };
+  // const toggleHeatingState = (index) => {
+  //   setHeatingStates((prevState) => {
+  //     reading();
+  //     const newState = [...prevState];
+  //     newState[index] = !newState[index]; // Toggle state at index
+  //     console.log("heating state was changed:");
+  //     console.log(newState);
+  //     return newState;
+  //   });
+  // };
 
   const increaseTemperature = (index) => {
     setHeatingStates((prevState) => {
@@ -49,9 +50,10 @@ export const HeatingProvider = ({ children }) => {
   return (
     <HeatingContext.Provider
       value={{
+        simulation: [simulationState, setSimulationState],
         thermostat: [
           heatingStates,
-          toggleHeatingState,
+          // toggleHeatingState,
           increaseTemperature,
           decreaseTemperature,
         ],

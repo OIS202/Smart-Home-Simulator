@@ -14,7 +14,7 @@ import DeviceContext from "../contexts/DeviceContext";
 
 export default function Windows(props) {
   const { isOn, info } = useContext(DeviceContext);
-  const [deviceStates, toggleDeviceState] = isOn;
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
     toggleDeviceState(btnId);
@@ -136,7 +136,7 @@ export default function Windows(props) {
           label="All Windows"
           checked={deviceStates[17]}
           onChange={() => {
-            toggleDeviceState(17);
+            toggleAll("windows");
           }}
         />
       </FormGroup>

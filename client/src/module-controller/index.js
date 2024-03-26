@@ -6,10 +6,13 @@ import { Button, Typography, ButtonGroup } from "@mui/material";
 import Core from "../sh-core";
 import Heating from "../sh-heating";
 import ModuleContext from "../Components/contexts/ModuleContext";
+import HeatingContext from "../Components/contexts/HeatingContext";
 
 function ModuleController() {
   const [activeContentIndex, setActiveContentIndex] = useState(1);
   const { toggleActiveModule, toggleActiveFeature } = useContext(ModuleContext);
+  const { simulation } = useContext(HeatingContext);
+  const [simulationState, setSimulationState] = simulation;
 
   const modules = [
     <Typography variant="h6">Smart Home Simulator</Typography>,
@@ -77,6 +80,9 @@ function ModuleController() {
               setActiveContentIndex(3);
               toggleActiveModule(4);
               toggleActiveFeature(4, 1);
+
+              // if (simulationState) {
+              // }
             }}
           >
             SHH

@@ -50,7 +50,6 @@ export const ModuleProvider = ({ children }) => {
 
   //changes the displayed module
   const toggleActiveModule = (module) => {
-    console.log("This is module: ", module);
     // toggleActiveFeature(1);
     setModuleStates((prevModuleStates) => {
       return prevModuleStates.map((moduleItem) => {
@@ -61,13 +60,12 @@ export const ModuleProvider = ({ children }) => {
         }
       });
     });
+    console.log("From activeMODULE ==> Module: ", module);
+    console.log("From activeMODULE ==> Feature: ", getActiveFeature());
   };
 
   // Function to toggle the active feature within the active module
   const toggleActiveFeature = (moduleId, featureId) => {
-    console.log("This is feature: ", featureId);
-    console.log("From module: ", moduleId);
-
     setModuleStates((prevModuleStates) => {
       return prevModuleStates.map((module) => {
         if (module.module === moduleId) {
@@ -82,6 +80,9 @@ export const ModuleProvider = ({ children }) => {
         return module;
       });
     });
+    console.log("From ActiveFEATURE ==> Module: ", moduleId);
+    console.log("From ActiveFEATURE ==> Feature: ", featureId);
+    console.log();
   };
 
   // Function to get the active module

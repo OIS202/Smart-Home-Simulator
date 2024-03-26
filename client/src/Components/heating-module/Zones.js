@@ -16,14 +16,14 @@ import {
 import DeviceContext from "../contexts/DeviceContext";
 import HeatingContext from "../contexts/HeatingContext";
 
-export default function Thermostats(props) {
+export default function Zones(props) {
   const { isOn, info } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState] = isOn;
 
   const { thermostat } = useContext(HeatingContext);
   const [
     heatingStates,
-    // toggleHeatingState,
+    toggleHeatingState,
     increaseTemperature,
     decreaseTemperature,
   ] = thermostat;
@@ -259,96 +259,6 @@ export default function Thermostats(props) {
             <RemoveIcon />
           </IconButton>
         </FormGroup>
-        {/* <IconButton
-          color="white"
-          onClick={handleBtn(18)}
-          sx={{
-            position: "absolute",
-            top: "18%",
-            left: "52%",
-            backgroundColor: deviceStates[18] ? "#e57373" : "lightgrey",
-          }}
-        >
-          <DeviceThermostatIcon />
-        </IconButton> */}
-        {/* <IconButton
-          color="white"
-          onClick={handleBtn(19)}
-          sx={{
-            position: "absolute",
-            top: "15%",
-            left: "75%",
-            backgroundColor: deviceStates[19] ? "#e57373" : "lightgrey",
-          }}
-        >
-          <DeviceThermostatIcon />
-        </IconButton>
-        <IconButton
-          color="white"
-          onClick={handleBtn(20)}
-          sx={{
-            position: "absolute",
-            top: "56%",
-            left: "78%",
-            backgroundColor: deviceStates[20] ? "#e57373" : "lightgrey",
-          }}
-        >
-          <DeviceThermostatIcon />
-        </IconButton>
-        <IconButton
-          color="white"
-          onClick={handleBtn(21)}
-          sx={{
-            position: "absolute",
-            top: "75%",
-            left: "75%",
-            backgroundColor: deviceStates[21] ? "#e57373" : "lightgrey",
-          }}
-        >
-          <DeviceThermostatIcon />
-        </IconButton>
-        <IconButton
-          color="white"
-          onClick={handleBtn(22)}
-          sx={{
-            position: "absolute",
-            top: "55%",
-            left: "58%",
-            backgroundColor: deviceStates[22] ? "#e57373" : "lightgrey",
-          }}
-        >
-          <DeviceThermostatIcon />
-        </IconButton>
-        <IconButton
-          color="white"
-          onClick={handleBtn(23)}
-          sx={{
-            position: "absolute",
-            top: "55%",
-            left: "27%",
-            backgroundColor: deviceStates[23] ? "#e57373" : "lightgrey",
-          }}
-        >
-          <DeviceThermostatIcon />
-        </IconButton> */}
-        {/**
-         *
-         *
-         *
-         *
-         */}
-        {/* <IconButton
-          color="white"
-          onClick={handleBtn(24)}
-          sx={{
-            position: "absolute",
-            top: "37%",
-            left: "33%",
-            backgroundColor: deviceStates[24] ? "#e57373" : "lightgrey",
-          }}
-        >
-          <DeviceThermostatIcon />
-        </IconButton> */}
       </>
     );
   } else if (props.source === "heating") {
@@ -356,7 +266,7 @@ export default function Thermostats(props) {
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel
           control={<Checkbox />}
-          label={`Kitchen: ${heatingStates[0]}°C`}
+          label="Kitchen"
           checked={deviceStates[18]}
           // context={DeviceContext}
           onChange={() => {
@@ -368,7 +278,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Living Room: ${heatingStates[1]}°C`}
+          label="Living Room"
           checked={deviceStates[19]}
           onChange={() => {
             toggleDeviceState(19);
@@ -376,7 +286,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Kid Bedroom: ${heatingStates[2]}°C`}
+          label="Kid Bedroom"
           checked={deviceStates[20]}
           onChange={() => {
             toggleDeviceState(20);
@@ -384,7 +294,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Master Bedroom: ${heatingStates[3]}°C`}
+          label="Master Bedroom"
           checked={deviceStates[21]}
           onChange={() => {
             toggleDeviceState(21);
@@ -392,7 +302,7 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Bathroom: ${heatingStates[4]}°C`}
+          label="Bathroom"
           checked={deviceStates[22]}
           onChange={() => {
             toggleDeviceState(22);
@@ -400,38 +310,30 @@ export default function Thermostats(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label={`Garage: ${heatingStates[5]}°C`}
-          checked={deviceStates[23]}
-          onChange={() => {
-            toggleDeviceState(23);
-          }}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Garage: ${heatingStates[5]}°C`}
+          label="Garage"
           checked={deviceStates[23]}
           onChange={() => {
             toggleDeviceState(23);
           }}
         />
         {/* <FormControlLabel
-          control={<Checkbox />}
-          label="Backyard"
-          checked={deviceStates[24]}
-          onChange={() => {
-            toggleDeviceState(24);
-          }}
-        />
-        <br />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="All Thermostats"
-          checked={deviceStates[25]}
-          onChange={() => {
-            // all(props.deviceStates);
-            toggleDeviceState(25);
-          }}
-        /> */}
+            control={<Checkbox />}
+            label="Backyard"
+            checked={deviceStates[24]}
+            onChange={() => {
+              toggleDeviceState(24);
+            }}
+          />
+          <br />
+          <FormControlLabel
+            control={<Checkbox />}
+            label="All Thermostats"
+            checked={deviceStates[25]}
+            onChange={() => {
+              // all(props.deviceStates);
+              toggleDeviceState(25);
+            }}
+          /> */}
       </FormGroup>
     );
   }

@@ -9,92 +9,36 @@ import {
 } from "@mui/material";
 import house from "../assets/layout2.jpeg";
 
-// import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
-// import LightbulbIcon from "@mui/icons-material/Lightbulb";
-// import DoorFrontIcon from "@mui/icons-material/DoorFront";
-// import WindowIcon from "@mui/icons-material/Window";
-
 import Lights from "./core-module/Lights";
 import Doors from "./core-module/Doors";
 import Windows from "./core-module/Windows";
 
 import Thermostats from "./heating-module/Thermostats";
 
-import { CoreContext } from "../HomePage";
-import DeviceContext from "./contexts/DeviceContext";
+// import DeviceContext from "./contexts/DeviceContext";
 import ModuleContext from "./contexts/ModuleContext";
-// import { DeviceProvider } from "../Components/DeviceContext";
-
-// import { useDeviceContext } from "./DeviceContext";
+import HeatingContext from "../Components/contexts/HeatingContext";
 
 const HouseLayout = () => {
-  // const [activeBtn, setActiveBtn] = useState("activeBtn");
-
-  // const isOnn = deviceStates[index];
-  // const { deviceState, setDeviceState } = useContext(DeviceContext);
-
-  // const [isOn, setIsOn] = useState({});
-
-  // const handleBtn = (btnId) => (e) => {
-  //   e.preventDefault();
-  //   toggleDeviceState(btnId);
-  //   // setIsOn((state) => ({
-  //   //   ...state,
-  //   //   [btnId]: !state[btnId],
-  //   // }));
-  //   // selectedDevices(btnId);
-  // };
-
-  // const [clicked, setClicked] = useState(false);
-
-  // const handleClick = () => {
-  //   setClicked(!clicked);
-  // };
-
-  // const { selectedDevices } = useDeviceContext();
-
-  //
-
-  // const { state, setState } = useContext(CoreContext);
-  const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
+  // const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
   const { getActiveModule, getActiveFeature } = useContext(ModuleContext);
 
-  const activeModule = getActiveModule();
+  const activeModule = getActiveModule() - 1;
   const activeFeature = getActiveFeature();
+
+  const { simulation } = useContext(HeatingContext);
+  const [simulationState] = simulation;
+
   const feature = [
     {},
     {
-      1: (
-        <Lights
-          source="layout"
-          // deviceStates={deviceStates}
-          // toggleDeviceState={toggleDeviceState}
-        />
-      ),
-      2: (
-        <Doors
-          source="layout"
-          // deviceStates={deviceStates}
-          // toggleDeviceState={toggleDeviceState}
-        />
-      ),
-      3: (
-        <Windows
-          source="layout"
-          // deviceStates={deviceStates}
-          // toggleDeviceState={toggleDeviceState}
-        />
-      ),
+      1: <Lights source="layout" />,
+      2: <Doors source="layout" />,
+      3: <Windows source="layout" />,
     },
     {},
     {
-      2: (
-        <Thermostats
-          source="layout"
-          // deviceStates={deviceStates}
-          // toggleDeviceState={toggleDeviceState}
-        />
-      ),
+      2: <Thermostats source="layout" />,
     },
   ];
 
@@ -115,7 +59,7 @@ const HouseLayout = () => {
        * What needs to be figured out is how to
        * automatically generate the buttons and place them accordingly
        */}
-      <>{feature[activeModule - 1][activeFeature]}</>
+      <>{activeFeature != null ? feature[activeModule][activeFeature] : ""}</>
       {/* <LightBtns /> */}
     </Box>
   );
