@@ -1,16 +1,21 @@
 import * as React from "react";
-import { useState } from "react";
-import Core from "../sh-core";
+import { useState, useContext } from "react";
+
 import { Button, Typography, ButtonGroup } from "@mui/material";
 
-function ModuleController(props) {
+import Core from "../sh-core";
+import Heating from "../sh-heating";
+import ModuleContext from "../Components/contexts/ModuleContext";
+
+function ModuleController() {
   const [activeContentIndex, setActiveContentIndex] = useState(1);
+  const { toggleActiveModule, toggleActiveFeature } = useContext(ModuleContext);
 
   const modules = [
     <Typography variant="h6">Smart Home Simulator</Typography>,
     <Core />,
     <Typography variant="h6">Smart Home Security</Typography>,
-    <Typography variant="h6">Smart Home Heating</Typography>,
+    <Heating />,
   ];
 
   return (
@@ -26,7 +31,11 @@ function ModuleController(props) {
             //   // variant="contained"
             //   size="large"
             className={activeContentIndex === 0 ? "active" : ""}
-            onClick={() => setActiveContentIndex(0)}
+            onClick={() => {
+              setActiveContentIndex(0);
+              toggleActiveModule(1);
+              toggleActiveFeature(1, 1);
+            }}
           >
             SHS
           </Button>
@@ -36,7 +45,11 @@ function ModuleController(props) {
             //   // variant="contained"
             //   size="large"
             className={activeContentIndex === 1 ? "active" : ""}
-            onClick={() => setActiveContentIndex(1)}
+            onClick={() => {
+              setActiveContentIndex(1);
+              toggleActiveModule(2);
+              toggleActiveFeature(2, 1);
+            }}
           >
             SHC
           </Button>
@@ -46,7 +59,11 @@ function ModuleController(props) {
             //   // variant="contained"
             //   size="large"
             className={activeContentIndex === 2 ? "active" : ""}
-            onClick={() => setActiveContentIndex(2)}
+            onClick={() => {
+              setActiveContentIndex(2);
+              toggleActiveModule(3);
+              toggleActiveFeature(3, 1);
+            }}
           >
             SHP
           </Button>
@@ -56,7 +73,11 @@ function ModuleController(props) {
             //   // variant="contained"
             //   size="large"
             className={activeContentIndex === 3 ? "active" : ""}
-            onClick={() => setActiveContentIndex(3)}
+            onClick={() => {
+              setActiveContentIndex(3);
+              toggleActiveModule(4);
+              toggleActiveFeature(4, 1);
+            }}
           >
             SHH
           </Button>
