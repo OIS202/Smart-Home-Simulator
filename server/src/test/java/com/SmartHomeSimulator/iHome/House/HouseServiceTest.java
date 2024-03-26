@@ -1,39 +1,44 @@
 package com.SmartHomeSimulator.iHome.House;
 
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.SmartHomeSimulator.iHome.Rooms.RoomService;
+import com.SmartHomeSimulator.iHome.SimulationParams.SimulationService;
 
-import com.SmartHomeSimulator.iHome.House.House;
-import com.SmartHomeSimulator.iHome.House.HouseRepository;
-import com.SmartHomeSimulator.iHome.House.HouseService;
-
+import java.sql.Date;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class HouseServiceTest {
+class HouseServiceTest {
 
     @Mock
     private HouseRepository houseRepository;
+
+    @Mock
+    private RoomService roomService;
+
+    @Mock
+    private SimulationService simulationService;
 
     @InjectMocks
     private HouseService houseService;
 
     private Map<String, Integer> roomCounts;
+    private ObjectId mockId;
 
     @BeforeEach
     void setUp() {
-        // Initialize your test data
         roomCounts = new HashMap<>();
         roomCounts.put("livingroom", 1);
         roomCounts.put("bedroom", 2);
@@ -41,53 +46,55 @@ public class HouseServiceTest {
         roomCounts.put("kitchen", 1);
         roomCounts.put("backyard", 1);
         roomCounts.put("garage", 1);
+
+        mockId = new ObjectId(); // Prepare a mock ObjectId for house ID.
     }
 
     @Test
     void createHouse_ShouldSaveHouseWithCorrectRoomCounts() {
         House expectedHouse = new House();
-        expectedHouse.setLivingRoom(1);
-        expectedHouse.setBedroom(2);
-        expectedHouse.setBathroom(1);
-        expectedHouse.setKitchen(1);
-        expectedHouse.setBackyard(1);
-        expectedHouse.setGarage(1);
+        expectedHouse.setId(mockId); // Use the prepared mock ObjectId.
 
-        when(houseRepository.save(any(House.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(houseRepository.save(any(House.class))).thenReturn(expectedHouse);
 
         House createdHouse = houseService.createHouse(roomCounts);
 
         assertNotNull(createdHouse);
-        assertEquals(expectedHouse.getLivingRoom(), createdHouse.getLivingRoom());
-        assertEquals(expectedHouse.getBedroom(), createdHouse.getBedroom());
-        assertEquals(expectedHouse.getBathroom(), createdHouse.getBathroom());
-        assertEquals(expectedHouse.getKitchen(), createdHouse.getKitchen());
-        assertEquals(expectedHouse.getBackyard(), createdHouse.getBackyard());
-        assertEquals(expectedHouse.getGarage(), createdHouse.getGarage());
-
-        // Verify that the houseRepository.save() method was called once
         verify(houseRepository).save(any(House.class));
+
+        // Assuming registerSimulation does not return a value. Adjust as needed.
+        verify(simulationService).registerSimulation(isNull(), any(Date.class), any(LocalTime.class),
+                any(ObjectId.class));
+
+        // Verify the interactions with roomService.createRoom for each room type and
+        // count
+        verify(roomService).createRoom(matches("Living Room \\d+"), eq(20.0), eq(22.0), eq(mockId), isNull());
+        verify(roomService, times(2)).createRoom(matches("Bedroom \\d+"), eq(20.0), eq(22.0), eq(mockId), isNull());
+        verify(roomService).createRoom(matches("Bathroom \\d+"), eq(20.0), eq(22.0), eq(mockId), isNull());
+        verify(roomService).createRoom(matches("Kitchen \\d+"), eq(20.0), eq(22.0), eq(mockId), isNull());
+        verify(roomService).createRoom(matches("Backyard \\d+"), eq(20.0), eq(22.0), eq(mockId), isNull());
+        verify(roomService).createRoom(matches("Garage \\d+"), eq(20.0), eq(22.0), eq(mockId), isNull());
     }
 
     @Test
     void createHouse_ShouldHandleEmptyRoomCounts() {
-        // Empty roomCounts map to simulate no input
+        House expectedHouse = new House();
+        expectedHouse.setId(mockId); // Use the prepared mock ObjectId.
+
         Map<String, Integer> emptyRoomCounts = new HashMap<>();
 
-        when(houseRepository.save(any(House.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(houseRepository.save(any(House.class))).thenReturn(expectedHouse);
 
         House createdHouse = houseService.createHouse(emptyRoomCounts);
 
-        assertNotNull(createdHouse, "The created house should not be null.");
-        assertEquals(0, createdHouse.getLivingRoom(), "Expected living rooms count to be 0");
-        assertEquals(0, createdHouse.getBedroom(), "Expected bedrooms count to be 0");
-        assertEquals(0, createdHouse.getBathroom(), "Expected bathrooms count to be 0");
-        assertEquals(0, createdHouse.getKitchen(), "Expected kitchen count to be 0");
-        assertEquals(0, createdHouse.getBackyard(), "Expected backyard count to be 0");
-        assertEquals(0, createdHouse.getGarage(), "Expected garage count to be 0");
-
-        // Verify that the houseRepository.save() method was called once
+        assertNotNull(createdHouse);
         verify(houseRepository).save(any(House.class));
-    }
 
+        // Assuming registerSimulation does not return a value. Adjust as needed.
+        verify(simulationService).registerSimulation(isNull(), any(Date.class), any(LocalTime.class),
+                any(ObjectId.class));
+
+        // Since there are no room counts, no rooms should be created.
+        verify(roomService, never()).createRoom(anyString(), anyDouble(), anyDouble(), any(ObjectId.class), any());
+    }
 }

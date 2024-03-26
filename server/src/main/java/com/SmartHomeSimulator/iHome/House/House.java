@@ -85,4 +85,9 @@ public class House {
     public void setGarage(int garage) {
         this.garage = garage;
     }
+
+    public void setId(String hexString) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    }
 }
