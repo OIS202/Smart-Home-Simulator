@@ -54,7 +54,12 @@ export default function Thermostats(props) {
             borderRadius: "25px",
             top: "18%",
             left: "50%",
-            backgroundColor: deviceStates[18] ? "#EA9999" : "lightgrey",
+            backgroundColor:
+              deviceStates[18] && heatingStates[0] >= 19
+                ? "#EA9999"
+                : deviceStates[18] && heatingStates[0] < 19
+                ? "lightblue"
+                : "lightgrey",
           }}
         >
           <IconButton
@@ -95,7 +100,12 @@ export default function Thermostats(props) {
             borderRadius: "25px",
             top: "15%",
             left: "70%",
-            backgroundColor: deviceStates[19] ? "#EA9999" : "lightgrey",
+            backgroundColor:
+              deviceStates[19] && heatingStates[1] >= 19
+                ? "#EA9999"
+                : deviceStates[19] && heatingStates[1] < 19
+                ? "lightblue"
+                : "lightgrey",
           }}
         >
           <IconButton
@@ -129,7 +139,12 @@ export default function Thermostats(props) {
             borderRadius: "25px",
             top: "50%",
             left: "72%",
-            backgroundColor: deviceStates[20] ? "#EA9999" : "lightgrey",
+            backgroundColor:
+              deviceStates[20] && heatingStates[2] >= 19
+                ? "#EA9999"
+                : deviceStates[20] && heatingStates[2] < 19
+                ? "lightblue"
+                : "lightgrey",
           }}
         >
           <IconButton
@@ -163,7 +178,12 @@ export default function Thermostats(props) {
             borderRadius: "25px",
             top: "75%",
             left: "70%",
-            backgroundColor: deviceStates[21] ? "#EA9999" : "lightgrey",
+            backgroundColor:
+              deviceStates[21] && heatingStates[3] >= 19
+                ? "#EA9999"
+                : deviceStates[21] && heatingStates[3] < 19
+                ? "lightblue"
+                : "lightgrey",
           }}
         >
           <IconButton
@@ -197,7 +217,12 @@ export default function Thermostats(props) {
             borderRadius: "25px",
             top: "60%",
             left: "52%",
-            backgroundColor: deviceStates[22] ? "#EA9999" : "lightgrey",
+            backgroundColor:
+              deviceStates[22] && heatingStates[4] >= 19
+                ? "#EA9999"
+                : deviceStates[22] && heatingStates[4] < 19
+                ? "lightblue"
+                : "lightgrey",
           }}
         >
           <IconButton
@@ -231,7 +256,12 @@ export default function Thermostats(props) {
             borderRadius: "25px",
             top: "55%",
             left: "22%",
-            backgroundColor: deviceStates[23] ? "#EA9999" : "lightgrey",
+            backgroundColor:
+              deviceStates[23] && heatingStates[5] >= 19
+                ? "#EA9999"
+                : deviceStates[23] && heatingStates[5] < 19
+                ? "lightblue"
+                : "lightgrey",
           }}
         >
           <IconButton
