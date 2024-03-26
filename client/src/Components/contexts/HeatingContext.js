@@ -25,10 +25,36 @@ export const HeatingProvider = ({ children }) => {
     });
   };
 
+  const increaseTemperature = (index) => {
+    setHeatingStates((prevState) => {
+      reading();
+      const newState = [...prevState];
+      newState[index] = newState[index] + 1; // Toggle state at index
+      console.log("heating state was changed:");
+      console.log(newState);
+      return newState;
+    });
+  };
+
+  const decreaseTemperature = (index) => {
+    setHeatingStates((prevState) => {
+      reading();
+      const newState = [...prevState];
+      newState[index] = newState[index] - 1; // Toggle state at index
+      console.log("heating state was changed:");
+      console.log(newState);
+      return newState;
+    });
+  };
   return (
     <HeatingContext.Provider
       value={{
-        thermostat: [heatingStates, toggleHeatingState],
+        thermostat: [
+          heatingStates,
+          toggleHeatingState,
+          increaseTemperature,
+          decreaseTemperature,
+        ],
         zones: [heatingZones, setHeatingZones],
         // add: [deviceInfos, addDevices],
       }}

@@ -2,59 +2,282 @@ import * as React from "react";
 import { useContext } from "react";
 
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 import {
   FormGroup,
   FormControlLabel,
   Checkbox,
   IconButton,
+  Typography,
 } from "@mui/material";
 
 import DeviceContext from "../contexts/DeviceContext";
+import HeatingContext from "../contexts/HeatingContext";
 
-export default function Lights(props) {
+export default function Thermostats(props) {
   const { isOn, info } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState] = isOn;
-  // const [deviceInfos, setDeviceInfos] = info;
-  let lights = [];
 
-  const handleBtn = (btnId) => (e) => {
+  const { thermostat } = useContext(HeatingContext);
+  const [
+    heatingStates,
+    toggleHeatingState,
+    increaseTemperature,
+    decreaseTemperature,
+  ] = thermostat;
+  // const [deviceInfos, setDeviceInfos] = info;
+
+  //   const handleBtn = (btnId) => (e) => {
+  //     e.preventDefault();
+  //     toggleDeviceState(btnId);
+  //     // toggleHeatingState()
+  //   };
+
+  const increaseTemp = (btnId) => (e) => {
     e.preventDefault();
-    toggleDeviceState(btnId);
+    increaseTemperature(btnId);
+  };
+
+  const decreaseTemp = (btnId) => (e) => {
+    e.preventDefault();
+    decreaseTemperature(btnId);
   };
 
   if (props.source === "layout") {
     return (
       <>
-        <IconButton
-          color="white"
-          // className={selectedDevices.includes("light") ? "active" : ""}
-          // className={`btn1 ${selectedDevices.includes("btn1") && activeBtn}`}
+        <FormGroup
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            top: "18%",
+            left: "50%",
+            backgroundColor: deviceStates[18] ? "#EA9999" : "lightgrey",
+          }}
+        >
+          <IconButton
+            // disabled={deviceStates[18] ? false : true}
+            color="white"
+            onClick={increaseTemp(0)}
+            size="small"
+            sx={{ display: deviceStates[18] ? "block" : "none" }}
+          >
+            <AddIcon />
+          </IconButton>
 
-          // className={` ${props.deviceStates[0]}`}
+          <Typography
+            variant="h8"
+            sx={{ margin: deviceStates[18] ? "5px 10px" : "15px 15px" }}
+          >
+            {`${heatingStates[0]}°C`}
+          </Typography>
+
+          <IconButton
+            // disabled={deviceStates[18] ? false : true}
+            color="white"
+            onClick={decreaseTemp(0)}
+            size="small"
+            sx={{ display: deviceStates[18] ? "block" : "none" }}
+          >
+            <RemoveIcon />
+          </IconButton>
+        </FormGroup>
+
+        {/**
+         *
+         *
+         */}
+        <FormGroup
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            top: "15%",
+            left: "70%",
+            backgroundColor: deviceStates[19] ? "#EA9999" : "lightgrey",
+          }}
+        >
+          <IconButton
+            sx={{ display: deviceStates[19] ? "block" : "none" }}
+            color="white"
+            onClick={increaseTemp(1)}
+            size="small"
+          >
+            <AddIcon />
+          </IconButton>
+
+          <Typography
+            variant="h8"
+            sx={{ margin: deviceStates[19] ? "5px 10px" : "15px 15px" }}
+          >
+            {`${heatingStates[1]}°C`}
+          </Typography>
+
+          <IconButton
+            sx={{ display: deviceStates[19] ? "block" : "none" }}
+            color="white"
+            onClick={decreaseTemp(1)}
+            size="small"
+          >
+            <RemoveIcon />
+          </IconButton>
+        </FormGroup>
+        <FormGroup
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            top: "50%",
+            left: "72%",
+            backgroundColor: deviceStates[20] ? "#EA9999" : "lightgrey",
+          }}
+        >
+          <IconButton
+            sx={{ display: deviceStates[20] ? "block" : "none" }}
+            color="white"
+            onClick={increaseTemp(2)}
+            size="small"
+          >
+            <AddIcon />
+          </IconButton>
+
+          <Typography
+            variant="h8"
+            sx={{ margin: deviceStates[20] ? "5px 10px" : "15px 15px" }}
+          >
+            {`${heatingStates[2]}°C`}
+          </Typography>
+
+          <IconButton
+            sx={{ display: deviceStates[20] ? "block" : "none" }}
+            color="white"
+            onClick={decreaseTemp(2)}
+            size="small"
+          >
+            <RemoveIcon />
+          </IconButton>
+        </FormGroup>
+        <FormGroup
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            top: "75%",
+            left: "70%",
+            backgroundColor: deviceStates[21] ? "#EA9999" : "lightgrey",
+          }}
+        >
+          <IconButton
+            sx={{ display: deviceStates[21] ? "block" : "none" }}
+            color="white"
+            onClick={increaseTemp(3)}
+            size="small"
+          >
+            <AddIcon />
+          </IconButton>
+
+          <Typography
+            variant="h8"
+            sx={{ margin: deviceStates[21] ? "5px 10px" : "15px 15px" }}
+          >
+            {`${heatingStates[3]}°C`}
+          </Typography>
+
+          <IconButton
+            sx={{ display: deviceStates[21] ? "block" : "none" }}
+            color="white"
+            onClick={decreaseTemp(3)}
+            size="small"
+          >
+            <RemoveIcon />
+          </IconButton>
+        </FormGroup>
+        <FormGroup
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            top: "60%",
+            left: "52%",
+            backgroundColor: deviceStates[22] ? "#EA9999" : "lightgrey",
+          }}
+        >
+          <IconButton
+            sx={{ display: deviceStates[22] ? "block" : "none" }}
+            color="white"
+            onClick={increaseTemp(4)}
+            size="small"
+          >
+            <AddIcon />
+          </IconButton>
+
+          <Typography
+            variant="h8"
+            sx={{ margin: deviceStates[22] ? "5px 10px" : "15px 15px" }}
+          >
+            {`${heatingStates[4]}°C`}
+          </Typography>
+
+          <IconButton
+            sx={{ display: deviceStates[22] ? "block" : "none" }}
+            color="white"
+            onClick={decreaseTemp(4)}
+            size="small"
+          >
+            <RemoveIcon />
+          </IconButton>
+        </FormGroup>
+        <FormGroup
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            top: "55%",
+            left: "22%",
+            backgroundColor: deviceStates[23] ? "#EA9999" : "lightgrey",
+          }}
+        >
+          <IconButton
+            sx={{ display: deviceStates[23] ? "block" : "none" }}
+            color="white"
+            onClick={increaseTemp(5)}
+            size="small"
+          >
+            <AddIcon />
+          </IconButton>
+
+          <Typography
+            variant="h8"
+            sx={{ margin: deviceStates[23] ? "5px 10px" : "15px 15px" }}
+          >
+            {`${heatingStates[5]}°C`}
+          </Typography>
+
+          <IconButton
+            sx={{ display: deviceStates[23] ? "block" : "none" }}
+            color="white"
+            onClick={decreaseTemp(5)}
+            size="small"
+          >
+            <RemoveIcon />
+          </IconButton>
+        </FormGroup>
+        {/* <IconButton
+          color="white"
           onClick={handleBtn(18)}
           sx={{
             position: "absolute",
             top: "18%",
             left: "52%",
-            // transform: "translate(-50%, -50%)",
-            "&:hover": "none",
-            // backgroundColor: isOn["btn1"] ? "#e57373" : "lightgrey",
             backgroundColor: deviceStates[18] ? "#e57373" : "lightgrey",
           }}
         >
           <DeviceThermostatIcon />
-        </IconButton>
-        <IconButton
+        </IconButton> */}
+        {/* <IconButton
           color="white"
-          // className={`btn2 ${props.deviceStates[1] && activeBtn}`}
-          // onClick={handleBtn("btn2", 1)}
           onClick={handleBtn(19)}
           sx={{
             position: "absolute",
             top: "15%",
             left: "75%",
-            // transform: "translate(-50%, -50%)",
             backgroundColor: deviceStates[19] ? "#e57373" : "lightgrey",
           }}
         >
@@ -62,39 +285,23 @@ export default function Lights(props) {
         </IconButton>
         <IconButton
           color="white"
-          // className={`btn3 ${props.deviceStates[2] && activeBtn}`}
-          // onClick={handleBtn("btn3")}
           onClick={handleBtn(20)}
           sx={{
             position: "absolute",
-            // width: "10%",
-            // height: "10%",
             top: "56%",
             left: "78%",
-            // transform: "translate(-50%, -50%)",
             backgroundColor: deviceStates[20] ? "#e57373" : "lightgrey",
           }}
         >
-          <DeviceThermostatIcon
-          // sx={{
-          //   position: "relative",
-          //   width: "100%",
-          // }}
-          />
+          <DeviceThermostatIcon />
         </IconButton>
         <IconButton
           color="white"
-          // className={`btn4 ${isOn["btn4"] && activeBtn}`}
-          // onClick={handleBtn("btn4")}
           onClick={handleBtn(21)}
           sx={{
             position: "absolute",
-            // width: "3rem",
-            // height: "3rem",
-            top: "55%",
-            left: "27%",
-            // transform: "translate(-50%, -50%)",
-            // backgroundColor: isOn["btn4"] ? "#e57373" : "lightgrey",
+            top: "75%",
+            left: "75%",
             backgroundColor: deviceStates[21] ? "#e57373" : "lightgrey",
           }}
         >
@@ -105,11 +312,8 @@ export default function Lights(props) {
           onClick={handleBtn(22)}
           sx={{
             position: "absolute",
-            // width: "3rem",
-            // height: "3rem",
-            top: "75%",
-            left: "75%",
-            // transform: "translate(-50%, -50%)",
+            top: "55%",
+            left: "58%",
             backgroundColor: deviceStates[22] ? "#e57373" : "lightgrey",
           }}
         >
@@ -120,26 +324,26 @@ export default function Lights(props) {
           onClick={handleBtn(23)}
           sx={{
             position: "absolute",
-            // width: "3rem",
-            // height: "3rem",
             top: "55%",
-            left: "58%",
-            // transform: "translate(-50%, -50%)",
+            left: "27%",
             backgroundColor: deviceStates[23] ? "#e57373" : "lightgrey",
           }}
         >
           <DeviceThermostatIcon />
-        </IconButton>
+        </IconButton> */}
+        {/**
+         *
+         *
+         *
+         *
+         */}
         {/* <IconButton
           color="white"
           onClick={handleBtn(24)}
           sx={{
             position: "absolute",
-            // width: "3rem",
-            // height: "3rem",
             top: "37%",
             left: "33%",
-            // transform: "translate(-50%, -50%)",
             backgroundColor: deviceStates[24] ? "#e57373" : "lightgrey",
           }}
         >
@@ -168,7 +372,6 @@ export default function Lights(props) {
           checked={deviceStates[19]}
           onChange={() => {
             toggleDeviceState(19);
-            // setDeviceState([1]);
           }}
         />
         <FormControlLabel
@@ -177,7 +380,6 @@ export default function Lights(props) {
           checked={deviceStates[20]}
           onChange={() => {
             toggleDeviceState(20);
-            // setDeviceState([2]);
           }}
         />
         <FormControlLabel
@@ -202,7 +404,6 @@ export default function Lights(props) {
           checked={deviceStates[23]}
           onChange={() => {
             toggleDeviceState(23);
-            // setDeviceState([3]);
           }}
         />
         {/* <FormControlLabel
