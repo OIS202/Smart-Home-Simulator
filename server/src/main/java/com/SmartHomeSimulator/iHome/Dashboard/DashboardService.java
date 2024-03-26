@@ -8,10 +8,9 @@ public class DashboardService {
     private final Dashboard dashboard = Dashboard.getInstance();
 
     public String getDashboardData() {
-        // TODO Auto-generated method stub
-        System.out.println("hello");
-        throw new UnsupportedOperationException("Unimplemented method 'getDashboardData'");
+        // Implementation to return dashboard data
+        return dashboard.getData(); // Call Dashboard's getData() method
     }
 
-    // Implement any service methods that interact with the Dashboard instance
+    // Other service methods interacting with the Dashboard instance
 }

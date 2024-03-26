@@ -16,20 +16,24 @@ public class DashboardServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Assuming Dashboard has a public method to set the mocked instance for testing
-        // purposes
+        // Creating a mock Dashboard instance for testing
         dashboard = mock(Dashboard.class);
-        Dashboard.setInstance(dashboard); // This assumes a static method in Dashboard to set a mock instance
+        // Setting the mock instance to the Dashboard class (using the newly implemented
+        // setInstance method)
+        Dashboard.setInstance(dashboard);
+        // Initializing the DashboardService with the mock Dashboard
         dashboardService = new DashboardService();
     }
 
     @Test
     void testGetDashboardData() {
-        // Assuming the Dashboard class has a method getData() that returns a String
+        // Setting up the mock to return a specific string when getData is called
         when(dashboard.getData()).thenReturn("Mocked Dashboard Data");
 
-        String data = dashboardService.getDashboardData(); // This method needs to be implemented in DashboardService
+        // Calling the method under test
+        String data = dashboardService.getDashboardData();
 
+        // Verifying the returned data
         assertNotNull(data, "Data should not be null");
         assertEquals("Mocked Dashboard Data", data, "Data should match the mocked response");
     }

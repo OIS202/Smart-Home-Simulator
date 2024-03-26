@@ -1,7 +1,6 @@
 package com.SmartHomeSimulator.iHome.Dashboard;
 
 import com.SmartHomeSimulator.iHome.Observer;
-import com.SmartHomeSimulator.iHome.Modules.SmartHomeModules;
 import com.SmartHomeSimulator.iHome.Modules.SmartHomeSimulator;
 
 public class Dashboard {
@@ -29,17 +28,16 @@ public class Dashboard {
     }
 
     public void updateSHS(SmartHomeSimulator shs) {
+        Dashboard.shs = shs; // Store or update SmartHomeSimulator instance
         System.out.println("The shs " + shs + " has been updated");
     }
-    // Dashboard related methods
 
     public static void setInstance(Dashboard dashboard) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setInstance'");
+        instance = dashboard; // Allow setting a mock or specific instance for testing
     }
 
-    public Object getData() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getData'");
+    public String getData() {
+        // Implement logic to retrieve dashboard data
+        return "Actual Dashboard Data"; // Placeholder return statement
     }
 }
