@@ -1,30 +1,7 @@
 // // DeviceContext.js
-// import React, { createContext, useContext, useState } from "react";
-
-// const DeviceContext = createContext();
-
-// export const DeviceProvider = ({ children }) => {
-//   const [selectedDevices, setSelectedDevices] = useState([]);
-
-//   const toggleDevice = (device) => {
-//     setSelectedDevices((prevSelectedDevices) =>
-//       prevSelectedDevices.includes(device)
-//         ? prevSelectedDevices.filter((d) => d !== device)
-//         : [...prevSelectedDevices, device]
-//     );
-//   };
-
-//   return (
-//     <DeviceContext.Provider value={{ selectedDevices, toggleDevice }}>
-//       {children}
-//     </DeviceContext.Provider>
-//   );
-// };
-
-// export const useDeviceContext = () => useContext(DeviceContext);
 
 import React, { createContext, useState } from "react";
-import Thermostats from "../heating-module/Thermostats";
+// import Thermostats from "../heating-module/Thermostats";
 
 const DeviceContext = createContext();
 
@@ -85,23 +62,23 @@ export const DeviceProvider = ({ children }) => {
       }
 
       for (let i = start; i <= end; i++) {
-        if (newState[light] == false && !newState[i]) {
+        if (newState[light] === false && !newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[door] == false && !newState[i]) {
+        } else if (newState[door] === false && !newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[window] == false && !newState[i]) {
+        } else if (newState[window] === false && !newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[thermostat] == false && !newState[i]) {
+        } else if (newState[thermostat] === false && !newState[i]) {
           newState[i] = !newState[i];
         }
 
-        if (newState[light] == true && newState[i]) {
+        if (newState[light] === true && newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[door] == true && newState[i]) {
+        } else if (newState[door] === true && newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[window] == true && newState[i]) {
+        } else if (newState[window] === true && newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[thermostat] == true && newState[i]) {
+        } else if (newState[thermostat] === true && newState[i]) {
           newState[i] = !newState[i];
         }
       }

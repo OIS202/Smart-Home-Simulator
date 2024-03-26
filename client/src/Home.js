@@ -1,6 +1,9 @@
 // HomePage.js
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  // Typography
+} from "@mui/material";
 import NavBar from "./Components/layout/NavBar"; // Your NavBar component
 import SimulationSidebar from "./Components/SimulationSidebar"; // Your SimulationSidebar component
 import EditButton from "./Components/EditButton"; // The new EditButton component with modal
@@ -116,14 +119,9 @@ const Home = () => {
 
 export default Home;
 
-{
-  /* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */
-}
-{
-  /* <Typography>device context state: {deviceState[0]}</Typography> */
-}
-{
-  /* <Mata
+/* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */
+/* <Typography>device context state: {deviceState[0]}</Typography> */
+/* <Mata
             activeTab={activeTab}
             buttons={tabs}
             setActiveTab={setActiveTab}
@@ -134,4 +132,3 @@ export default Home;
           ) : (
             <div>{tabs[activeTab].data}</div>
           )} */
-}

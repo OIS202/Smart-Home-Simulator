@@ -11,12 +11,12 @@ import {
   Select,
   MenuItem,
   Typography,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
+  // TableContainer,
+  // Table,
+  // TableHead,
+  // TableRow,
+  // TableCell,
+  // TableBody,
   Box,
 } from "@mui/material";
 
@@ -28,8 +28,7 @@ const windows = [
 ];
 const device = ["light", "door", "window"];
 
-const locations = ["Living Room", "Kitchen", "Bedroom", "Bathroom", "Outside"];
-const objectsToBlock = ["Chair", "Table", "Box", "None"];
+// const locations = ["Living Room", "Kitchen", "Bedroom", "Bathroom", "Outside"];
 
 const EditDevice = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

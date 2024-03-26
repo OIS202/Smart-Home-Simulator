@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 import {
   Button,
@@ -69,14 +69,14 @@ const Heating = () => {
               //   }}
               onChange={() => {
                 setSimulationState(!simulationState);
-                if (simulationState == true) {
-                  //   setActiveFeatureIndex(0);
-                }
+                // if (simulationState == true) {
+                //   setActiveFeatureIndex(0);
+                // }
               }}
               //   inputProps={{ "aria-label": "controlled" }}
             />
           }
-          label={simulationState == true ? "ON" : "OFF"}
+          label={simulationState === true ? "ON" : "OFF"}
         />
         <br />
         <ButtonGroup

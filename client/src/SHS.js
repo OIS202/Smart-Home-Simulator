@@ -1,17 +1,17 @@
 import React from "react";
 import NavBar from "./Components/layout/NavBar";
 import SimulationSidebar from "./Components/SimulationSidebar";
-import SignUp from "./Components/SignUp";
+// import SignUp from "./Components/SignUp";
 import SimulationParams from "./Components/SimulationParams";
 import {
-  Paper,
-  TextField,
-  Button,
+  //   Paper,
+  //   TextField,
+  //   Button,
+  //   Typography,
+  //   Tab,
+  //   Tabs,
+  //   Divider,
   Box,
-  Typography,
-  Tab,
-  Tabs,
-  Divider,
 } from "@mui/material";
 
 const SHS = () => {

@@ -11,33 +11,6 @@ export const HeatingProvider = ({ children }) => {
   );
   const [simulationState, setSimulationState] = useState(false);
 
-  const reading = () => {
-    for (var i = 0; i < heatingStates.length; i++) {
-      console.log(heatingStates[i]);
-    }
-  };
-
-  // const toggleHeatingState = (index) => {
-  //   setHeatingStates((prevState) => {
-  //     reading();
-  //     const newState = [...prevState];
-  //     newState[index] = !newState[index]; // Toggle state at index
-  //     console.log("heating state was changed:");
-  //     console.log(newState);
-  //     return newState;
-  //   });
-  // };
-
-  // const increaseTemperature = (index) => {
-  //   setHeatingStates((prevState) => {
-  //     // reading();
-  //     const newState = [...prevState];
-  //     newState[index].temperature = newState[index].temperature + 1; // Toggle state at index
-  //     console.log("heating state was changed:");
-  //     console.log(newState);
-  //     return newState;
-  //   });
-  // };
   const increaseTemperature = (index) => {
     setHeatingStates((prevState) => {
       const newState = prevState.map((room, idx) => {
@@ -64,17 +37,6 @@ export const HeatingProvider = ({ children }) => {
       return newState;
     });
   };
-
-  // const decreaseTemperature = (index) => {
-  //   setHeatingStates((prevState) => {
-  //     reading();
-  //     const newState = [...prevState];
-  //     newState[index].temperature = newState[index].temperature - 1; // Toggle state at index
-  //     console.log("heating state was changed:");
-  //     console.log(newState);
-  //     return newState;
-  //   });
-  // };
 
   const getTemperatureByIndex = (index) => {
     // Ensure the index is within the bounds of the array
@@ -107,3 +69,25 @@ export const HeatingProvider = ({ children }) => {
 };
 
 export default HeatingContext;
+
+// const decreaseTemperature = (index) => {
+//   setHeatingStates((prevState) => {
+//     reading();
+//     const newState = [...prevState];
+//     newState[index].temperature = newState[index].temperature - 1; // Toggle state at index
+//     console.log("heating state was changed:");
+//     console.log(newState);
+//     return newState;
+//   });
+// };
+
+// const toggleHeatingState = (index) => {
+//   setHeatingStates((prevState) => {
+//     reading();
+//     const newState = [...prevState];
+//     newState[index] = !newState[index]; // Toggle state at index
+//     console.log("heating state was changed:");
+//     console.log(newState);
+//     return newState;
+//   });
+// };
