@@ -32,4 +32,14 @@ public class Dashboard {
         System.out.println("The shs " + shs + " has been updated");
     }
     // Dashboard related methods
+
+    public static void setInstance(Dashboard dashboard) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setInstance'");
+    }
+
+    public Object getData() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getData'");
+    }
 }

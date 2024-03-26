@@ -33,12 +33,19 @@ const SimulationParamsForm = () => {
     setSnackbarOpen(false);
   };
 
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
   const houseId = "65fcdf7132513f5cebd28837";
 
   const fetchUserId = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/getUsersId?houseId=${houseId}`,
+        `http://localhost:8080/getUsersId?houseId=${houseId}`
       );
       const data = await response.json();
       setUsers(data);

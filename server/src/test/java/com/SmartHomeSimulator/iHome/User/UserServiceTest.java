@@ -1,135 +1,131 @@
 package com.SmartHomeSimulator.iHome.User;
-// package com;
 
-// import org.bson.types.ObjectId;
-// import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.extension.ExtendWith;
-// import org.mockito.InjectMocks;
-// import org.mockito.Mock;
-// import org.mockito.Mockito;
-// import org.mockito.junit.jupiter.MockitoExtension;
-// import org.springframework.mock.web.MockMultipartFile;
-// import org.springframework.web.multipart.MultipartFile;
-// import org.springframework.web.server.ResponseStatusException;
+import org.bson.types.ObjectId;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
-// import com.SmartHomeSimulator.iHome.House.House;
-// import com.SmartHomeSimulator.iHome.House.HouseService;
-// import com.SmartHomeSimulator.iHome.User.User;
-// import com.SmartHomeSimulator.iHome.User.UserRepository;
-// import com.SmartHomeSimulator.iHome.User.UserResponseDto;
-// import com.SmartHomeSimulator.iHome.User.UserService;
+import com.SmartHomeSimulator.iHome.House.House;
+import com.SmartHomeSimulator.iHome.House.HouseService;
 
-// import java.io.ByteArrayInputStream;
-// import java.io.InputStream;
-// import java.util.Optional;
+import java.util.Optional;
 
-// import static org.junit.jupiter.api.Assertions.*;
-// import static org.mockito.ArgumentMatchers.any;
-// import static org.mockito.ArgumentMatchers.anyMap;
-// import static org.mockito.ArgumentMatchers.anyString;
-// import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-// @ExtendWith(MockitoExtension.class)
-// public class UserServiceTest {
+@ExtendWith(MockitoExtension.class)
+class UserServiceTest {
 
-// @Mock
-// private UserRepository userRepository;
+    @Mock
+    private UserRepository userRepository;
 
-// @Mock
-// private HouseService houseService;
+    @Mock
+    private HouseService houseService;
 
-// @InjectMocks
-// private UserService userService;
+    @InjectMocks
+    private UserService userService;
 
-// @Test
-// void whenRegisterUser_withNewEmail_thenSuccess() throws Exception {
-// // Existing setup code...
-// String csvContent = "Room,Number\nLiving Room,1\nBedroom,2";
-// InputStream is = new ByteArrayInputStream(csvContent.getBytes());
-// MultipartFile file = new MockMultipartFile("file", "test.csv", "text/plain",
-// is);
+    private User user;
+    private MultipartFile file;
+    private ObjectId userId;
+    private ObjectId houseId;
 
-// ObjectId houseId = new ObjectId(); // Generate a new ObjectId for the mock
-// House
-// House mockHouse = Mockito.mock(House.class); // Mock the House object
-// Mockito.when(mockHouse.getId()).thenReturn(houseId); // Stub the getId method
-// to return the generated ObjectId
+    @BeforeEach
+    void setUp() {
+        userId = new ObjectId();
+        houseId = new ObjectId();
 
-// Mockito.when(houseService.createHouse(anyMap())).thenReturn(mockHouse); //
-// Stub the createHouse method
+        user = new User();
+        user.setId(userId); // Assign the specific ObjectId here.
+        user.setFirstName("John");
+        user.setLastName("Doe");
+        user.setEmail("john.doe@example.com");
+        user.setPhoneNumber("1234567890");
+        user.setPassword("password");
+        user.setHouseId(houseId); // Ensure consistent use of houseId.
+        user.setLocation("outside");
+        user.setUserType(User.UserType.PARENT);
 
-// ObjectId userId = new ObjectId(); // might need to set up mocking for saving
-// the User if necessary
+        String csvContent = "room, number\nliving room,1\nbedroom,2";
+        file = new MockMultipartFile("file", "filename.csv", "text/plain", csvContent.getBytes());
+    }
 
-// User newUser = new User("John", "Doe", "john.doe@example.com", "1234567890",
-// "password", houseId);
-// newUser.setId(userId); // Don't forget to set the ID for the newUser, as it's
-// not set in the
-// // constructor
-// Mockito.when(userRepository.existsByEmail(anyString())).thenReturn(false);
-// Mockito.when(userRepository.save(any(User.class))).thenReturn(newUser);
+    @Test
+    void registerUser_withNewEmail_shouldSucceed() throws Exception {
+        when(userRepository.existsByEmail(anyString())).thenReturn(false);
 
-// // Call the method under test
-// UserResponseDto registeredUser = userService.registerUser("John", "Doe",
-// "john.doe@example.com", "1234567890",
-// "password", file);
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
+            User savedUser = invocation.getArgument(0);
+            savedUser.setId(userId); // Use the specific userId for the saved User.
+            return savedUser;
+        });
 
-// // Assertions
-// assertNotNull(registeredUser);
-// assertEquals("john.doe@example.com", registeredUser.getEmail());
+        House mockHouse = new House();
+        mockHouse.setId(houseId); // Use the specific houseId.
+        when(houseService.createHouse(any())).thenReturn(mockHouse);
 
-// }
+        UserResponseDto result = userService.registerUser(user.getFirstName(), user.getLastName(), user.getEmail(),
+                user.getPhoneNumber(), user.getPassword(), file, user.getUserType());
 
-// @Test
-// void whenRegisterUser_withExistingEmail_thenThrowException() {
-// when(userRepository.existsByEmail(anyString())).thenReturn(true);
+        assertNotNull(result);
+        assertEquals(user.getEmail(), result.getEmail());
+        assertEquals(userId.toHexString(), result.getId()); // Verify the userId matches the expected value.
+    }
 
-// Exception exception = assertThrows(ResponseStatusException.class, () ->
-// userService.registerUser("Jane", "Doe",
-// "jane.doe@example.com", "0987654321", "password123",
-// mock(MultipartFile.class)));
+    @Test
+    void registerUser_withExistingEmail_shouldThrowException() {
+        when(userRepository.existsByEmail(anyString())).thenReturn(true);
 
-// assertTrue(exception.getMessage().contains("400 BAD_REQUEST \"Email already
-// exists.\""));
-// }
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> userService.registerUser(user.getFirstName(), user.getLastName(), user.getEmail(),
+                        user.getPhoneNumber(), user.getPassword(), file, user.getUserType()));
 
-// @Test
-// void whenAuthenticateUser_withCorrectCredentials_thenSuccess() throws
-// Exception {
-// ObjectId userId = new ObjectId();
-// User existingUser = new User("John", "Doe", "john.doe@example.com",
-// "1234567890", "password", new ObjectId());
-// existingUser.setId(userId); // Set the user ID manually
-// when(userRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.of(existingUser));
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        assertTrue(exception.getReason().contains("Email already exists."));
+    }
 
-// User authenticatedUser = userService.authenticateUser("john.doe@example.com",
-// "password");
+    @Test
+    void authenticateUser_withCorrectCredentials_shouldSucceed() {
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
 
-// assertNotNull(authenticatedUser);
-// assertEquals("john.doe@example.com", authenticatedUser.getEmail());
-// }
+        try {
+            User result = userService.authenticateUser(user.getEmail(), user.getPassword());
+            assertNotNull(result);
+            assertEquals(user.getEmail(), result.getEmail());
+        } catch (Exception e) {
+            fail("Unexpected exception thrown: " + e.getMessage());
+        }
+    }
 
-// @Test
-// void whenAuthenticateUser_withNonExistingEmail_thenThrowException() {
-// when(userRepository.findByEmail("non.existing@example.com")).thenReturn(Optional.empty());
+    @Test
+    void authenticateUser_withNonExistingEmail_shouldThrowException() {
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 
-// Exception exception = assertThrows(ResponseStatusException.class,
-// () -> userService.authenticateUser("non.existing@example.com", "password"));
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> userService.authenticateUser("non.existing@example.com", "password"));
 
-// assertTrue(exception.getMessage().contains("404 NOT_FOUND \"User doesn't
-// exist\""));
-// }
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        assertTrue(exception.getReason().contains("User doesn't exist"));
+    }
 
-// @Test
-// void whenAuthenticateUser_withIncorrectPassword_thenThrowException() {
-// User existingUser = new User("John", "Doe", "john.doe@example.com",
-// "1234567890", "password", new ObjectId());
-// when(userRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.of(existingUser));
+    @Test
+    void authenticateUser_withIncorrectPassword_shouldThrowException() {
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
 
-// Exception exception = assertThrows(ResponseStatusException.class,
-// () -> userService.authenticateUser("john.doe@example.com", "wrongpassword"));
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> userService.authenticateUser(user.getEmail(), "wrongpassword"));
 
-// assertTrue(exception.getMessage().contains("401 UNAUTHORIZED \"Invalid
-// password\""));
-// }
-// }
+        assertEquals(HttpStatus.UNAUTHORIZED, exception.getStatusCode());
+        assertTrue(exception.getReason().contains("Invalid password"));
+    }
+
+}
