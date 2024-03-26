@@ -5,7 +5,7 @@ const HeatingContext = createContext();
 export const HeatingProvider = ({ children }) => {
   const [heatingStates, setHeatingStates] = useState(() => Array(7).fill(21));
   const [heatingZones, setHeatingZones] = useState(() =>
-    Array(3).fill({ rooms: {}, temperature: 21 })
+    Array(3).fill({ rooms: {}, temperature: 21, period: 1 })
   );
   const [simulationState, setSimulationState] = useState(false);
 

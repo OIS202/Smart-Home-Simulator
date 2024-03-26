@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 const ModuleContext = createContext();
 
@@ -42,11 +42,13 @@ export const ModuleProvider = ({ children }) => {
     },
   ]);
 
-  const reading = () => {
-    for (var i = 0; i < moduleStates.length; i++) {
-      console.log(moduleStates[i]);
-    }
-  };
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     // moduleStates();
+  //   }, 1000);
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   //changes the displayed module
   const toggleActiveModule = (module) => {

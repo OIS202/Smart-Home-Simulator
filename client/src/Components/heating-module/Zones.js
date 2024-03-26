@@ -18,7 +18,7 @@ import HeatingContext from "../contexts/HeatingContext";
 
 export default function Zones(props) {
   const { isOn, info } = useContext(DeviceContext);
-  const [deviceStates, toggleDeviceState] = isOn;
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
 
   const { thermostat } = useContext(HeatingContext);
   const [
@@ -266,7 +266,7 @@ export default function Zones(props) {
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel
           control={<Checkbox />}
-          label="Kitchen"
+          label={`Kitchen: ${heatingStates[0]}°C`}
           checked={deviceStates[18]}
           // context={DeviceContext}
           onChange={() => {
@@ -278,7 +278,7 @@ export default function Zones(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label="Living Room"
+          label={`Living Room: ${heatingStates[1]}°C`}
           checked={deviceStates[19]}
           onChange={() => {
             toggleDeviceState(19);
@@ -286,7 +286,7 @@ export default function Zones(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label="Kid Bedroom"
+          label={`Kid Bedroom: ${heatingStates[2]}°C`}
           checked={deviceStates[20]}
           onChange={() => {
             toggleDeviceState(20);
@@ -294,7 +294,7 @@ export default function Zones(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label="Master Bedroom"
+          label={`Master Bedroom: ${heatingStates[3]}°C`}
           checked={deviceStates[21]}
           onChange={() => {
             toggleDeviceState(21);
@@ -302,7 +302,7 @@ export default function Zones(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label="Bathroom"
+          label={`Bathroom: ${heatingStates[4]}°C`}
           checked={deviceStates[22]}
           onChange={() => {
             toggleDeviceState(22);
@@ -310,30 +310,29 @@ export default function Zones(props) {
         />
         <FormControlLabel
           control={<Checkbox />}
-          label="Garage"
+          label={`Garage: ${heatingStates[5]}°C`}
           checked={deviceStates[23]}
           onChange={() => {
             toggleDeviceState(23);
           }}
         />
         {/* <FormControlLabel
-            control={<Checkbox />}
-            label="Backyard"
-            checked={deviceStates[24]}
-            onChange={() => {
-              toggleDeviceState(24);
-            }}
-          />
-          <br />
-          <FormControlLabel
-            control={<Checkbox />}
-            label="All Thermostats"
-            checked={deviceStates[25]}
-            onChange={() => {
-              // all(props.deviceStates);
-              toggleDeviceState(25);
-            }}
-          /> */}
+          control={<Checkbox />}
+          label="Backyard"
+          checked={deviceStates[24]}
+          onChange={() => {
+            toggleDeviceState(24);
+          }}
+        />*/}
+        <br />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="All Thermostats"
+          checked={deviceStates[24]}
+          onChange={() => {
+            toggleAll("thermostats");
+          }}
+        />
       </FormGroup>
     );
   }

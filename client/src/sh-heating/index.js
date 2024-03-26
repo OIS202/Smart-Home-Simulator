@@ -37,7 +37,9 @@ const Heating = () => {
   const [simulationState, setSimulationState] = simulation;
 
   const activeFeature = getActiveFeature() - 1;
+
   const features = [
+    <div />,
     <Thermostats source="heating" />,
     <Zones source="heating" />,
   ];
@@ -80,13 +82,12 @@ const Heating = () => {
         <ButtonGroup
           variant="outlined"
           aria-label="Basic button group"
-          disabled={simulationState == false ? true : false}
+          disabled={!simulationState ? true : false}
           sx={{ padding: "10px" }}
         >
           <Button
             color={activeFeature === 1 ? "secondary" : "primary"}
             variant="contained"
-            //   size="large"
             className={activeFeature === 1 ? "active" : ""}
             onClick={() => {
               //   setActiveFeatureIndex(1);
@@ -101,6 +102,7 @@ const Heating = () => {
             variant="contained"
             //   size="large"
             color={activeFeature === 2 ? "secondary" : "primary"}
+            className={activeFeature === 2 ? "active" : ""}
             onClick={() => {
               //   setActiveFeatureIndex(2);
               toggleActiveFeature(4, 3);
@@ -111,7 +113,10 @@ const Heating = () => {
           </Button>
         </ButtonGroup>
         <div id="tab-content" style={{ display: "flex" }}>
-          {activeFeature == 1 ? features[activeFeature] : ""}
+          {/* {activeFeature == 1 || activeFeature == 2 */}
+          {/* ?  */}
+          {features[activeFeature]}
+          {/* // : ""} */}
         </div>
       </div>
     </>
