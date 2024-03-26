@@ -36,7 +36,7 @@ import { ModuleProvider } from "./Components/contexts/ModuleContext";
 
 // export const useDeviceContext = () => useContext(DeviceContext);
 
-const HomePage = () => {
+const Home = () => {
   // const [deviceState, setDeviceState] = useState({});
 
   // function checkDevices() {
@@ -114,7 +114,7 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
 
 {
   /* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */
