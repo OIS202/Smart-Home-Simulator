@@ -24,6 +24,7 @@
 // export const useDeviceContext = () => useContext(DeviceContext);
 
 import React, { createContext, useState } from "react";
+import Thermostats from "../heating-module/Thermostats";
 
 const DeviceContext = createContext();
 
@@ -56,10 +57,11 @@ export const DeviceProvider = ({ children }) => {
     setDeviceStates((prevState) => {
       const newState = [...prevState];
       let start, end;
-      //if add device is successful, make thes buttons 1, 2, 3
+      //if add device is successful, make thes buttons 1, 2, 3, 4
       let light = 7,
         door = 11,
-        window = 17;
+        window = 17,
+        thermostat = 24;
 
       switch (type) {
         case "lights":
@@ -74,6 +76,10 @@ export const DeviceProvider = ({ children }) => {
           start = 12;
           end = 16;
           break;
+        case "thermostats":
+          start = 18;
+          end = 23;
+          break;
         default:
           return prevState; // If type is not recognized, return previous state
       }
@@ -83,7 +89,9 @@ export const DeviceProvider = ({ children }) => {
           newState[i] = !newState[i];
         } else if (newState[door] == false && !newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[door] == false && !newState[i]) {
+        } else if (newState[window] == false && !newState[i]) {
+          newState[i] = !newState[i];
+        } else if (newState[thermostat] == false && !newState[i]) {
           newState[i] = !newState[i];
         }
 
@@ -91,7 +99,9 @@ export const DeviceProvider = ({ children }) => {
           newState[i] = !newState[i];
         } else if (newState[door] == true && newState[i]) {
           newState[i] = !newState[i];
-        } else if (newState[door] == true && newState[i]) {
+        } else if (newState[window] == true && newState[i]) {
+          newState[i] = !newState[i];
+        } else if (newState[thermostat] == true && newState[i]) {
           newState[i] = !newState[i];
         }
       }

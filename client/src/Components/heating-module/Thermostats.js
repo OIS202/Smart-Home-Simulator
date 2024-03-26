@@ -18,7 +18,7 @@ import HeatingContext from "../contexts/HeatingContext";
 
 export default function Thermostats(props) {
   const { isOn, info } = useContext(DeviceContext);
-  const [deviceStates, toggleDeviceState] = isOn;
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
 
   const { thermostat } = useContext(HeatingContext);
   const [
@@ -406,14 +406,6 @@ export default function Thermostats(props) {
             toggleDeviceState(23);
           }}
         />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Garage: ${heatingStates[5]}°C`}
-          checked={deviceStates[23]}
-          onChange={() => {
-            toggleDeviceState(23);
-          }}
-        />
         {/* <FormControlLabel
           control={<Checkbox />}
           label="Backyard"
@@ -421,17 +413,16 @@ export default function Thermostats(props) {
           onChange={() => {
             toggleDeviceState(24);
           }}
-        />
+        />*/}
         <br />
         <FormControlLabel
           control={<Checkbox />}
           label="All Thermostats"
-          checked={deviceStates[25]}
+          checked={deviceStates[24]}
           onChange={() => {
-            // all(props.deviceStates);
-            toggleDeviceState(25);
+            toggleAll("thermostats");
           }}
-        /> */}
+        />
       </FormGroup>
     );
   }
