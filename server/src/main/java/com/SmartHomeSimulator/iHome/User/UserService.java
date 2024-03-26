@@ -32,8 +32,7 @@ public class UserService {
     private HouseService houseService;
 
     public UserResponseDto registerUser(String firstName, String lastName, String email,
-            String phoneNumber, String password, MultipartFile file, UserType userType)
-            throws Exception {
+            String phoneNumber, String password, MultipartFile file, UserType userType) throws Exception {
         if (userRepository.existsByEmail(email)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists.");
         }
@@ -50,7 +49,7 @@ public class UserService {
         newUser.setPassword(password); // Make sure to encode the password in real scenarios
         newUser.setHouseId(house.getId());
         newUser.setLocation("outside");
-        newUser.setUserType(userType);
+        newUser.setUserType(userType.PARENT);
 
         // Save the User object to the database
         newUser = userRepository.save(newUser);

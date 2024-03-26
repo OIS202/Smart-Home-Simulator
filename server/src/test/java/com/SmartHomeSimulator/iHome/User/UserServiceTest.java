@@ -93,16 +93,18 @@ class UserServiceTest {
         assertTrue(exception.getReason().contains("Email already exists."));
     }
 
-    // @Test
-    // void authenticateUser_withCorrectCredentials_shouldSucceed() {
-    // when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
+    @Test
+    void authenticateUser_withCorrectCredentials_shouldSucceed() {
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
 
-    // User result = userService.authenticateUser(user.getEmail(),
-    // user.getPassword());
-
-    // assertNotNull(result);
-    // assertEquals(user.getEmail(), result.getEmail());
-    // }
+        try {
+            User result = userService.authenticateUser(user.getEmail(), user.getPassword());
+            assertNotNull(result);
+            assertEquals(user.getEmail(), result.getEmail());
+        } catch (Exception e) {
+            fail("Unexpected exception thrown: " + e.getMessage());
+        }
+    }
 
     @Test
     void authenticateUser_withNonExistingEmail_shouldThrowException() {
