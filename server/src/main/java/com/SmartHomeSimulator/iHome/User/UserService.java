@@ -63,7 +63,6 @@ public class UserService {
         return userResponseDto;
     }
 
-   
     public User authenticateUser(String email, String password) throws Exception {
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
@@ -89,7 +88,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists.");
         }
 
-        houseId = new ObjectId("65fcdf7132513f5cebd28837"); //hard-coded object ID until further notice 
+        houseId = new ObjectId("65fcdf7132513f5cebd28837"); // hard-coded object ID until further notice
         // Create a new User object
         User newUser = new User();
         newUser.setFirstName(firstName);
@@ -112,11 +111,6 @@ public class UserService {
         return userResponseDto;
     }
 
-    //TEKA CODE
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-    
     public List<User> getUsersByHouseId(ObjectId houseId) {
         return userRepository.findAllByHouseId(houseId);
     }
@@ -129,6 +123,11 @@ public class UserService {
         User user = userOptional.get();
         user.setLocation(location);
         return userRepository.save(user);
+    }
+
+    // TEKA CODE
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }
