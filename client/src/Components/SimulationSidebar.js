@@ -1,82 +1,75 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography, Switch, Slider, Avatar } from "@mui/material";
+import HeatingContext from "./contexts/HeatingContext"; // Adjust the import path as needed
 
 const SimulationSidebar = ({ houseId }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [timeSpeed, setTimeSpeed] = useState(1); // 1x speed by default
+  const { thermostat } = useContext(HeatingContext);
+  const [heatingStates] = thermostat; // Accessing heating states from context
+  const targetTemperature = heatingStates[0]; // Assuming the target temp is the first in your heating states
+
+  // Initialize actual and outside temperatures to match the target temperature from HeatingContext
+  const [actualTemperature, setActualTemperature] = useState(targetTemperature);
+  const [outsideTemperature, setOutsideTemperature] = useState(targetTemperature); // New outside temperature state
+  const [isSwitchOn, setIsSwitchOn] = useState(true);
+  const [timeSpeed, setTimeSpeed] = useState(1);
 
   useEffect(() => {
-    const fetchTimeByHouseId = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/time/65fcdf7132513f5cebd28837`);
-        console.log("Time fetched from backend:", response.data.time); // Debugging log
+    if (!isSwitchOn) return;
 
-        // Assuming the backend returns an ISO 8601 formatted string
-        const fetchedTime = new Date(response.data.time);
-        console.log("HEREEEE:  "+fetchedTime)
-        if (isNaN(fetchedTime.getTime())) {
-          console.error("Invalid date received from backend", response.data.time);
-        } else {
-          setCurrentTime(fetchedTime);
-        }
-      } catch (error) {
-        console.error("Failed to fetch time", error);
-      }
-    };
-
-    fetchTimeByHouseId();
-
-    const interval = setInterval(() => {
+    // Update time every second based on timeSpeed
+    const timeInterval = setInterval(() => {
       setCurrentTime(prevTime => new Date(prevTime.getTime() + 1000 * timeSpeed));
-    }, 1000);
+    }, 1000 / timeSpeed);
 
-    return () => clearInterval(interval);
-  }, [timeSpeed, houseId]);
+    // Adjust actual temperature towards the target temperature every second based on timeSpeed
+    const temperatureInterval = setInterval(() => {
+      setActualTemperature(prevTemperature => {
+        const tempDifference = targetTemperature - prevTemperature;
+        if (tempDifference === 0) return prevTemperature; // Already at target temperature
+        const adjustment = tempDifference > 0 ? 0.1 : -0.1;
+        // Move actual temperature towards target, ensuring we don't overshoot
+        return Math.abs(tempDifference) < Math.abs(adjustment) ? targetTemperature : prevTemperature + adjustment;
+      });
+    }, 1000 / timeSpeed);
+
+    // Here you can add logic to change the outside temperature if needed
+    // For now, it starts the same as target and actual temperatures and remains constant
+
+    return () => {
+      clearInterval(timeInterval);
+      clearInterval(temperatureInterval);
+    };
+  }, [isSwitchOn, timeSpeed, targetTemperature]);
+
+  const handleSwitchChange = (event) => {
+    setIsSwitchOn(event.target.checked);
+  };
 
   const handleTimeSpeedChange = (event, newValue) => {
     setTimeSpeed(newValue);
   };
 
-  // Format the current time to display
-  const formattedDate =  currentTime.toDateString();
-  const formattedTime =  currentTime.toLocaleTimeString();
-  console.log(formattedTime)
+  const formattedDate = currentTime.toDateString();
+  const formattedTime = currentTime.toLocaleTimeString();
 
   return (
-    <Box
-      sx={{
-        width: 200,
-        bgcolor: "grey.300", // Set to a grey color from the theme
-        padding: 2,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        overflowY: "auto",
-      }}
-    >
-      <Typography variant="h6" gutterBottom>
-        Simulation
-      </Typography>
-      <Switch checked />
-      <Avatar sx={{ my: 2 }}>P</Avatar> {/* Placeholder for user avatar */}
-      <Typography>Parent</Typography>
+    <Box sx={{ width: 200, bgcolor: "grey.300", padding: 2, display: "flex", flexDirection: "column", alignItems: "center", overflowY: "auto", }}>
+      <Typography variant="h6" gutterBottom>Simulation</Typography>
+      <Switch checked={isSwitchOn} onChange={handleSwitchChange} />
       <Typography variant="caption" display="block" gutterBottom>
-        Location: Kitchen
+        Target Temperature: {targetTemperature}°C
       </Typography>
       <Typography variant="caption" display="block" gutterBottom>
-        Outside Temp. 15°C
+        Actual Temperature: {actualTemperature.toFixed(1)}°C
       </Typography>
       <Typography variant="caption" display="block" gutterBottom>
-        {formattedDate}
+        Outside Temperature: {outsideTemperature.toFixed(1)}°C
       </Typography>
-      <Typography variant="caption" display="block" gutterBottom>
-        {formattedTime}
-      </Typography>
-      <Typography variant="caption" display="block" sx={{ alignSelf: "flex-start" }}>
-        Time speed
-      </Typography>
-      <Slider defaultValue={1} min={0.1} max={5} step={0.1} aria-label="Time speed" onChange={handleTimeSpeedChange} />
+      <Typography variant="caption" display="block" gutterBottom>{formattedDate}</Typography>
+      <Typography variant="caption" display="block" gutterBottom>{formattedTime}</Typography>
+      <Typography variant="caption" display="block" sx={{ alignSelf: "flex-start" }}>Time speed</Typography>
+      <Slider value={timeSpeed} onChange={handleTimeSpeedChange} defaultValue={1} min={0.1} max={5} step={0.1} aria-label="Time speed" />
     </Box>
   );
 };
