@@ -383,7 +383,7 @@ export default function Thermostats(props) {
         </IconButton> */}
       </>
     );
-  } else if (props.source === "heating") {
+  } else if (props.source === "module") {
     return (
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel

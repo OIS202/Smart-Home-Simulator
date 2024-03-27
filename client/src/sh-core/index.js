@@ -30,18 +30,18 @@ const Core = () => {
 
   const features = [
     <Lights
-      source="core"
+      source="module"
       // deviceStates={deviceStates}
       // toggleDeviceState={toggleDeviceState}
     />,
 
     <Doors
-      source="core"
+      source="module"
       // deviceStates={deviceStates}
       // toggleDeviceState={toggleDeviceState}
     />,
     <Windows
-      source="core"
+      source="module"
       // deviceStates={deviceStates}
       // toggleDeviceState={toggleDeviceState}
     />,

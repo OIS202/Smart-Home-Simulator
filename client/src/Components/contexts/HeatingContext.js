@@ -7,7 +7,20 @@ export const HeatingProvider = ({ children }) => {
     Array(7).fill({ temperature: 21, isZone: false })
   );
   const [heatingZones, setHeatingZones] = useState(() =>
-    Array(3).fill({ rooms: {}, temperature: 21, period: 1 })
+    Array(3).fill({
+      active: false,
+      rooms: [
+        { id: 1, active: false },
+        { id: 2, active: false },
+        { id: 3, active: false },
+        { id: 4, active: false },
+        { id: 5, active: false },
+        { id: 6, active: false },
+        { id: 7, active: false },
+      ],
+      temperature: 21,
+      period: 1,
+    })
   );
   const [simulationState, setSimulationState] = useState(false);
 
@@ -38,17 +51,6 @@ export const HeatingProvider = ({ children }) => {
     });
   };
 
-  const getTemperatureByIndex = (index) => {
-    // Ensure the index is within the bounds of the array
-    if (index >= 0 && index < heatingStates.length) {
-      return heatingStates[index].temperature;
-    } else {
-      // Handle out-of-bounds index
-      console.error("Index out of bounds");
-      return null; // or any other appropriate value indicating an error
-    }
-  };
-
   return (
     <HeatingContext.Provider
       value={{
@@ -69,6 +71,17 @@ export const HeatingProvider = ({ children }) => {
 };
 
 export default HeatingContext;
+
+// const getTemperatureByIndex = (index) => {
+//   // Ensure the index is within the bounds of the array
+//   if (index >= 0 && index < heatingStates.length) {
+//     return heatingStates[index].temperature;
+//   } else {
+//     // Handle out-of-bounds index
+//     console.error("Index out of bounds");
+//     return null; // or any other appropriate value indicating an error
+//   }
+// };
 
 // const decreaseTemperature = (index) => {
 //   setHeatingStates((prevState) => {

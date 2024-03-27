@@ -5,13 +5,7 @@ import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-import {
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { IconButton, Typography, Button, ButtonGroup } from "@mui/material";
 
 import DeviceContext from "../contexts/DeviceContext";
 import HeatingContext from "../contexts/HeatingContext";
@@ -20,20 +14,15 @@ export default function Zones(props) {
   const { isOn, info } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState, toggleAll] = isOn;
 
-  const { thermostat } = useContext(HeatingContext);
+  const { thermostat, zones } = useContext(HeatingContext);
   const [
     heatingStates,
     toggleHeatingState,
     increaseTemperature,
     decreaseTemperature,
   ] = thermostat;
-  // const [deviceInfos, setDeviceInfos] = info;
 
-  //   const handleBtn = (btnId) => (e) => {
-  //     e.preventDefault();
-  //     toggleDeviceState(btnId);
-  //     // toggleHeatingState()
-  //   };
+  const [heatingZones, setHeatingZones] = zones;
 
   const increaseTemp = (btnId) => (e) => {
     e.preventDefault();
@@ -45,85 +34,226 @@ export default function Zones(props) {
     decreaseTemperature(btnId);
   };
 
+  if (props.source === "module") {
+  }
+
   if (props.source === "layout") {
     return (
       <>
-        <FormGroup
+        {/**
+         *
+         * KITCHEN
+         *
+         */}
+        <IconButton
+          color="white"
+          size="small"
+          //   onClick={increaseTemp(0)}
           sx={{
             position: "absolute",
             borderRadius: "25px",
-            top: "18%",
-            left: "50%",
-            backgroundColor: deviceStates[18] ? "#EA9999" : "lightgrey",
+            padding: "70px 25px",
+            top: "8%",
+            left: "48%",
+            backgroundColor: deviceStates[18]
+              ? "rgb(144, 238, 144, 0.7)"
+              : "rgb(211,211,211, 0.7)",
           }}
         >
-          <IconButton
-            // disabled={deviceStates[18] ? false : true}
-            color="white"
-            onClick={increaseTemp(0)}
-            size="small"
-            sx={{ display: deviceStates[18] ? "block" : "none" }}
-          >
-            <AddIcon />
-          </IconButton>
-
           <Typography
             variant="h8"
-            sx={{ margin: deviceStates[18] ? "5px 10px" : "15px 15px" }}
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+            }}
           >
-            {`${heatingStates[0]}°C`}
+            {`Kitchen`}
           </Typography>
-
-          <IconButton
-            // disabled={deviceStates[18] ? false : true}
-            color="white"
-            onClick={decreaseTemp(0)}
-            size="small"
-            sx={{ display: deviceStates[18] ? "block" : "none" }}
-          >
-            <RemoveIcon />
-          </IconButton>
-        </FormGroup>
+        </IconButton>
 
         {/**
          *
+         * LIVING ROOM
          *
          */}
-        <FormGroup
+        <IconButton
+          color="white"
+          size="small"
           sx={{
             position: "absolute",
             borderRadius: "25px",
-            top: "15%",
-            left: "70%",
-            backgroundColor: deviceStates[19] ? "#EA9999" : "lightgrey",
+            padding: "70px 25px",
+            top: "8%",
+            left: "66%",
+            backgroundColor: deviceStates[19]
+              ? "rgb(144, 238, 144, 0.7)"
+              : "rgb(211,211,211, 0.7)",
           }}
         >
-          <IconButton
-            sx={{ display: deviceStates[19] ? "block" : "none" }}
-            color="white"
-            onClick={increaseTemp(1)}
-            size="small"
-          >
-            <AddIcon />
-          </IconButton>
-
           <Typography
             variant="h8"
-            sx={{ margin: deviceStates[19] ? "5px 10px" : "15px 15px" }}
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+            }}
           >
-            {`${heatingStates[1]}°C`}
+            {`Living Room`}
           </Typography>
+        </IconButton>
 
-          <IconButton
-            sx={{ display: deviceStates[19] ? "block" : "none" }}
-            color="white"
-            onClick={decreaseTemp(1)}
-            size="small"
+        {/**
+         *
+         * MASTER BEDROOM
+         *
+         */}
+        <IconButton
+          color="white"
+          size="small"
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            padding: "68px 12px",
+            top: "71%",
+            left: "68%",
+            backgroundColor: deviceStates[20]
+              ? "rgb(144, 238, 144, 0.7)"
+              : "rgb(211,211,211, 0.7)",
+          }}
+        >
+          <Typography
+            variant="h8"
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+            }}
           >
-            <RemoveIcon />
-          </IconButton>
-        </FormGroup>
-        <FormGroup
+            {`Master Bedroom`}
+          </Typography>
+        </IconButton>
+        {/**
+         *
+         * KID BEDROOM
+         *
+         */}
+        <IconButton
+          color="white"
+          size="small"
+          //   onClick={increaseTemp(0)}
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            padding: "70px 25px",
+            top: "42%",
+            left: "68%",
+            backgroundColor: deviceStates[21]
+              ? "rgb(144, 238, 144, 0.7)"
+              : "rgb(211,211,211, 0.7)",
+          }}
+        >
+          <Typography
+            variant="h8"
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+            }}
+          >
+            {`Kid Bedroom`}
+          </Typography>
+        </IconButton>
+
+        {/**
+         *
+         * BATHROOM
+         *
+         */}
+        <IconButton
+          color="white"
+          size="small"
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            padding: "150px 5px",
+            top: "42%",
+            left: "53%",
+            backgroundColor: deviceStates[22]
+              ? "rgb(144, 238, 144, 0.7)"
+              : "rgb(211,211,211, 0.7)",
+          }}
+        >
+          <Typography
+            variant="h8"
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+            }}
+          >
+            {`Bathooom`}
+          </Typography>
+        </IconButton>
+
+        {/**
+         *
+         * GARAGE
+         *
+         */}
+        <IconButton
+          color="white"
+          size="small"
+          //   onClick={increaseTemp(0)}
+          sx={{
+            position: "absolute",
+            borderRadius: "25px",
+            padding: "120px 85px",
+            top: "52%",
+            left: "14%",
+            backgroundColor: deviceStates[23]
+              ? "rgb(144, 238, 144, 0.7)"
+              : "rgb(211,211,211, 0.7)",
+          }}
+        >
+          <Typography
+            variant="h8"
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+            }}
+          >
+            {`Garage`}
+          </Typography>
+        </IconButton>
+
+        {/* 
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
+        
+        */}
+        {/* <FormGroup
           sx={{
             position: "absolute",
             borderRadius: "25px",
@@ -258,82 +388,83 @@ export default function Zones(props) {
           >
             <RemoveIcon />
           </IconButton>
-        </FormGroup>
+        </FormGroup> */}
       </>
     );
-  } else if (props.source === "heating") {
-    return (
-      <FormGroup sx={{ padding: "10px" }}>
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Kitchen: ${heatingStates[0]}°C`}
-          checked={deviceStates[18]}
-          // context={DeviceContext}
-          onChange={() => {
-            toggleDeviceState(18);
-            // handleDeviceToggle("btn1")
-            // handleChange
-            // setDeviceState([0]);
-          }}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Living Room: ${heatingStates[1]}°C`}
-          checked={deviceStates[19]}
-          onChange={() => {
-            toggleDeviceState(19);
-          }}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Kid Bedroom: ${heatingStates[2]}°C`}
-          checked={deviceStates[20]}
-          onChange={() => {
-            toggleDeviceState(20);
-          }}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Master Bedroom: ${heatingStates[3]}°C`}
-          checked={deviceStates[21]}
-          onChange={() => {
-            toggleDeviceState(21);
-          }}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Bathroom: ${heatingStates[4]}°C`}
-          checked={deviceStates[22]}
-          onChange={() => {
-            toggleDeviceState(22);
-          }}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={`Garage: ${heatingStates[5]}°C`}
-          checked={deviceStates[23]}
-          onChange={() => {
-            toggleDeviceState(23);
-          }}
-        />
-        {/* <FormControlLabel
-          control={<Checkbox />}
-          label="Backyard"
-          checked={deviceStates[24]}
-          onChange={() => {
-            toggleDeviceState(24);
-          }}
-        />*/}
-        <br />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="All Thermostats"
-          checked={deviceStates[24]}
-          onChange={() => {
-            toggleAll("thermostats");
-          }}
-        />
-      </FormGroup>
-    );
   }
+  //   else if (props.source === "heating") {
+  //     return (
+  //   <FormGroup sx={{ padding: "10px" }}>
+  //     <FormControlLabel
+  //       control={<Checkbox />}
+  //       label={`Kitchen: ${heatingStates[0]}°C`}
+  //       checked={deviceStates[18]}
+  //       // context={DeviceContext}
+  //       onChange={() => {
+  //         toggleDeviceState(18);
+  //         // handleDeviceToggle("btn1")
+  //         // handleChange
+  //         // setDeviceState([0]);
+  //       }}
+  //     />
+  //     <FormControlLabel
+  //       control={<Checkbox />}
+  //       label={`Living Room: ${heatingStates[1]}°C`}
+  //       checked={deviceStates[19]}
+  //       onChange={() => {
+  //         toggleDeviceState(19);
+  //       }}
+  //     />
+  //     <FormControlLabel
+  //       control={<Checkbox />}
+  //       label={`Kid Bedroom: ${heatingStates[2]}°C`}
+  //       checked={deviceStates[20]}
+  //       onChange={() => {
+  //         toggleDeviceState(20);
+  //       }}
+  //     />
+  //     <FormControlLabel
+  //       control={<Checkbox />}
+  //       label={`Master Bedroom: ${heatingStates[3]}°C`}
+  //       checked={deviceStates[21]}
+  //       onChange={() => {
+  //         toggleDeviceState(21);
+  //       }}
+  //     />
+  //     <FormControlLabel
+  //       control={<Checkbox />}
+  //       label={`Bathroom: ${heatingStates[4]}°C`}
+  //       checked={deviceStates[22]}
+  //       onChange={() => {
+  //         toggleDeviceState(22);
+  //       }}
+  //     />
+  //     <FormControlLabel
+  //       control={<Checkbox />}
+  //       label={`Garage: ${heatingStates[5]}°C`}
+  //       checked={deviceStates[23]}
+  //       onChange={() => {
+  //         toggleDeviceState(23);
+  //       }}
+  //     />
+  //     {/* <FormControlLabel
+  //       control={<Checkbox />}
+  //       label="Backyard"
+  //       checked={deviceStates[24]}
+  //       onChange={() => {
+  //         toggleDeviceState(24);
+  //       }}
+  //     />*/}
+  //     <br />
+  //     <FormControlLabel
+  //       control={<Checkbox />}
+  //       label="All Thermostats"
+  //       checked={deviceStates[24]}
+  //       onChange={() => {
+  //         toggleAll("thermostats");
+  //       }}
+  //     />
+  //   </FormGroup>
+  // );
+  //   }
 }

@@ -86,7 +86,7 @@ export default function Windows(props) {
         </IconButton>
       </>
     );
-  } else if (props.source === "core") {
+  } else if (props.source === "module") {
     return (
       //can eventually add children in form group
       <FormGroup sx={{ padding: "10px" }}>

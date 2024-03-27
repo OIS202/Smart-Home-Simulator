@@ -40,8 +40,8 @@ const Heating = () => {
 
   const features = [
     <div />,
-    <Thermostats source="heating" />,
-    <Zones source="heating" />,
+    <Thermostats source="module" />,
+    <Zones source="module" />,
   ];
 
   //   const handleSwitch = (event) => {

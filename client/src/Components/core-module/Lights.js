@@ -192,7 +192,7 @@ export default function Lights(props) {
         </IconButton>
       </>
     );
-  } else if (props.source === "core") {
+  } else if (props.source === "module") {
     return (
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel
