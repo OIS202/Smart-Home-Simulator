@@ -5,7 +5,7 @@ import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-import { IconButton, Typography, Button, ButtonGroup } from "@mui/material";
+import { IconButton, Typography, Button, Box } from "@mui/material";
 
 import DeviceContext from "../contexts/DeviceContext";
 import HeatingContext from "../contexts/HeatingContext";
@@ -35,6 +35,29 @@ export default function Zones(props) {
   };
 
   if (props.source === "module") {
+    return (
+      <>
+        <Box sx={{ margin: "20px auto" }}>
+          <Typography variant="h6">Active Zones</Typography>
+          <br />
+          <Typography variant="h6">Zone 1</Typography>
+          <Typography>Temperature: 22°C</Typography>
+          <Typography>Living Room</Typography>
+          <Typography>Bathroom</Typography>
+          <Typography>Garage</Typography>
+          <br />
+          <Typography variant="h6">Zone 2</Typography>
+          <Typography>Temperature: 17°C</Typography>
+          <Typography>Kid Bedroom</Typography>
+          <Typography>Master Bedroom</Typography>
+          <Typography>Kitchen</Typography>
+          <br />
+          <Button variant="contained" sx={{ margin: "10px" }}>
+            <Typography>Create Zone</Typography>
+          </Button>
+        </Box>
+      </>
+    );
   }
 
   if (props.source === "layout") {
