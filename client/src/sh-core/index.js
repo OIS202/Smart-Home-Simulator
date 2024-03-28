@@ -19,29 +19,29 @@ import Windows from "../Components/core-module/Windows";
  * CORE FUNCTION
  */
 const Core = () => {
-  const [activeContentIndex, setActiveContentIndex] = useState(0);
+  // const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
 
   //match layout with module feature (e.g. light control)
   // const { state, setState } = useContext(CoreContext);
-  const { toggleActiveFeature } = useContext(ModuleContext);
-
+  const { getActiveFeature, toggleActiveFeature } = useContext(ModuleContext);
+  const activeFeature = getActiveFeature() - 1;
   //match on/off on layout and module feature
   // const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 
   const features = [
     <Lights
-      source="core"
+      source="module"
       // deviceStates={deviceStates}
       // toggleDeviceState={toggleDeviceState}
     />,
 
     <Doors
-      source="core"
+      source="module"
       // deviceStates={deviceStates}
       // toggleDeviceState={toggleDeviceState}
     />,
     <Windows
-      source="core"
+      source="module"
       // deviceStates={deviceStates}
       // toggleDeviceState={toggleDeviceState}
     />,
@@ -56,12 +56,12 @@ const Core = () => {
           sx={{ padding: "10px" }}
         >
           <Button
-            color={activeContentIndex === 0 ? "secondary" : "primary"}
+            color={activeFeature === 0 ? "secondary" : "primary"}
             variant="contained"
             //   size="large"
-            className={activeContentIndex === 0 ? "active" : ""}
+            className={activeFeature === 0 ? "active" : ""}
             onClick={() => {
-              setActiveContentIndex(0);
+              // setActiveFeatureIndex(0);
               toggleActiveFeature(2, 1);
               // setState(0);
             }}
@@ -69,12 +69,12 @@ const Core = () => {
             <LightbulbOutlinedIcon />
           </Button>
           <Button
-            color={activeContentIndex === 1 ? "secondary" : "primary"}
+            color={activeFeature === 1 ? "secondary" : "primary"}
             variant="contained"
             //   size="large"
-            className={activeContentIndex === 1 ? "active" : ""}
+            className={activeFeature === 1 ? "active" : ""}
             onClick={() => {
-              setActiveContentIndex(1);
+              // setActiveFeatureIndex(1);
               toggleActiveFeature(2, 2);
               // setState(1);
             }}
@@ -85,9 +85,9 @@ const Core = () => {
             //   style ={{color:"#364cff"}}
             variant="contained"
             //   size="large"
-            color={activeContentIndex === 2 ? "secondary" : "primary"}
+            color={activeFeature === 2 ? "secondary" : "primary"}
             onClick={() => {
-              setActiveContentIndex(2);
+              // setActiveFeatureIndex(2);
               toggleActiveFeature(2, 3);
               // setState(2);
             }}
@@ -96,7 +96,7 @@ const Core = () => {
           </Button>
         </ButtonGroup>
         <div id="tab-content" style={{ display: "flex" }}>
-          {features[activeContentIndex]}
+          {features[activeFeature]}
         </div>
       </div>
     </div>

@@ -16,13 +16,13 @@ import {
 import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
 
-import Lights from "./core-module/Lights";
+import Lights from "../core-module/Lights";
 
-import DeviceContext from "./contexts/DeviceContext";
+import DeviceContext from "../contexts/DeviceContext";
 
 const types = ["Light", "Door", "Window"];
 
-const AddDevice = () => {
+const CreateZone = () => {
   const { deviceInfos, addDevices } = useContext(DeviceContext);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [type, setType] = useState("");
@@ -186,5 +186,5 @@ const AddDevice = () => {
   );
 };
 
-export default AddDevice;
+export default CreateZone;
 // export { handleSave };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 import {
   Button,
@@ -16,6 +16,7 @@ import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import HvacIcon from "@mui/icons-material/Hvac";
 
 import Thermostats from "../Components/heating-module/Thermostats";
+import Zones from "../Components/heating-module/Zones";
 
 import HeatingContext from "../Components/contexts/HeatingContext";
 import ModuleContext from "../Components/contexts/ModuleContext";
@@ -25,59 +26,71 @@ import ModuleContext from "../Components/contexts/ModuleContext";
  * HEATING FUNCTION
  */
 const Heating = () => {
-  const [activeContentIndex, setActiveContentIndex] = useState(0);
+  //   const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
 
   //keeps the context of which feature is being used among all components
   //   const { heatingStates, setHeatingStates } = useContext(HeatingContext);
 
-  const { toggleActiveFeature } = useContext(ModuleContext);
+  const { getActiveFeature, toggleActiveFeature } = useContext(ModuleContext);
+
+  const { simulation } = useContext(HeatingContext);
+  const [simulationState, setSimulationState] = simulation;
+
+  const activeFeature = getActiveFeature() - 1;
 
   const features = [
-    // <Typography>ON/OFF SHH System</Typography>,
-    // <div></div>,
-    <Thermostats source="heating" />,
-    ,
-    <Typography>Zones</Typography>,
+    <div />,
+    <Thermostats source="module" active={simulationState} />,
+    <Zones source="module" />,
   ];
 
-  const [checked, setChecked] = useState(false);
+  //   const handleSwitch = (event) => {
+  //     setSimulationState(event.target.checked);
+  //     if (simulationState) {
+  //       //   setActiveFeatureIndex(1);
+  //       toggleActiveFeature(4, 2);
+  //     } else {
+  //       setActiveFeatureIndex(-1);
+  //       toggleActiveFeature(4, 1);
+  //     }
+  //   };
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
   return (
-    <div>
+    <>
       <div id="tabs">
-        <Typography>Heating Simulation</Typography>
+        <Typography variant="h6">Heating Simulation</Typography>
         <FormControlLabel
-          //   className={activeContentIndex === 0 ? "active" : ""}
+          //   className={activeFeatureIndex === 0 ? "active" : ""}
           control={
             <Switch
-              checked={checked}
-              onChange={(e) => {
-                handleChange(e);
-                setActiveContentIndex(0);
-                toggleActiveFeature(4, 1);
+              checked={simulationState}
+              //   onChange={(e) => {
+              //   handleSwitch(e);
+              //   }}
+              onChange={() => {
+                setSimulationState(!simulationState);
+                // if (simulationState == true) {
+                //   setActiveFeatureIndex(0);
+                // }
               }}
               //   inputProps={{ "aria-label": "controlled" }}
             />
           }
-          label={checked == true ? "ON" : "OFF"}
+          label={simulationState === true ? "ON" : "OFF"}
         />
         <br />
         <ButtonGroup
           variant="outlined"
           aria-label="Basic button group"
-          disabled={checked == false ? true : false}
+          disabled={!simulationState ? true : false}
           sx={{ padding: "10px" }}
         >
           <Button
-            color={activeContentIndex === 1 ? "secondary" : "primary"}
+            color={activeFeature === 1 ? "secondary" : "primary"}
             variant="contained"
-            //   size="large"
-            className={activeContentIndex === 1 ? "active" : ""}
+            className={activeFeature === 1 ? "active" : ""}
             onClick={() => {
-              setActiveContentIndex(1);
+              //   setActiveFeatureIndex(1);
               toggleActiveFeature(4, 2);
               //   setHeatingStates(1);
             }}
@@ -88,9 +101,10 @@ const Heating = () => {
             //   style ={{color:"#364cff"}}
             variant="contained"
             //   size="large"
-            color={activeContentIndex === 2 ? "secondary" : "primary"}
+            color={activeFeature === 2 ? "secondary" : "primary"}
+            className={activeFeature === 2 ? "active" : ""}
             onClick={() => {
-              setActiveContentIndex(2);
+              //   setActiveFeatureIndex(2);
               toggleActiveFeature(4, 3);
               //   setHeatingStates(2);
             }}
@@ -99,10 +113,13 @@ const Heating = () => {
           </Button>
         </ButtonGroup>
         <div id="tab-content" style={{ display: "flex" }}>
-          {features[activeContentIndex - 1]}
+          {/* {activeFeature == 1 || activeFeature == 2 */}
+          {/* ?  */}
+          {features[activeFeature]}
+          {/* // : ""} */}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

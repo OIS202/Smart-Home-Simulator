@@ -14,7 +14,7 @@ import DeviceContext from "../contexts/DeviceContext";
 
 export default function Lights(props) {
   const { isOn, info } = useContext(DeviceContext);
-  const [deviceStates, toggleDeviceState] = isOn;
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
   // const [deviceInfos, setDeviceInfos] = info;
   let lights = [];
 
@@ -42,32 +42,32 @@ export default function Lights(props) {
   //   );
   // } else
   // console.log(lights);
-  if (props.source === "add") {
-    console.log("reached lights.js");
-    lights.push({
-      type: `${props.type}`,
-      name: `${props.name}`,
-      top: `${props.top}`,
-      left: `${props.left}`,
-    });
-    return (
-      <>
-        <IconButton
-          color="white"
-          //   onClick={handleBtn(6)}
-          sx={{
-            position: "absolute",
-            top: `${props.top.toString()}%`,
-            left: `${props.left.toString()}%`,
-            // transform: "translate(-50%, -50%)",
-            backgroundColor: "red",
-          }}
-        >
-          <LightbulbIcon />
-        </IconButton>
-      </>
-    );
-  }
+  // if (props.source === "add") {
+  //   console.log("reached lights.js");
+  //   lights.push({
+  //     type: `${props.type}`,
+  //     name: `${props.name}`,
+  //     top: `${props.top}`,
+  //     left: `${props.left}`,
+  //   });
+  //   return (
+  //     <>
+  //       <IconButton
+  //         color="white"
+  //         //   onClick={handleBtn(6)}
+  //         sx={{
+  //           position: "absolute",
+  //           top: `${props.top.toString()}%`,
+  //           left: `${props.left.toString()}%`,
+  //           // transform: "translate(-50%, -50%)",
+  //           backgroundColor: "red",
+  //         }}
+  //       >
+  //         <LightbulbIcon />
+  //       </IconButton>
+  //     </>
+  //   );
+  // }
   if (props.source === "layout") {
     return (
       <>
@@ -192,7 +192,7 @@ export default function Lights(props) {
         </IconButton>
       </>
     );
-  } else if (props.source === "core") {
+  } else if (props.source === "module") {
     return (
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel
@@ -264,8 +264,7 @@ export default function Lights(props) {
           label="All Lights"
           checked={deviceStates[7]}
           onChange={() => {
-            // all(props.deviceStates);
-            toggleDeviceState(7);
+            toggleAll("lights");
           }}
         />
       </FormGroup>

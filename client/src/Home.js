@@ -1,11 +1,14 @@
 // HomePage.js
 import React from "react";
-import { Box, Typography } from "@mui/material";
-import NavBar from "./Components/NavBar"; // Your NavBar component
+import {
+  Box,
+  // Typography
+} from "@mui/material";
+import NavBar from "./Components/layout/NavBar"; // Your NavBar component
 import SimulationSidebar from "./Components/SimulationSidebar"; // Your SimulationSidebar component
 import EditButton from "./Components/EditButton"; // The new EditButton component with modal
-import EditDevice from "./Components/EditDevice"; // The new EditButton component with modal
-import AddDevice from "./Components/AddDevice"; // The new EditButton component with modal
+import EditDevice from "./Components/mod-device/EditDevice"; // The new EditButton component with modal
+import AddDevice from "./Components/mod-device/AddDevice"; // The new EditButton component with modal
 import ModuleController from "./module-controller";
 import HouseLayout from "./Components/HouseLayout";
 
@@ -36,7 +39,7 @@ import { ModuleProvider } from "./Components/contexts/ModuleContext";
 
 // export const useDeviceContext = () => useContext(DeviceContext);
 
-const HomePage = () => {
+const Home = () => {
   // const [deviceState, setDeviceState] = useState({});
 
   // function checkDevices() {
@@ -114,16 +117,11 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
 
-{
-  /* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */
-}
-{
-  /* <Typography>device context state: {deviceState[0]}</Typography> */
-}
-{
-  /* <Mata
+/* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */
+/* <Typography>device context state: {deviceState[0]}</Typography> */
+/* <Mata
             activeTab={activeTab}
             buttons={tabs}
             setActiveTab={setActiveTab}
@@ -134,4 +132,3 @@ export default HomePage;
           ) : (
             <div>{tabs[activeTab].data}</div>
           )} */
-}
