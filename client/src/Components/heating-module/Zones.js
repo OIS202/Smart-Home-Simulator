@@ -9,6 +9,7 @@ import { IconButton, Typography, Button, Box } from "@mui/material";
 
 import DeviceContext from "../contexts/DeviceContext";
 import HeatingContext from "../contexts/HeatingContext";
+import CreateZone from "./CreateZone";
 
 export default function Zones(props) {
   const { isOn, info } = useContext(DeviceContext);
@@ -34,6 +35,11 @@ export default function Zones(props) {
     decreaseTemperature(btnId);
   };
 
+  const createZone = () => (e) => {
+    e.preventDefault();
+    return <CreateZone />;
+  };
+
   if (props.source === "module") {
     return (
       <>
@@ -52,7 +58,12 @@ export default function Zones(props) {
           <Typography>Master Bedroom</Typography>
           <Typography>Kitchen</Typography>
           <br />
-          <Button variant="contained" sx={{ margin: "10px" }}>
+          <Button
+            disabled={false} //disable after 2 zones
+            onClick={createZone()}
+            variant="contained"
+            sx={{ margin: "10px" }}
+          >
             <Typography>Create Zone</Typography>
           </Button>
         </Box>

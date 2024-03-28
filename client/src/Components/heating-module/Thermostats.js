@@ -45,7 +45,7 @@ export default function Thermostats(props) {
     decreaseTemperature(btnId);
   };
 
-  if (props.source === "layout") {
+  if (props.source === "layout" && props.active === true) {
     return (
       <>
         <FormGroup
@@ -383,7 +383,7 @@ export default function Thermostats(props) {
         </IconButton> */}
       </>
     );
-  } else if (props.source === "module") {
+  } else if (props.source === "module" && props.active === true) {
     return (
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel

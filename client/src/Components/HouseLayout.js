@@ -17,7 +17,7 @@ import Thermostats from "./heating-module/Thermostats";
 
 // import DeviceContext from "./contexts/DeviceContext";
 import ModuleContext from "./contexts/ModuleContext";
-// import HeatingContext from "../Components/contexts/HeatingContext";
+import HeatingContext from "../Components/contexts/HeatingContext";
 import Zones from "./heating-module/Zones";
 
 const HouseLayout = () => {
@@ -27,8 +27,8 @@ const HouseLayout = () => {
   const activeModule = getActiveModule() - 1;
   const activeFeature = getActiveFeature();
 
-  // const { simulation } = useContext(HeatingContext);
-  // const [simulationState] = simulation;
+  const { simulation } = useContext(HeatingContext);
+  const [simulationState] = simulation;
 
   const feature = [
     {},
@@ -39,7 +39,7 @@ const HouseLayout = () => {
     },
     {},
     {
-      2: <Thermostats source="layout" />,
+      2: <Thermostats source="layout" active={simulationState} />,
       3: <Zones source="layout" />,
     },
   ];

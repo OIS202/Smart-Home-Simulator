@@ -40,7 +40,7 @@ const Heating = () => {
 
   const features = [
     <div />,
-    <Thermostats source="module" />,
+    <Thermostats source="module" active={simulationState} />,
     <Zones source="module" />,
   ];
 
@@ -58,7 +58,7 @@ const Heating = () => {
   return (
     <>
       <div id="tabs">
-        <Typography>Heating Simulation</Typography>
+        <Typography variant="h6">Heating Simulation</Typography>
         <FormControlLabel
           //   className={activeFeatureIndex === 0 ? "active" : ""}
           control={
