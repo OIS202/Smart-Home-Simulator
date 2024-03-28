@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Box,
+  // Alert,
   // Typography
 } from "@mui/material";
 import NavBar from "./Components/layout/NavBar"; // Your NavBar component
@@ -13,6 +14,7 @@ import HouseLayout from "./Components/HouseLayout";
 import LocalStorageConsole from "./Components/LocalStorageConsole"; // Make sure the path is correct
 
 import { DeviceProvider } from "./Components/contexts/DeviceContext";
+// import HeatingContext from "./Components/contexts/HeatingContext";
 import { HeatingProvider } from "./Components/contexts/HeatingContext";
 import { ModuleProvider } from "./Components/contexts/ModuleContext";
 
@@ -39,7 +41,7 @@ import { ModuleProvider } from "./Components/contexts/ModuleContext";
 
 // export const useDeviceContext = () => useContext(DeviceContext);
 
-const Home = () => {
+export default function Home() {
   // const [deviceState, setDeviceState] = useState({});
 
   // function checkDevices() {
@@ -78,7 +80,15 @@ const Home = () => {
 
   // const [state, setState] = useState(0);
   // const [heatingState, setHeatingState] = useState(1);
+  // if (heatingStates[22].temperature < 0) {
+  //   return <Alert severity="error">COLD</Alert>;
+  // }
+  // const { thermostat } = useContext(HeatingContext);
+  // const [heatingStates] = thermostat;
 
+  // if (heatingStates[0].temperature < 0) {
+  //   return <Alert severity="error">COLD</Alert>;
+  // }
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavBar />
@@ -127,9 +137,7 @@ const Home = () => {
       </ModuleProvider>
     </Box>
   );
-};
-
-export default Home;
+}
 
 /* <DeviceContext.Provider value={{ deviceState, setDeviceState }}> */
 /* <Typography>device context state: {deviceState[0]}</Typography> */

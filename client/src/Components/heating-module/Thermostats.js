@@ -11,6 +11,8 @@ import {
   Checkbox,
   IconButton,
   Typography,
+  Alert,
+  CheckIcon,
 } from "@mui/material";
 
 import DeviceContext from "../contexts/DeviceContext";
@@ -45,6 +47,14 @@ export default function Thermostats(props) {
     decreaseTemperature(btnId);
   };
 
+  const tooCold = () => {
+    for (const state of heatingStates) {
+      if (state.temperature < 10) {
+        return <Alert severity="error">TOO COLD</Alert>; // If temperature is under 10, return true
+      }
+    }
+  };
+
   if (props.source === "layout" && props.active === true) {
     return (
       <>
@@ -57,8 +67,12 @@ export default function Thermostats(props) {
             backgroundColor:
               deviceStates[18] && heatingStates[0].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[18] && heatingStates[0].temperature < 19
+                : deviceStates[18] &&
+                  heatingStates[0].temperature < 19 &&
+                  heatingStates[0].temperature >= 10
                 ? "lightblue"
+                : deviceStates[18] && heatingStates[0].temperature < 10
+                ? "#1e88e5"
                 : "lightgrey",
           }}
         >
@@ -103,8 +117,12 @@ export default function Thermostats(props) {
             backgroundColor:
               deviceStates[19] && heatingStates[1].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[19] && heatingStates[1].temperature < 19
+                : deviceStates[19] &&
+                  heatingStates[1].temperature < 19 &&
+                  heatingStates[1].temperature >= 10
                 ? "lightblue"
+                : deviceStates[19] && heatingStates[1].temperature < 10
+                ? "#1e88e5"
                 : "lightgrey",
           }}
         >
@@ -142,8 +160,12 @@ export default function Thermostats(props) {
             backgroundColor:
               deviceStates[20] && heatingStates[2].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[20] && heatingStates[2].temperature < 19
+                : deviceStates[20] &&
+                  heatingStates[2].temperature < 19 &&
+                  heatingStates[2].temperature >= 10
                 ? "lightblue"
+                : deviceStates[20] && heatingStates[2].temperature < 10
+                ? "#1e88e5"
                 : "lightgrey",
           }}
         >
@@ -181,8 +203,12 @@ export default function Thermostats(props) {
             backgroundColor:
               deviceStates[21] && heatingStates[3].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[21] && heatingStates[3].temperature < 19
+                : deviceStates[21] &&
+                  heatingStates[3].temperature < 19 &&
+                  heatingStates[3].temperature >= 10
                 ? "lightblue"
+                : deviceStates[21] && heatingStates[3].temperature < 10
+                ? "#1e88e5"
                 : "lightgrey",
           }}
         >
@@ -222,8 +248,12 @@ export default function Thermostats(props) {
             backgroundColor:
               deviceStates[22] && heatingStates[4].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[22] && heatingStates[4].temperature < 19
+                : deviceStates[22] &&
+                  heatingStates[4].temperature < 19 &&
+                  heatingStates[4].temperature >= 10
                 ? "lightblue"
+                : deviceStates[22] && heatingStates[4].temperature < 10
+                ? "#1e88e5"
                 : "lightgrey",
           }}
         >
@@ -261,8 +291,12 @@ export default function Thermostats(props) {
             backgroundColor:
               deviceStates[23] && heatingStates[5].temperature >= 19
                 ? "#EA9999"
-                : deviceStates[23] && heatingStates[5].temperature < 19
+                : deviceStates[23] &&
+                  heatingStates[5].temperature < 19 &&
+                  heatingStates[5].temperature >= 10
                 ? "lightblue"
+                : deviceStates[23] && heatingStates[5].temperature < 10
+                ? "#1e88e5"
                 : "lightgrey",
           }}
         >
@@ -274,14 +308,12 @@ export default function Thermostats(props) {
           >
             <AddIcon />
           </IconButton>
-
           <Typography
             variant="h8"
             sx={{ margin: deviceStates[23] ? "5px 10px" : "15px 15px" }}
           >
             {`${heatingStates[5].temperature}°C`}
           </Typography>
-
           <IconButton
             sx={{ display: deviceStates[23] ? "block" : "none" }}
             color="white"
@@ -291,6 +323,8 @@ export default function Thermostats(props) {
             <RemoveIcon />
           </IconButton>
         </FormGroup>
+        {tooCold()}
+
         {/* <IconButton
           color="white"
           onClick={handleBtn(18)}
