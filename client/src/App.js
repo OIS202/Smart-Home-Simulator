@@ -5,7 +5,7 @@ import "./App.css";
 import SignUp from "./Components/SignUp";
 import Home from "./Home";
 import SignIn from "./Components/SignIn";
-import SHS from "./SHS";
+import SimulationParams from "./SimulationParams";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/SHS" element={<SHS />} />
+          <Route path="/simulationParameters" element={<SimulationParams />} />
           {/* Add additional routes here as needed */}
         </Routes>
       </div>

@@ -1,4 +1,5 @@
 # Smart-Home-Simulator
+
 - After cloning the repo head to the client folder inside the repo and run the command npm i to install all the dependencies
 - Backend port is 8080
 - Frontend port is 3000
