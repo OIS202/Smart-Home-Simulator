@@ -14,7 +14,7 @@ import DeviceContext from "../contexts/DeviceContext";
 
 export default function Doors(props) {
   const { isOn, info } = useContext(DeviceContext);
-  const [deviceStates, toggleDeviceState] = isOn;
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
 
   let doors = [
     { id: 1, type: "door", top: "10%", bottom: "10%" },
@@ -89,7 +89,7 @@ export default function Doors(props) {
         </IconButton>
       </>
     );
-  } else if (props.source === "core") {
+  } else if (props.source === "module") {
     return (
       <FormGroup sx={{ padding: "10px" }}>
         <FormControlLabel
@@ -122,7 +122,7 @@ export default function Doors(props) {
           label="All Doors"
           checked={deviceStates[11]}
           onChange={() => {
-            toggleDeviceState(11);
+            toggleAll("doors");
           }}
         />
       </FormGroup>

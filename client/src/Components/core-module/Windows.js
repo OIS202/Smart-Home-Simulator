@@ -14,9 +14,7 @@ import DeviceContext from "../contexts/DeviceContext";
 
 export default function Windows(props) {
   const { isOn, info } = useContext(DeviceContext);
-  const [deviceStates, toggleDeviceState] = isOn;
-
-
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
     toggleDeviceState(btnId);
@@ -91,7 +89,7 @@ export default function Windows(props) {
         </IconButton>
       </>
     );
-  } else if (props.source === "core") {
+  } else if (props.source === "module") {
     return (
       //can eventually add children in form group
       <FormGroup sx={{ padding: "10px" }}>
@@ -141,7 +139,7 @@ export default function Windows(props) {
           label="All Windows"
           checked={deviceStates[17]}
           onChange={() => {
-            toggleDeviceState(17);
+            toggleAll("windows");
           }}
         />
       </FormGroup>
