@@ -2,7 +2,7 @@ import * as React from "react";
 import { useContext } from "react";
 
 import DoorFrontIcon from "@mui/icons-material/DoorFront";
-
+import { logDeviceChange } from '../../utils/logDeviceChange';
 import {
   FormGroup,
   FormControlLabel,
@@ -40,6 +40,8 @@ export default function Doors(props) {
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
     toggleDeviceState(btnId);
+    const newState = !deviceStates[btnId]; // Assuming this toggles the state
+    logDeviceChange('Door', btnId, newState);
   };
   //   const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 

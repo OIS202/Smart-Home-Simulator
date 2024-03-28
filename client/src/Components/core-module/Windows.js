@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useContext } from "react";
-
+import { logDeviceChange } from '../../utils/logDeviceChange';
 import WindowIcon from "@mui/icons-material/Window";
-
+// import { logDeviceChange } from ".."
 import {
   FormGroup,
   FormControlLabel,
@@ -15,9 +15,14 @@ import DeviceContext from "../contexts/DeviceContext";
 export default function Windows(props) {
   const { isOn, info } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState] = isOn;
+
+
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
     toggleDeviceState(btnId);
+    // Assuming deviceStates is updated correctly after toggleDeviceState
+    const newState = !deviceStates[btnId];
+    logDeviceChange('Window', btnId, newState);
   };
   //   const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 

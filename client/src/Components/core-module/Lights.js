@@ -2,7 +2,7 @@ import * as React from "react";
 import { useContext } from "react";
 
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
-
+import { logDeviceChange } from '../../utils/logDeviceChange';
 import {
   FormGroup,
   FormControlLabel,
@@ -18,10 +18,12 @@ export default function Lights(props) {
   // const [deviceInfos, setDeviceInfos] = info;
   let lights = [];
 
-  const handleBtn = (btnId) => (e) => {
-    e.preventDefault();
-    toggleDeviceState(btnId);
-  };
+const handleBtn = (btnId) => (e) => {
+  e.preventDefault();
+  toggleDeviceState(btnId);
+  const newState = !deviceStates[btnId]; // Assuming this toggles the state
+  logDeviceChange('Light', btnId, newState);
+};
   //   const { props.deviceStates, props.toggleDeviceState } = useContext(DeviceContext);
 
   // if (props.source === "add") {
