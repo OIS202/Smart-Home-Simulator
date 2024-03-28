@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./Components/NavBar";
+import NavBar from "./Components/layout/NavBar";
 import SimulationSidebar from "./Components/SimulationSidebar";
 import SignUp from "./Components/SignUp";
 import SimulationParamsForm from "./Components/SimulationParamsForm";
