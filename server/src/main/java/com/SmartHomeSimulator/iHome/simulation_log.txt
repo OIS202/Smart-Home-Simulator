@@ -1,0 +1,7 @@
+[10:40] [Doors] Main door was opened by parent request
+[10:45] [Windows] Kitchen window was closed automatically
+[10:50] [Lights] Living room lights turned on
+[10:55] [Thermostat] Temperature set to 22°C by user
+[11:00] [Security] Motion detected in the backyard
+[11:05] [Doors] Garage door was opened by user
+[11:10] [System] System check complete. No issues found.
