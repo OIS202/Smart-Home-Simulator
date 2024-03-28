@@ -8,7 +8,7 @@ export default function SimulationSidebar() {
   const [heatingStates] = thermostat; // Accessing heating states from context
   const targetTemperature = heatingStates[0].temperature; // Assuming the target temp is the first in your heating states
 
-  const [outsideTemperature, setOutsideTemperature] = useState(25); // New outside temperature state
+  const [outsideTemperature, setOutsideTemperature] = useState(-1); // New outside temperature state
   // Initialize actual and outside temperatures to match the target temperature from HeatingContext
   const [actualTemperature, setActualTemperature] = useState(
     outsideTemperature
