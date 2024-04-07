@@ -47,7 +47,7 @@ export default function MotionSensors(props) {
             {alarmState &&
               `${
                 countdownState > 0
-                  ? `Autorities will be contacted in: ${countdownState}`
+                  ? `Authorities will be contacted in: ${countdownState}`
                   : ``
                 //   : `Authorities are on the way`
               }`}
