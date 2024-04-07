@@ -22,8 +22,6 @@ const AddMotionSensor = () => {
   const { deviceInfos, addDevices, isOn } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState, toggleAll] = isOn;
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [type, setType] = useState("");
-  const [name, setName] = useState("");
 
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
@@ -34,40 +32,9 @@ const AddMotionSensor = () => {
   };
 
   const handleSave = () => {
-    console.log("Name of device:", name);
-    console.log("Type of Device:", type);
-    // console.log("Top %:", topSlider);
-    // console.log("Left %:", leftSlider);
-
     handleCloseAddModal();
     console.log("Room number: ", room);
     toggleDeviceState(room);
-    // addDevices({
-    //   source: "add",
-    //   name: { name },
-    //   type: { type },
-    //   top: { topSlider },
-    //   left: { leftSlider },
-    // });
-    // return (
-    //   <Lights
-    // source="add"
-    // name={name}
-    // type={type}
-    // top={topSlider}
-    // left={leftSlider}
-    // deviceInfos={deviceInfos}
-    // addition={{
-    //   source: "add", //DONT GIVE THE SOURCE. DOESNT MATTER
-    //   name: { name },
-    //   type: { type },
-    //   top: { topSlider },
-    //   left: { leftSlider },
-    // }}
-    // deviceStates={deviceStates}
-    // toggleDeviceState={toggleDeviceState}
-    //   />
-    // );
   };
 
   const [room, setRoom] = useState(30);
@@ -77,7 +44,7 @@ const AddMotionSensor = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+    <Box sx={{ p: 2 }}>
       <Button
         variant="contained"
         onClick={handleOpenAddModal}
@@ -105,12 +72,6 @@ const AddMotionSensor = () => {
               <MenuItem value={27}>Kid Bedroom</MenuItem>
               <MenuItem value={28}>Bathroom</MenuItem>
               <MenuItem value={29}>Garage</MenuItem>
-              {/* <MenuItem value={"Kitchen"}>Kitchen</MenuItem>
-              <MenuItem value={"Living Room"}>Living Room</MenuItem>
-              <MenuItem value={"Kid Bedroom"}>Kid Bedroom</MenuItem>
-              <MenuItem value={"Master Bedroom"}>Master Bedroom</MenuItem>
-              <MenuItem value={"Bathroom"}>Bathroom</MenuItem>
-              <MenuItem value={"Garage"}>Garage</MenuItem> */}
             </Select>
           </FormControl>
         </DialogContent>
