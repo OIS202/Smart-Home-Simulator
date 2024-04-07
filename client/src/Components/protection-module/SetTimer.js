@@ -73,7 +73,7 @@ const SetTimer = () => {
         <DialogTitle>Set a Timer</DialogTitle>
         <DialogContent>
           <FormControl fullWidth margin="normal" key="position">
-            <Typography>The Alarm Will Go Off After (minutes):</Typography>
+            <Typography>The Alarm Will Go Off After (seconds):</Typography>
             <br />
             <Slider
               aria-label="Top"
