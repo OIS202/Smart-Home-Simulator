@@ -20,13 +20,21 @@ import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
 
 import DeviceContext from "../contexts/DeviceContext";
+import ProtectionContext from "../contexts/ProtectionContext";
 
 const SetTimer = () => {
   const { deviceInfos, addDevices, isOn } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState, toggleAll] = isOn;
+
+  const { alarm, countdown, timer } = useContext(ProtectionContext);
+  const [alarmState, setAlarmState] = alarm;
+  const [countdownState, setCountdownState] = countdown;
+  const [timerState, setTimerState] = timer;
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [type, setType] = useState("");
   const [name, setName] = useState("");
+
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
   };
@@ -37,17 +45,18 @@ const SetTimer = () => {
 
   const handleSave = () => {
     handleCloseAddModal();
-    return <></>;
+    setCountdownState(timerSlider * 60);
+    setTimerState(timerSlider * 60);
   };
 
-  const [timerSlider, setTimerSlider] = useState(5);
+  const [timerSlider, setTimerSlider] = useState(2);
 
   const handleTimerSlider = (event, newTimerSlider) => {
     setTimerSlider(newTimerSlider);
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+    <Box sx={{ p: 2 }}>
       <Button
         variant="contained"
         onClick={handleOpenAddModal}
@@ -68,7 +77,7 @@ const SetTimer = () => {
             <br />
             <Slider
               aria-label="Top"
-              defaultValue={5}
+              defaultValue={3}
               min={1}
               max={10}
               valueLabelDisplay="auto"

@@ -13,7 +13,9 @@ import {
   // Typography,
 } from "@mui/material";
 
+import MotionSensor from "../Components/protection-module/MotionSensors";
 import AddMotionSensor from "../Components/protection-module/AddMotionSensor";
+import Timer from "../Components/protection-module/Timer";
 import SetTimer from "../Components/protection-module/SetTimer";
 
 import ProtectionContext from "../Components/contexts/ProtectionContext";
@@ -58,8 +60,10 @@ const Protection = () => {
           }
           label={awayState === true ? "ON" : "OFF"}
         />
+        <MotionSensor source="module" />
         <AddMotionSensor />
-        <SetTimer />
+
+        <Timer source="module" />
         {/* <div id="tab-content" style={{ display: "flex" }}>
           {/* {activeFeature == 1 || activeFeature == 2 */}
         {/* ?  */}
