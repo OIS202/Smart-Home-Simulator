@@ -45,11 +45,11 @@ const SetTimer = () => {
 
   const handleSave = () => {
     handleCloseAddModal();
-    setCountdownState(timerSlider * 60);
-    setTimerState(timerSlider * 60);
+    setCountdownState(timerSlider);
+    setTimerState(timerSlider);
   };
 
-  const [timerSlider, setTimerSlider] = useState(2);
+  const [timerSlider, setTimerSlider] = useState(120);
 
   const handleTimerSlider = (event, newTimerSlider) => {
     setTimerSlider(newTimerSlider);
@@ -78,8 +78,8 @@ const SetTimer = () => {
             <Slider
               aria-label="Top"
               defaultValue={3}
-              min={1}
-              max={10}
+              min={10}
+              max={500}
               valueLabelDisplay="auto"
               value={timerSlider}
               onChange={handleTimerSlider}
