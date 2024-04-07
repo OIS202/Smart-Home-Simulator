@@ -16,11 +16,11 @@ import {
   Box,
 } from "@mui/material";
 
-// import DeviceContext from "../contexts/DeviceContext";
+import DeviceContext from "../contexts/DeviceContext";
 
 const AddMotionSensor = () => {
-  //   const { deviceInfos, addDevices, isOn } = useContext(DeviceContext);
-  //   const [deviceStates, toggleDeviceState, toggleAll] = isOn;
+  const { deviceInfos, addDevices, isOn } = useContext(DeviceContext);
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [type, setType] = useState("");
   const [name, setName] = useState("");
@@ -40,6 +40,8 @@ const AddMotionSensor = () => {
     // console.log("Left %:", leftSlider);
 
     handleCloseAddModal();
+    console.log("Room number: ", room);
+    toggleDeviceState(room);
     // addDevices({
     //   source: "add",
     //   name: { name },
@@ -68,7 +70,7 @@ const AddMotionSensor = () => {
     // );
   };
 
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState(30);
 
   const handleChange = (event) => {
     setRoom(event.target.value);
@@ -96,13 +98,19 @@ const AddMotionSensor = () => {
           <br />
           <FormControl fullWidth>
             <InputLabel>Room</InputLabel>
-            <Select value={room} label="Rooma" onChange={handleChange}>
-              <MenuItem value={"Kitchen"}>Kitchen</MenuItem>
+            <Select value={room} label="Room" onChange={handleChange}>
+              <MenuItem value={24}>Kitchen</MenuItem>
+              <MenuItem value={25}>Living Room</MenuItem>
+              <MenuItem value={26}>Master Bedroom</MenuItem>
+              <MenuItem value={27}>Kid Bedroom</MenuItem>
+              <MenuItem value={28}>Bathroom</MenuItem>
+              <MenuItem value={29}>Garage</MenuItem>
+              {/* <MenuItem value={"Kitchen"}>Kitchen</MenuItem>
               <MenuItem value={"Living Room"}>Living Room</MenuItem>
               <MenuItem value={"Kid Bedroom"}>Kid Bedroom</MenuItem>
               <MenuItem value={"Master Bedroom"}>Master Bedroom</MenuItem>
               <MenuItem value={"Bathroom"}>Bathroom</MenuItem>
-              <MenuItem value={"Garage"}>Garage</MenuItem>
+              <MenuItem value={"Garage"}>Garage</MenuItem> */}
             </Select>
           </FormControl>
         </DialogContent>

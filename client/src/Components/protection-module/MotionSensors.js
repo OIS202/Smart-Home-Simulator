@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { IconButton, Typography, Button, Box } from "@mui/material";
 
@@ -11,84 +11,33 @@ export default function MotionSensors(props) {
   const { isOn, info } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState, toggleAll] = isOn;
 
-  const { thermostat, zones } = useContext(HeatingContext);
-  const [
-    heatingStates,
-    toggleHeatingState,
-    increaseTemperature,
-    decreaseTemperature,
-  ] = thermostat;
-
-  const [heatingZones, setHeatingZones] = zones;
-
-  const increaseTemp = (btnId) => (e) => {
-    e.preventDefault();
-    increaseTemperature(btnId);
-  };
-
-  const decreaseTemp = (btnId) => (e) => {
-    e.preventDefault();
-    decreaseTemperature(btnId);
-  };
+  const [alarm, setAlarm] = useState(false);
 
   const createZone = () => (e) => {
     e.preventDefault();
     // return <CreateZone />;
   };
 
-  const rooms = [
-    { 18: "Kitchen" },
-    { 19: "Living Room" },
-    { 20: "Kid Bedroom" },
-    { 21: "Master Bedroom" },
-    { 22: "Bathroom" },
-    { 23: "Garage" },
-  ];
-  function findRoom(roomNumber) {
-    for (const room of rooms) {
-      // Iterate through each object in the array
-      const key = Object.keys(room)[0]; // Get the numeric key
-      if (parseInt(key) === roomNumber) {
-        // Convert the key to a number and check if it matches the roomNumber
-        return room[roomNumber]; // Return the room name if the key matches
-      }
+  const handleAlarm = (index, e) => {
+    e.preventDefault();
+    if (deviceStates[index]) {
+      console.log("Alarm is", alarm);
+      setAlarm(!alarm);
     }
-    return "Room not found"; // Return a default value if the room is not found
-  }
-  // const zone1 = () => {
-
-  //   return heatingStates.map((temp) => (
-  //     <Typography>{deviceStates[0] ? `Living Room` : ``}</Typography>
-  //   ));
-  // };
+    // return <CreateZone />;
+  };
 
   if (props.source === "module") {
     return (
       <>
         <Box sx={{ margin: "20px auto" }}>
-          <Typography variant="h6">Active Zones</Typography>
+          <Typography variant="h6">Active Sensors</Typography>
           <br />
           <Typography variant="h6">Zone 1</Typography>
-          <Typography>Temperature: {heatingStates[0].temperature}°C</Typography>
           {/* {zone1} */}
-          <Typography>{deviceStates[18] ? `${findRoom(18)}` : ``}</Typography>
+          {/* <Typography>{deviceStates[18] ? `${findRoom(18)}` : ``}</Typography>
           <Typography>{deviceStates[19] ? `${findRoom(19)}` : ``}</Typography>
-          <Typography>{deviceStates[20] ? `${findRoom(20)}` : ``}</Typography>
-          <br />
-          <Typography variant="h6">Zone 2</Typography>
-          <Typography>Temperature: {heatingStates[5].temperature}°C</Typography>
-          <Typography>{deviceStates[21] ? `${findRoom(21)}` : ``}</Typography>
-          <Typography>{deviceStates[22] ? `${findRoom(22)}` : ``}</Typography>
-          <Typography>{deviceStates[23] ? `${findRoom(23)}` : ``}</Typography>
-          <br />
-          {/* <Button
-            disabled={false} //disable after 2 zones
-            variant="contained"
-            sx={{ margin: "10px" }}
-          >
-            <Typography>Create Zone</Typography>
-          </Button> */}
-          {/* <CreateZone /> */}
+          <Typography>{deviceStates[20] ? `${findRoom(20)}` : ``}</Typography> */}
         </Box>
       </>
     );
@@ -112,10 +61,14 @@ export default function MotionSensors(props) {
             padding: "70px 25px",
             top: "8%",
             left: "48%",
-            backgroundColor: deviceStates[18]
-              ? "rgb(144, 238, 144, 0.7)"
-              : "rgb(211,211,211, 0.7)",
+            backgroundColor:
+              deviceStates[24] && !alarm //sensor on, alarm off
+                ? "rgb(144, 238, 144, 0.7)" //green
+                : alarm // alarm on
+                ? "rgb(255, 0, 0, 0.7)" //red
+                : "rgb(211,211,211, 0.7)", //
           }}
+          onClick={(e) => handleAlarm(24, e)}
         >
           <Typography
             variant="h8"
@@ -142,10 +95,14 @@ export default function MotionSensors(props) {
             padding: "70px 25px",
             top: "8%",
             left: "66%",
-            backgroundColor: deviceStates[19]
-              ? "rgb(144, 238, 144, 0.7)"
-              : "rgb(211,211,211, 0.7)",
+            backgroundColor:
+              deviceStates[25] && !alarm
+                ? "rgb(144, 238, 144, 0.7)"
+                : alarm
+                ? "rgb(255, 0, 0, 0.7)"
+                : "rgb(211,211,211, 0.7)",
           }}
+          onClick={(e) => handleAlarm(25, e)}
         >
           <Typography
             variant="h8"
@@ -172,10 +129,14 @@ export default function MotionSensors(props) {
             padding: "68px 12px",
             top: "71%",
             left: "68%",
-            backgroundColor: deviceStates[20]
-              ? "rgb(144, 238, 144, 0.7)"
-              : "rgb(211,211,211, 0.7)",
+            backgroundColor:
+              deviceStates[26] && !alarm
+                ? "rgb(144, 238, 144, 0.7)"
+                : alarm
+                ? "rgb(255, 0, 0, 0.7)"
+                : "rgb(211,211,211, 0.7)",
           }}
+          onClick={(e) => handleAlarm(26, e)}
         >
           <Typography
             variant="h8"
@@ -202,10 +163,14 @@ export default function MotionSensors(props) {
             padding: "70px 25px",
             top: "42%",
             left: "68%",
-            backgroundColor: deviceStates[21]
-              ? "rgb(144, 238, 144, 0.7)"
-              : "rgb(211,211,211, 0.7)",
+            backgroundColor:
+              deviceStates[27] && !alarm
+                ? "rgb(144, 238, 144, 0.7)"
+                : alarm
+                ? "rgb(255, 0, 0, 0.7)"
+                : "rgb(211,211,211, 0.7)",
           }}
+          onClick={(e) => handleAlarm(27, e)}
         >
           <Typography
             variant="h8"
@@ -232,10 +197,14 @@ export default function MotionSensors(props) {
             padding: "150px 5px",
             top: "42%",
             left: "53%",
-            backgroundColor: deviceStates[22]
-              ? "rgb(144, 238, 144, 0.7)"
-              : "rgb(211,211,211, 0.7)",
+            backgroundColor:
+              deviceStates[28] && !alarm
+                ? "rgb(144, 238, 144, 0.7)"
+                : alarm
+                ? "rgb(255, 0, 0, 0.7)"
+                : "rgb(211,211,211, 0.7)",
           }}
+          onClick={(e) => handleAlarm(28, e)}
         >
           <Typography
             variant="h8"
@@ -263,10 +232,14 @@ export default function MotionSensors(props) {
             padding: "120px 85px",
             top: "52%",
             left: "14%",
-            backgroundColor: deviceStates[23]
-              ? "rgb(144, 238, 144, 0.7)"
-              : "rgb(211,211,211, 0.7)",
+            backgroundColor:
+              deviceStates[29] && !alarm
+                ? "rgb(144, 238, 144, 0.7)"
+                : alarm
+                ? "rgb(255, 0, 0, 0.7)"
+                : "rgb(211,211,211, 0.7)",
           }}
+          onClick={(e) => handleAlarm(29, e)}
         >
           <Typography
             variant="h8"
