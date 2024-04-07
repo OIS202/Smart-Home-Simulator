@@ -13,26 +13,27 @@ import {
   // Typography,
 } from "@mui/material";
 
+import AddMotionSensor from "../Components/protection-module/AddMotionSensor";
+import SetTimer from "../Components/protection-module/SetTimer";
+
 import ProtectionContext from "../Components/contexts/ProtectionContext";
-import ModuleContext from "../Components/contexts/ModuleContext";
+// import ModuleContext from "../Components/contexts/ModuleContext";
 // import DeviceContext from "../Components/DeviceContext";
 
 /**
  * PROTECTION FUNCTION
  */
 const Protection = () => {
-  const { getActiveFeature, toggleActiveFeature } = useContext(ModuleContext);
+  //   const { getActiveFeature, toggleActiveFeature } = useContext(ModuleContext);
+  //   const activeFeature = getActiveFeature() - 1;
 
+  //   const features = [
+  //     <div>button 1</div>,
+  //     <div>button 2</div>,
+  //     <div>button 3</div>,
+  //   ];
   const { away } = useContext(ProtectionContext);
   const [awayState, setAwayState] = away;
-
-  const activeFeature = getActiveFeature() - 1;
-
-  const features = [
-    <div>button 1</div>,
-    <div>button 2</div>,
-    <div>button 3</div>,
-  ];
 
   return (
     <>
@@ -57,14 +58,14 @@ const Protection = () => {
           }
           label={awayState === true ? "ON" : "OFF"}
         />
-        <br />
-
-        <div id="tab-content" style={{ display: "flex" }}>
+        <AddMotionSensor />
+        <SetTimer />
+        {/* <div id="tab-content" style={{ display: "flex" }}>
           {/* {activeFeature == 1 || activeFeature == 2 */}
-          {/* ?  */}
-          {features[activeFeature]}
-          {/* // : ""} */}
-        </div>
+        {/* ?  */}
+        {/* {features[activeFeature]} */}
+        {/* // : ""} */}
+        {/* </div> */}
       </div>
     </>
   );
