@@ -16,6 +16,7 @@ import LocalStorageConsole from "./Components/LocalStorageConsole"; // Make sure
 import { DeviceProvider } from "./Components/contexts/DeviceContext";
 // import HeatingContext from "./Components/contexts/HeatingContext";
 import { HeatingProvider } from "./Components/contexts/HeatingContext";
+import { ProtectionProvider } from "./Components/contexts/ProtectionContext";
 import { ModuleProvider } from "./Components/contexts/ModuleContext";
 
 // export const CoreContext = createContext();
@@ -94,45 +95,47 @@ export default function Home() {
       <NavBar />
       <ModuleProvider>
         <HeatingProvider>
-          <DeviceProvider>
-            <Box sx={{ display: "flex", flexGrow: 1 }}>
-              <SimulationSidebar />
-              <Box
-                sx={{ display: "flex", flexGrow: 1, flexDirection: "column" }}
-              >
-                {/* Main Content taking up most of the window */}
-                <Box sx={{ display: "flex", flexGrow: 1 }}>
-                  <ModuleController />
-                  <HouseLayout />
-                </Box>
-                {/* LocalStorageConsole and EditButtons */}
+          <ProtectionProvider>
+            <DeviceProvider>
+              <Box sx={{ display: "flex", flexGrow: 1 }}>
+                <SimulationSidebar />
                 <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
+                  sx={{ display: "flex", flexGrow: 1, flexDirection: "column" }}
                 >
-                  {/* Assuming LocalStorageConsole should take the remaining space */}
-                  <Box sx={{ flexGrow: 1 }}>
-                    {" "}
-                    {/* Temporary background color for visibility */}
-                    <LocalStorageConsole />
+                  {/* Main Content taking up most of the window */}
+                  <Box sx={{ display: "flex", flexGrow: 1 }}>
+                    <ModuleController />
+                    <HouseLayout />
                   </Box>
+                  {/* LocalStorageConsole and EditButtons */}
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-end",
+                      justifyContent: "space-between",
                     }}
                   >
-                    <AddDevice />
-                    <EditDevice />
-                    <EditButton />
+                    {/* Assuming LocalStorageConsole should take the remaining space */}
+                    <Box sx={{ flexGrow: 1 }}>
+                      {" "}
+                      {/* Temporary background color for visibility */}
+                      <LocalStorageConsole />
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-end",
+                      }}
+                    >
+                      <AddDevice />
+                      <EditDevice />
+                      <EditButton />
+                    </Box>
                   </Box>
                 </Box>
               </Box>
-            </Box>
-          </DeviceProvider>
+            </DeviceProvider>
+          </ProtectionProvider>
         </HeatingProvider>
       </ModuleProvider>
     </Box>
