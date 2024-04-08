@@ -26,9 +26,9 @@ export const ModuleProvider = ({ children }) => {
       active: false,
       module: 3,
       features: [
-        { id: 1, active: false },
-        { id: 2, active: false },
-        { id: 3, active: false },
+        { id: 1, active: true },
+        { id: 2, active: true },
+        { id: 3, active: true },
       ],
     },
     {
