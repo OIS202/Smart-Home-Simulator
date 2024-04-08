@@ -15,8 +15,7 @@ export default function SimulationSidebar() {
   );
 
   const [isSwitchOn, setIsSwitchOn] = useState(true);
-  const [timeSpeed, setTimeSpeed] = useState(1);
-
+  const { timeSpeed, setTimeSpeed } = useContext(HeatingContext);
   useEffect(() => {
     if (!isSwitchOn) return;
 
