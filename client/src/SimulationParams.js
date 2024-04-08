@@ -19,7 +19,7 @@ const SimulationParams = () => {
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <NavBar />
       <Box sx={{ display: "flex", flexGrow: 1 }}>
-        <SimulationSidebar />
+        {/* <SimulationSidebar /> */}
 
         <Box sx={{ width: "100%", height: "100vh", marginTop: "170px" }}>
           <SimulationParamsForm></SimulationParamsForm>
