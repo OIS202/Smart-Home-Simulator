@@ -116,7 +116,7 @@ const Heating = () => {
           {/* {activeFeature == 1 || activeFeature == 2 */}
           {/* ?  */}
           {features[activeFeature]}
-          {/* // : ""} */}
+          {/* : ""} */}
         </div>
       </div>
     </>

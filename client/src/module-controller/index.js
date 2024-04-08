@@ -5,19 +5,24 @@ import { Button, Typography, ButtonGroup } from "@mui/material";
 
 import Core from "../sh-core";
 import Heating from "../sh-heating";
+import Protection from "../sh-protection";
 import ModuleContext from "../Components/contexts/ModuleContext";
 import HeatingContext from "../Components/contexts/HeatingContext";
+import ProtectionContext from "../Components/contexts/ProtectionContext";
 
 function ModuleController() {
   const [activeContentIndex, setActiveContentIndex] = useState(1);
   const { toggleActiveModule, toggleActiveFeature } = useContext(ModuleContext);
-  const { simulation } = useContext(HeatingContext);
-  const [simulationState, setSimulationState] = simulation;
+  // const { simulation } = useContext(HeatingContext);
+  // const [simulationState, setSimulationState] = simulation;
+
+  // const { away } = useContext(ProtectionContext);
+  // const [awayState, setAwayState] = away;
 
   const modules = [
     <Typography variant="h6">Smart Home Simulator</Typography>,
     <Core />,
-    <Typography variant="h6">Smart Home Security</Typography>,
+    <Protection />,
     <Heating />,
   ];
 
@@ -65,7 +70,7 @@ function ModuleController() {
             onClick={() => {
               setActiveContentIndex(2);
               toggleActiveModule(3);
-              toggleActiveFeature(3, 1);
+              // toggleActiveFeature(3, 3);
             }}
           >
             SHP
