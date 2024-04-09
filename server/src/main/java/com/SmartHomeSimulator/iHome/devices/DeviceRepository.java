@@ -16,4 +16,7 @@ public interface DeviceRepository extends MongoRepository<Device, ObjectId> {
     List<Device> findByRoomId(ObjectId roomId);
 
     List<Device> findByHouseId(ObjectId houseId);
+
+    List<Device> findByHouseIdAndTypeIn(ObjectId houseId, List<String> types);
+
 }

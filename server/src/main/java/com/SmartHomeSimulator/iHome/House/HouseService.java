@@ -155,6 +155,14 @@ public class HouseService {
         return ChronoUnit.MINUTES.between(lastUpdateTimestamp, updateTimestamp) < 1;
     }
 
+    public boolean isAwayModeOn(ObjectId houseId) {
+        House house = houseRepository.findById(houseId).orElse(null);
+        if (house != null) {
+            return house.isAwayMode(); // Assuming the house entity has a boolean field 'awayMode'
+        }
+        return false; // Or throw an exception if the house with the given ID doesn't exist
+    }
+
     private void logEvent(String message) {
         logger.info(message);
     }
