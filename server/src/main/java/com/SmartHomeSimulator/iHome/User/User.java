@@ -208,7 +208,7 @@ public class User {
             case CHILD:
                 hasSHSPermission = true;
                 hasSHCPermission = true;
-                hasSHPPermission = true;
+                hasSHPPermission = false;
                 hasSHHPermission = true;
                 isLocationIndependant = false;
                 break;
@@ -216,7 +216,7 @@ public class User {
             case GUEST:
                 hasSHSPermission = true;
                 hasSHCPermission = true;
-                hasSHPPermission = true;
+                hasSHPPermission = false;
                 hasSHHPermission = true;
                 isLocationIndependant = false;
                 break;
