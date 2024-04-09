@@ -15,6 +15,7 @@ public class House {
     private int backyard;
     private int garage;
     private double actualTemperature;
+    private boolean awayMode;
 
     // Default constructor
     public House() {
@@ -94,6 +95,14 @@ public class House {
 
     public double getActualTemperature() {
         return actualTemperature;
+    }
+
+    public boolean isAwayMode() {
+        return awayMode;
+    }
+
+    public void setAwayMode(boolean awayMode) {
+        this.awayMode = awayMode;
     }
 
     public void setActualTemperature(double actualTemperature) {

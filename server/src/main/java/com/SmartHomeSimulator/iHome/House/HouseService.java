@@ -4,6 +4,8 @@ import com.SmartHomeSimulator.iHome.House.House;
 import com.SmartHomeSimulator.iHome.House.HouseRepository;
 import com.SmartHomeSimulator.iHome.Rooms.Room;
 import com.SmartHomeSimulator.iHome.Rooms.RoomRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.SmartHomeSimulator.iHome.Rooms.RoomService;
 import com.SmartHomeSimulator.iHome.SimulationParams.SimulationService;
 
@@ -30,6 +32,8 @@ public class HouseService {
 
     @Autowired
     private SimulationService simulationService;
+
+    private static final Logger logger = LoggerFactory.getLogger(HouseService.class);
 
     public House createHouse(Map<String, Integer> roomCounts) {
         House house = new House();
@@ -88,5 +92,21 @@ public class HouseService {
                 .orElseThrow(() -> new RuntimeException("House not found with ID: " + houseId));
         house.setActualTemperature(averageTemperature);
         houseRepository.save(house);
+    }
+
+    public House findById(ObjectId houseId) {
+        return houseRepository.findById(houseId)
+                .orElseThrow(() -> new RuntimeException("House not found with ID: " + houseId));
+    }
+
+    public void turnOffAwayMode(ObjectId houseId) {
+        House house = findById(houseId); // Use the corrected method
+        house.setAwayMode(false);
+        houseRepository.save(house);
+        logEvent("Away mode turned off for house ID: " + houseId);
+    }
+
+    private void logEvent(String message) {
+        logger.info(message);
     }
 }
