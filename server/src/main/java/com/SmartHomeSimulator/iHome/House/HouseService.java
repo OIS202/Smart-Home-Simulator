@@ -12,8 +12,10 @@ import com.SmartHomeSimulator.iHome.SimulationParams.SimulationService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.temporal.ChronoUnit;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -81,10 +83,32 @@ public class HouseService {
         return savedHouse;
     }
 
-    public void updateHouseActualTemperature(ObjectId houseId) {
+    public void updateHouseTemperatureAndCheckSpecialConditions(ObjectId roomId, double newTemperature,
+            Instant updateTimestamp) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("Room not found"));
+
+        double oldTemperature = room.getActualTemp();
+        Instant lastUpdateTimestamp = room.getLastUpdateTimestamp();
+
+        room.setActualTemp(newTemperature);
+        room.setLastUpdateTimestamp(updateTimestamp);
+        roomRepository.save(room);
+
+        logger.info("Updated temperature for Room ID: {}, New Temperature: {}", roomId.toHexString(), newTemperature);
+
+        // Update the house's actual temperature
+        updateHouseActualTemperature(room.getHouseId());
+
+        // Check and handle special temperature conditions
+        checkAndHandleSpecialTemperatureConditions(room.getHouseId(), oldTemperature, newTemperature,
+                lastUpdateTimestamp, updateTimestamp);
+    }
+
+    private void updateHouseActualTemperature(ObjectId houseId) {
         List<Room> rooms = roomRepository.findByHouseId(houseId);
         double averageTemperature = rooms.stream()
-                .mapToDouble(Room::getActualTemp) // Ensure this method returns double
+                .mapToDouble(Room::getActualTemp)
                 .average()
                 .orElseThrow(() -> new IllegalArgumentException("No rooms found for the house with ID: " + houseId));
 
@@ -92,6 +116,27 @@ public class HouseService {
                 .orElseThrow(() -> new RuntimeException("House not found with ID: " + houseId));
         house.setActualTemperature(averageTemperature);
         houseRepository.save(house);
+    }
+
+    private void checkAndHandleSpecialTemperatureConditions(ObjectId houseId, double oldTemperature,
+            double newTemperature, Instant lastUpdateTimestamp, Instant updateTimestamp) {
+        // Get the house by ID
+        House house = houseRepository.findById(houseId)
+                .orElseThrow(() -> new RuntimeException("House not found with ID: " + houseId));
+
+        // Check for special temperature conditions
+        if (newTemperature >= 135
+                || (newTemperature - oldTemperature >= 15 && withinOneMinute(lastUpdateTimestamp, updateTimestamp))) {
+            // Perform actions for special temperature conditions
+            house.setSpecialTemperatureCondition(true);
+            houseRepository.save(house);
+            logger.warn("Special temperature condition detected for House ID: {}", houseId.toHexString());
+        } else {
+            // Reset the special temperature condition if no longer applicable
+            house.setSpecialTemperatureCondition(false);
+            houseRepository.save(house);
+            logger.info("No special temperature condition detected for House ID: {}", houseId.toHexString());
+        }
     }
 
     public House findById(ObjectId houseId) {
@@ -104,6 +149,10 @@ public class HouseService {
         house.setAwayMode(false);
         houseRepository.save(house);
         logEvent("Away mode turned off for house ID: " + houseId);
+    }
+
+    public boolean withinOneMinute(Instant lastUpdateTimestamp, Instant updateTimestamp) {
+        return ChronoUnit.MINUTES.between(lastUpdateTimestamp, updateTimestamp) < 1;
     }
 
     private void logEvent(String message) {

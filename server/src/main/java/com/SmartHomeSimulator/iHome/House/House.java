@@ -3,6 +3,7 @@ package com.SmartHomeSimulator.iHome.House;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.Instant;
 
 @Document(collection = "houses")
 public class House {
@@ -16,6 +17,7 @@ public class House {
     private int garage;
     private double actualTemperature;
     private boolean awayMode;
+    private boolean specialTemperatureCondition;
 
     // Default constructor
     public House() {
@@ -108,4 +110,13 @@ public class House {
     public void setActualTemperature(double actualTemperature) {
         this.actualTemperature = actualTemperature;
     }
+
+    public boolean isSpecialTemperatureCondition() {
+        return specialTemperatureCondition;
+    }
+
+    public void setSpecialTemperatureCondition(boolean specialTemperatureCondition) {
+        this.specialTemperatureCondition = specialTemperatureCondition;
+    }
+
 }
