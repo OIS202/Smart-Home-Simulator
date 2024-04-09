@@ -1,12 +1,16 @@
 package com.SmartHomeSimulator.iHome.devices;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DeviceController {
+    @Autowired
+    private DeviceService deviceService;
+
     // @Autowired
     // private DeviceRepository deviceRepository;
     // @Autowired
@@ -27,5 +31,20 @@ public class DeviceController {
                 System.err.println(e.getMessage());
             }
         }
+    }
+
+    @GetMapping("/type/{type}")
+    public List<Device> getDevicesByType(@PathVariable String type) {
+        return deviceService.getDevicesByType(type);
+    }
+
+    @GetMapping("/room/{roomId}")
+    public List<Device> getDevicesByRoomId(@PathVariable String roomId) {
+        return deviceService.getDevicesByRoomId(new ObjectId(roomId));
+    }
+
+    @GetMapping("/house/{houseId}")
+    public List<Device> getDevicesByHouseId(@PathVariable String houseId) {
+        return deviceService.getDevicesByHouseId(new ObjectId(houseId));
     }
 }
