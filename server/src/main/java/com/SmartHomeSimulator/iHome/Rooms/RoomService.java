@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.SmartHomeSimulator.iHome.House.HouseService;
 import com.SmartHomeSimulator.iHome.Zone.Zone;
 import com.SmartHomeSimulator.iHome.Zone.ZoneRepository;
 
@@ -15,6 +16,8 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
     private final ZoneRepository zoneRepository;
+    @Autowired
+    private HouseService houseService;
 
     @Autowired
     public RoomService(RoomRepository roomRepository, ZoneRepository zoneRepository) {
@@ -67,6 +70,17 @@ public class RoomService {
 
     public List<Room> getUnassignedRoomsByHouseId(ObjectId houseId) {
         return roomRepository.findByHouseIdAndZoneIdIsNull(houseId);
+    }
+
+    public void updateRoomTemperature(ObjectId roomId, double newTemperature) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("Room not found"));
+        room.setActualTemp(newTemperature); // Assuming the setter is named setActualTemp
+        roomRepository.save(room);
+
+        // Update the house's actual temperature. Ensure Room has a getHouseId method
+        // returning ObjectId.
+        houseService.updateHouseActualTemperature(room.getHouseId());
     }
 
 }

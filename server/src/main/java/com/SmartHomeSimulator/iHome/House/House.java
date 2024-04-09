@@ -14,6 +14,7 @@ public class House {
     private int kitchen;
     private int backyard;
     private int garage;
+    private double actualTemperature;
 
     // Default constructor
     public House() {
@@ -89,5 +90,13 @@ public class House {
     public void setId(String hexString) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    }
+
+    public double getActualTemperature() {
+        return actualTemperature;
+    }
+
+    public void setActualTemperature(double actualTemperature) {
+        this.actualTemperature = actualTemperature;
     }
 }
