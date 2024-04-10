@@ -9,12 +9,18 @@ export default function SimulationSidebar() {
 
   const [isSwitchOn, setIsSwitchOn] = useState(true);
   const [outsideTemperature, setOutsideTemperature] = useState(10); // Example outside temperature
-  const [actualTemperature, setActualTemperature] = useState(outsideTemperature);
+  const [actualTemperature, setActualTemperature] =
+    useState(outsideTemperature);
 
   // Function to calculate the average target temperature
   const calculateAverageTargetTemperature = () => {
-    const totalTemperature = heatingStates.reduce((acc, curr) => acc + curr.temperature, 0);
-    return heatingStates.length > 0 ? totalTemperature / heatingStates.length : 0;
+    const totalTemperature = heatingStates.reduce(
+      (acc, curr) => acc + curr.temperature,
+      0
+    );
+    return heatingStates.length > 0
+      ? totalTemperature / heatingStates.length
+      : 0;
   };
 
   // Calculate the average target temperature
@@ -33,11 +39,14 @@ export default function SimulationSidebar() {
       setActualTemperature((prevTemperature) => {
         const tempDifference = averageTargetTemperature - prevTemperature;
         if (tempDifference === 0) return prevTemperature; // Already at target temperature
-        const adjustment = tempDifference > 0 ? 0.1 * timeSpeed : -0.1 * timeSpeed;
+        const adjustment =
+          tempDifference > 0 ? 0.1 * timeSpeed : -0.1 * timeSpeed;
         const newTemperature = prevTemperature + adjustment;
         // Avoid overshooting the target temperature
-        if ((tempDifference > 0 && newTemperature >= averageTargetTemperature) || 
-            (tempDifference < 0 && newTemperature <= averageTargetTemperature)) {
+        if (
+          (tempDifference > 0 && newTemperature >= averageTargetTemperature) ||
+          (tempDifference < 0 && newTemperature <= averageTargetTemperature)
+        ) {
           return averageTargetTemperature;
         }
         return newTemperature;
@@ -71,9 +80,11 @@ export default function SimulationSidebar() {
       }}
     >
       {/* User Profile Display */}
-      <Avatar sx={{ bgcolor: "secondary.main", width: 56, height: 56 }}>U</Avatar>
+      <Avatar sx={{ bgcolor: "secondary.main", width: 56, height: 56 }}>
+        P
+      </Avatar>
       <Typography variant="body1" gutterBottom>
-        User Name
+        Parent 1
       </Typography>
 
       <Typography variant="h6" gutterBottom>
