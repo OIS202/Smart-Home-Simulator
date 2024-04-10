@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import DoorFrontIcon from "@mui/icons-material/DoorFront";
-import { logDeviceChange } from '../../utils/logDeviceChange';
+import { logDeviceChange } from "../../utils/logDeviceChange";
 import {
   FormGroup,
   FormControlLabel,
@@ -10,16 +10,24 @@ import {
   IconButton,
 } from "@mui/material";
 
-import DeviceContext from "../contexts/DeviceContext";
+import DeviceContext from "../contexts/DeviceContext"; // Existing import
+import ProtectionContext from "../contexts/ProtectionContext";
 
 export default function Doors(props) {
   const { isOn, info } = useContext(DeviceContext);
   const [deviceStates, toggleDeviceState, toggleAll] = isOn;
-
+  const { away } = useContext(ProtectionContext);
+  const [awayState] = away;
   let doors = [
     { id: 1, type: "door", top: "10%", bottom: "10%" },
     { id: 2, type: "door", top: "90%", bottom: "90%" },
   ];
+  useEffect(() => {
+    if (awayState) {
+      // If Away Mode is turned ON
+      toggleAll("doors"); // Close all doors
+    }
+  }, [awayState, toggleAll]);
 
   // if (props.source === "test") {
   //   <IconButton
@@ -41,7 +49,7 @@ export default function Doors(props) {
     e.preventDefault();
     toggleDeviceState(btnId);
     const newState = !deviceStates[btnId]; // Assuming this toggles the state
-    logDeviceChange('Door', btnId, newState);
+    logDeviceChange("Door", btnId, newState);
   };
   //   const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 

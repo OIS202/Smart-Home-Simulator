@@ -110,6 +110,15 @@ export const DeviceProvider = ({ children }) => {
       return newDevices;
     });
   };
+  const closeAllDoorsAndWindows = () => {
+    setDeviceStates((prevState) => {
+      const newState = [...prevState];
+      // Assuming doors are indexes 8 to 10 and windows are indexes 12 to 16
+      for (let i = 8; i <= 10; i++) newState[i] = false; // Close all doors
+      for (let i = 12; i <= 16; i++) newState[i] = false; // Close all windows
+      return newState;
+    });
+  };
 
   return (
     <DeviceContext.Provider
@@ -117,6 +126,7 @@ export const DeviceProvider = ({ children }) => {
         isOn: [deviceStates, toggleDeviceState, toggleAll],
         edit: [deviceInfos, editDevice],
         add: [deviceInfos, addDevices],
+        closeAllDoorsAndWindows,
       }}
     >
       {children}
