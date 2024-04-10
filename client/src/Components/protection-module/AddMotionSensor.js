@@ -1,5 +1,6 @@
 // AddDevice.js
 import React, { useContext, useState } from "react";
+import { logDeviceChange } from '../../utils/logDeviceChange';
 import {
   Button,
   Dialog,
@@ -35,6 +36,7 @@ const AddMotionSensor = () => {
     handleCloseAddModal();
     console.log("Room number: ", room);
     toggleDeviceState(room);
+    logDeviceChange("Motion Sensor added in room:", room, null);
   };
 
   const [room, setRoom] = useState(30);
