@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography, Switch, Slider, Avatar } from "@mui/material";
 import HeatingContext from "./contexts/HeatingContext"; // Ensure the path is correct for your project structure
 import ProtectionContext from "./contexts/ProtectionContext"; // Ensure the path is correct for your project structure
-
+import { logDeviceChange } from '../utils/logDeviceChange';
 export default function SimulationSidebar() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const { thermostat, timeSpeed, setTimeSpeed } = useContext(HeatingContext);
@@ -49,6 +49,7 @@ export default function SimulationSidebar() {
         // Automatically turn off away mode if actual temperature reaches 135°C
         if (newTemperature >= 135 && awayState === true) {
           setAwayState(false);
+          logDeviceChange("Temperature exceeded 135 degrees so Away mode turned off Automatically",null,null);
         }
 
         return newTemperature;
