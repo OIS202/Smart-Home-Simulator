@@ -1,12 +1,14 @@
 package com.SmartHomeSimulator.iHome.Rooms;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.SmartHomeSimulator.iHome.Zone.Zone;
 import com.SmartHomeSimulator.iHome.Zone.ZoneRepository;
 
@@ -21,6 +23,8 @@ public class RoomService {
         this.roomRepository = roomRepository;
         this.zoneRepository = zoneRepository;
     }
+
+    private static final Logger logger = LoggerFactory.getLogger(RoomService.class);
 
     /**
      * Creates a new room and saves it to the database.
@@ -69,4 +73,15 @@ public class RoomService {
         return roomRepository.findByHouseIdAndZoneIdIsNull(houseId);
     }
 
+    public void updateRoomTemperature(ObjectId roomId, double newTemperature, Instant updateTimestamp) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("Room not found"));
+
+        room.setActualTemp(newTemperature);
+        room.setLastUpdateTimestamp(updateTimestamp);
+        roomRepository.save(room);
+
+        // Log the temperature update
+        logger.info("Updated temperature for Room ID: {}, New Temperature: {}", roomId.toHexString(), newTemperature);
+    }
 }

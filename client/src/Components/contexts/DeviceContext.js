@@ -34,8 +34,9 @@ export const DeviceProvider = ({ children }) => {
     setDeviceStates((prevState) => {
       const newState = [...prevState];
       let start, end;
-      //if add device is successful, make thes buttons 1, 2, 3, 4
-      let light = 7,
+
+      // Marker indices for collective device control toggles
+      const light = 7,
         door = 11,
         window = 17,
         thermostat = 24;
@@ -58,35 +59,26 @@ export const DeviceProvider = ({ children }) => {
           end = 23;
           break;
         default:
-          return prevState; // If type is not recognized, return previous state
+          console.error(`toggleAll: Unrecognized type "${type}"`);
+          return prevState;
       }
 
+      const isCollectiveStateOn = newState[start] === true; // Determine if devices are currently on
+
+      // Toggle each device state within the specified range
       for (let i = start; i <= end; i++) {
-        if (newState[light] === false && !newState[i]) {
-          newState[i] = !newState[i];
-        } else if (newState[door] === false && !newState[i]) {
-          newState[i] = !newState[i];
-        } else if (newState[window] === false && !newState[i]) {
-          newState[i] = !newState[i];
-        } else if (newState[thermostat] === false && !newState[i]) {
-          newState[i] = !newState[i];
-        }
-
-        if (newState[light] === true && newState[i]) {
-          newState[i] = !newState[i];
-        } else if (newState[door] === true && newState[i]) {
-          newState[i] = !newState[i];
-        } else if (newState[window] === true && newState[i]) {
-          newState[i] = !newState[i];
-        } else if (newState[thermostat] === true && newState[i]) {
-          newState[i] = !newState[i];
-        }
+        newState[i] = isCollectiveStateOn ? false : true; // Set opposite state
       }
-      newState[end + 1] = !newState[end + 1];
 
-      console.log(`Devices of type "${type}" were toggled:`);
-      console.log(newState);
+      // Optionally adjust collective control state if needed
+      // This step ensures "All" toggle reflects the new collective state accurately
+      // If you maintain a specific "All" toggle state separately, adjust here accordingly
+      if (type === "lights") newState[light] = !isCollectiveStateOn;
+      if (type === "doors") newState[door] = !isCollectiveStateOn;
+      if (type === "windows") newState[window] = !isCollectiveStateOn;
+      if (type === "thermostats") newState[thermostat] = !isCollectiveStateOn;
 
+      console.log(`Devices of type "${type}" were toggled:`, newState);
       return newState;
     });
   };
@@ -110,6 +102,15 @@ export const DeviceProvider = ({ children }) => {
       return newDevices;
     });
   };
+  const closeAllDoorsAndWindows = () => {
+    setDeviceStates((prevState) => {
+      const newState = [...prevState];
+      // Assuming doors are indexes 8 to 10 and windows are indexes 12 to 16
+      for (let i = 8; i <= 10; i++) newState[i] = false; // Close all doors
+      for (let i = 12; i <= 16; i++) newState[i] = false; // Close all windows
+      return newState;
+    });
+  };
 
   return (
     <DeviceContext.Provider
@@ -117,6 +118,7 @@ export const DeviceProvider = ({ children }) => {
         isOn: [deviceStates, toggleDeviceState, toggleAll],
         edit: [deviceInfos, editDevice],
         add: [deviceInfos, addDevices],
+        closeAllDoorsAndWindows,
       }}
     >
       {children}

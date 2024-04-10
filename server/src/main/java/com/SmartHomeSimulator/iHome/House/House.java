@@ -3,6 +3,7 @@ package com.SmartHomeSimulator.iHome.House;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.Instant;
 
 @Document(collection = "houses")
 public class House {
@@ -14,6 +15,9 @@ public class House {
     private int kitchen;
     private int backyard;
     private int garage;
+    private double actualTemperature;
+    private boolean awayMode;
+    private boolean specialTemperatureCondition;
 
     // Default constructor
     public House() {
@@ -90,4 +94,29 @@ public class House {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setId'");
     }
+
+    public double getActualTemperature() {
+        return actualTemperature;
+    }
+
+    public boolean isAwayMode() {
+        return awayMode;
+    }
+
+    public void setAwayMode(boolean awayMode) {
+        this.awayMode = awayMode;
+    }
+
+    public void setActualTemperature(double actualTemperature) {
+        this.actualTemperature = actualTemperature;
+    }
+
+    public boolean isSpecialTemperatureCondition() {
+        return specialTemperatureCondition;
+    }
+
+    public void setSpecialTemperatureCondition(boolean specialTemperatureCondition) {
+        this.specialTemperatureCondition = specialTemperatureCondition;
+    }
+
 }

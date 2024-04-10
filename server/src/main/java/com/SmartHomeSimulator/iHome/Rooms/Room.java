@@ -1,5 +1,7 @@
 package com.SmartHomeSimulator.iHome.Rooms;
 
+import java.time.Instant;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,6 +17,7 @@ public class Room {
     private ObjectId houseId;
     private double actualTemp;
     private double desiredTemp;
+    private Instant lastUpdateTimestamp;
 
     // Default constructor
     public Room() {
@@ -74,6 +77,14 @@ public class Room {
 
     public void setHouseId(ObjectId houseId) {
         this.houseId = houseId;
+    }
+
+    public Instant getLastUpdateTimestamp() {
+        return lastUpdateTimestamp;
+    }
+
+    public void setLastUpdateTimestamp(Instant lastUpdateTimestamp) {
+        this.lastUpdateTimestamp = lastUpdateTimestamp;
     }
 
 }
