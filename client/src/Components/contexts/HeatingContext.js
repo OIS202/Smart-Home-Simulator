@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
-
 const HeatingContext = createContext();
 
 export const HeatingProvider = ({ children }) => {
+  const [timeSpeed, setTimeSpeed] = useState(1); // Default speed
   const [heatingStates, setHeatingStates] = useState(() =>
     Array(7).fill({ temperature: 21, isZone: false })
   );
@@ -52,21 +52,22 @@ export const HeatingProvider = ({ children }) => {
   };
 
   return (
-    <HeatingContext.Provider
-      value={{
-        simulation: [simulationState, setSimulationState],
-        thermostat: [
-          heatingStates,
-          increaseTemperature,
-          decreaseTemperature,
-          // toggleHeatingState,
-        ],
-        zones: [heatingZones, setHeatingZones],
-        // add: [deviceInfos, addDevices],
-      }}
-    >
-      {children}
-    </HeatingContext.Provider>
+    // HeatingContext.js adjustment
+<HeatingContext.Provider 
+  value={{
+    simulation: [simulationState, setSimulationState],
+    thermostat: [
+      heatingStates,
+      increaseTemperature,
+      decreaseTemperature,
+    ],
+    timeSpeed, // Provided directly
+    setTimeSpeed, // Provided directly
+    zones: [heatingZones, setHeatingZones],
+  }}
+>
+  {children}
+</HeatingContext.Provider>
   );
 };
 

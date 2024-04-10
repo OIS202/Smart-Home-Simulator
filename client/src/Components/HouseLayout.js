@@ -14,11 +14,13 @@ import Doors from "./core-module/Doors";
 import Windows from "./core-module/Windows";
 
 import Thermostats from "./heating-module/Thermostats";
+import Zones from "./heating-module/Zones";
+
+import MotionSensors from "./protection-module/MotionSensors";
 
 // import DeviceContext from "./contexts/DeviceContext";
 import ModuleContext from "./contexts/ModuleContext";
 import HeatingContext from "../Components/contexts/HeatingContext";
-import Zones from "./heating-module/Zones";
 
 const HouseLayout = () => {
   // const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
@@ -37,7 +39,9 @@ const HouseLayout = () => {
       2: <Doors source="layout" />,
       3: <Windows source="layout" />,
     },
-    {},
+    {
+      1: <MotionSensors source="layout" />,
+    },
     {
       2: <Thermostats source="layout" active={simulationState} />,
       3: <Zones source="layout" />,

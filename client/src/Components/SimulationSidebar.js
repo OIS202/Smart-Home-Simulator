@@ -1,76 +1,63 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography, Switch, Slider, Avatar } from "@mui/material";
-import HeatingContext from "./contexts/HeatingContext"; // Adjust the import path as needed
+import HeatingContext from "./contexts/HeatingContext"; // Ensure the path is correct for your project structure
 
 export default function SimulationSidebar() {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const { thermostat } = useContext(HeatingContext);
-  const [heatingStates] = thermostat; // Accessing heating states from context
-  const targetTemperature = heatingStates[0].temperature; // Assuming the target temp is the first in your heating states
-
-  const [outsideTemperature, setOutsideTemperature] = useState(25); // New outside temperature state
-  // Initialize actual and outside temperatures to match the target temperature from HeatingContext
-  const [actualTemperature, setActualTemperature] = useState(
-    outsideTemperature
-  );
+  const { thermostat, timeSpeed, setTimeSpeed } = useContext(HeatingContext);
+  const [heatingStates] = thermostat;
 
   const [isSwitchOn, setIsSwitchOn] = useState(true);
-  const [timeSpeed, setTimeSpeed] = useState(1);
+  const [outsideTemperature, setOutsideTemperature] = useState(10); // Example outside temperature
+  const [actualTemperature, setActualTemperature] =
+    useState(outsideTemperature);
+
+  // Function to calculate the average target temperature
+  const calculateAverageTargetTemperature = () => {
+    const totalTemperature = heatingStates.reduce(
+      (acc, curr) => acc + curr.temperature,
+      0
+    );
+    return heatingStates.length > 0
+      ? totalTemperature / heatingStates.length
+      : 0;
+  };
+
+  // Calculate the average target temperature
+  const averageTargetTemperature = calculateAverageTargetTemperature();
 
   useEffect(() => {
     if (!isSwitchOn) return;
 
     // Update time every second based on timeSpeed
     const timeInterval = setInterval(() => {
-      setCurrentTime(
-        (prevTime) => new Date(prevTime.getTime() + 1000 * timeSpeed)
-      );
+      setCurrentTime(new Date(currentTime.getTime() + 1000 * timeSpeed));
     }, 1000 / timeSpeed);
 
-    // Adjust actual temperature towards the target temperature every second based on timeSpeed
-    // const temperatureInterval = setInterval(() => {
-    //   setActualTemperature((prevTemperature) => {
-    //     const tempDifference = targetTemperature - prevTemperature;
-    //     if (tempDifference === 0) return prevTemperature; // Already at target temperature
-    //     const adjustment =
-    //       tempDifference > 0 ? 0.1 * timeSpeed : -0.1 * timeSpeed;
-    //     // Move actual temperature towards target, ensuring we don't overshoot
-    //     console.log(prevTemperature + adjustment);
-    //     console.log(targetTemperature);
-    //     return Math.abs(tempDifference) < Math.abs(adjustment)
-    //       ? targetTemperature
-    //       : prevTemperature + adjustment;
-    //   });
-    // }, 1000 / timeSpeed);
-
+    // Adjust actual temperature towards the average target temperature every second based on timeSpeed
     const temperatureInterval = setInterval(() => {
       setActualTemperature((prevTemperature) => {
-        const tempDifference = targetTemperature - prevTemperature;
-        // console.log("temp diff: ", tempDifference);
+        const tempDifference = averageTargetTemperature - prevTemperature;
         if (tempDifference === 0) return prevTemperature; // Already at target temperature
         const adjustment =
           tempDifference > 0 ? 0.1 * timeSpeed : -0.1 * timeSpeed;
-        // Move actual temperature towards target, ensuring we don't overshoot
         const newTemperature = prevTemperature + adjustment;
-        console.log("new temp: ", newTemperature);
+        // Avoid overshooting the target temperature
         if (
-          (tempDifference > 0 && newTemperature >= targetTemperature) ||
-          (tempDifference < 0 && newTemperature <= targetTemperature)
+          (tempDifference > 0 && newTemperature >= averageTargetTemperature) ||
+          (tempDifference < 0 && newTemperature <= averageTargetTemperature)
         ) {
-          return targetTemperature; // If we would overshoot, just set to target temperature
-        } else {
-          return newTemperature;
+          return averageTargetTemperature;
         }
+        return newTemperature;
       });
     }, 1000 / timeSpeed);
-    // Here you can add logic to change the outside temperature if needed
-    // For now, it starts the same as target and actual temperatures and remains constant
 
     return () => {
       clearInterval(timeInterval);
       clearInterval(temperatureInterval);
     };
-  }, [isSwitchOn, timeSpeed, targetTemperature]);
+  }, [isSwitchOn, timeSpeed, averageTargetTemperature, currentTime]);
 
   const handleSwitchChange = (event) => {
     setIsSwitchOn(event.target.checked);
@@ -79,9 +66,6 @@ export default function SimulationSidebar() {
   const handleTimeSpeedChange = (event, newValue) => {
     setTimeSpeed(newValue);
   };
-
-  const formattedDate = currentTime.toDateString();
-  const formattedTime = currentTime.toLocaleTimeString();
 
   return (
     <Box
@@ -95,34 +79,36 @@ export default function SimulationSidebar() {
         overflowY: "auto",
       }}
     >
+      {/* User Profile Display */}
+      <Avatar sx={{ bgcolor: "secondary.main", width: 56, height: 56 }}>
+        P
+      </Avatar>
+      <Typography variant="body1" gutterBottom>
+        Parent 1
+      </Typography>
+
       <Typography variant="h6" gutterBottom>
-        Simulation
+        Simulation Controls
       </Typography>
       <Switch checked={isSwitchOn} onChange={handleSwitchChange} />
       <Typography variant="caption" display="block" gutterBottom>
-        {/* Target Temperature: {targetTemperature}°C */}
-        Target Temperature: {targetTemperature}°C
+        Simulation Time: {currentTime.toLocaleTimeString()}
       </Typography>
       <Typography variant="caption" display="block" gutterBottom>
-        {/* Actual Temperature: {actualTemperature.toFixed(1)}°C */}
+        Average Target Temp: {averageTargetTemperature.toFixed(1)}°C
+      </Typography>
+      <Typography variant="caption" display="block" gutterBottom>
         Actual Temperature: {actualTemperature.toFixed(1)}°C
       </Typography>
       <Typography variant="caption" display="block" gutterBottom>
-        {/* Outside Temperature: {outsideTemperature.toFixed(1)}°C */}
         Outside Temperature: {outsideTemperature.toFixed(1)}°C
-      </Typography>
-      <Typography variant="caption" display="block" gutterBottom>
-        {formattedDate}
-      </Typography>
-      <Typography variant="caption" display="block" gutterBottom>
-        {formattedTime}
       </Typography>
       <Typography
         variant="caption"
         display="block"
         sx={{ alignSelf: "flex-start" }}
       >
-        Time speed
+        Time Speed
       </Typography>
       <Slider
         value={timeSpeed}
@@ -132,6 +118,7 @@ export default function SimulationSidebar() {
         max={5}
         step={0.1}
         aria-label="Time speed"
+        sx={{ width: "90%" }}
       />
     </Box>
   );

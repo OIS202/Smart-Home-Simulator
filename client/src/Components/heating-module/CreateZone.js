@@ -7,11 +7,14 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   InputLabel,
   Select,
   MenuItem,
   Typography,
   Box,
+  Checkbox,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
@@ -19,14 +22,24 @@ import Slider from "@mui/material/Slider";
 import Lights from "../core-module/Lights";
 
 import DeviceContext from "../contexts/DeviceContext";
+import HeatingContext from "../contexts/HeatingContext";
 
 const types = ["Light", "Door", "Window"];
 
 const CreateZone = () => {
-  const { deviceInfos, addDevices } = useContext(DeviceContext);
+  const { deviceInfos, addDevices, isOn } = useContext(DeviceContext);
+  const [deviceStates, toggleDeviceState, toggleAll] = isOn;
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [type, setType] = useState("");
   const [name, setName] = useState("");
+
+  const { thermostat } = useContext(HeatingContext);
+  const [
+    heatingStates,
+    // toggleHeatingState,
+    increaseTemperature,
+    decreaseTemperature,
+  ] = thermostat;
 
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
@@ -106,10 +119,9 @@ const CreateZone = () => {
       <Button
         variant="contained"
         onClick={handleOpenAddModal}
-        size="small"
-        sx={{ my: 2 }}
+        sx={{ margin: "10px" }}
       >
-        Add Device
+        Create Zone
       </Button>
       <Dialog
         open={isAddModalOpen}
@@ -117,11 +129,13 @@ const CreateZone = () => {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Add a New Device</DialogTitle>
+        <DialogTitle>Create a New Zone</DialogTitle>
         <DialogContent>
-          <Typography variant="h6">Name of Device</Typography>
-          <FormControl fullWidth margin="normal" key="name">
-            <TextField
+          <Typography variant="h6">
+            Select the Rooms to Add to Your Zone
+          </Typography>
+          {/* <FormControl fullWidth margin="normal" key="name">
+            <Checkbox
               id="name"
               label="Device Name"
               variant="outlined"
@@ -130,52 +144,61 @@ const CreateZone = () => {
                 setName(event.target.value);
               }}
             />
-          </FormControl>
-
-          <Typography variant="h6">Type of Device</Typography>
-          <FormControl fullWidth margin="normal" key="type">
-            <InputLabel>Type</InputLabel>
-            <Select
-              //   value={inhabitantLocations[name]}
-              defaultValue=""
-              label="Type"
-              onChange={(event) => {
-                setType(event.target.value);
+          </FormControl> */}
+          <FormGroup sx={{ padding: "10px" }}>
+            <FormControlLabel
+              control={<Checkbox />}
+              label={`Kitchen: ${heatingStates[0].temperature}°C`}
+              checked={deviceStates[18]}
+              // context={DeviceContext}
+              onChange={() => {
+                toggleDeviceState(18);
+                // handleDeviceToggle("btn1")
+                // handleChange
+                // setDeviceState([0]);
               }}
-            >
-              {types.map((typeOption) => (
-                <MenuItem key={typeOption} value={typeOption}>
-                  {typeOption}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <br />
-          <br />
-          <br />
-          <Typography variant="h6">Device Position</Typography>
-          <br />
-          <br />
-          <FormControl fullWidth margin="normal" key="position">
-            <Typography>% from the top</Typography>
-            <Slider
-              aria-label="Top"
-              defaultValue={30}
-              valueLabelDisplay="auto"
-              value={topSlider}
-              onChange={handleTopSlider}
             />
-            <Typography>% from the left</Typography>
-            <br />
-            <br />
-            <Slider
-              aria-label="Left"
-              defaultValue={30}
-              valueLabelDisplay="auto"
-              value={leftSlider}
-              onChange={handleLeftSlider}
+            <FormControlLabel
+              control={<Checkbox />}
+              label={`Living Room: ${heatingStates[1].temperature}°C`}
+              checked={deviceStates[19]}
+              onChange={() => {
+                toggleDeviceState(19);
+              }}
             />
-          </FormControl>
+            <FormControlLabel
+              control={<Checkbox />}
+              label={`Kid Bedroom: ${heatingStates[2].temperature}°C`}
+              checked={deviceStates[20]}
+              onChange={() => {
+                toggleDeviceState(20);
+              }}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label={`Master Bedroom: ${heatingStates[3].temperature}°C`}
+              checked={deviceStates[21]}
+              onChange={() => {
+                toggleDeviceState(21);
+              }}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label={`Bathroom: ${heatingStates[4].temperature}°C`}
+              checked={deviceStates[22]}
+              onChange={() => {
+                toggleDeviceState(22);
+              }}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label={`Garage: ${heatingStates[5].temperature}°C`}
+              checked={deviceStates[23]}
+              onChange={() => {
+                toggleDeviceState(23);
+              }}
+            />
+          </FormGroup>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseAddModal}>Cancel</Button>

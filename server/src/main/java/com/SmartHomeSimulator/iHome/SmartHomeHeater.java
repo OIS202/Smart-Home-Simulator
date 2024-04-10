@@ -1,23 +1,11 @@
 package com.SmartHomeSimulator.iHome;
 
-public class SmartHomeHeater implements Subject {
+public class SmartHomeHeater implements Observer {
 
     @Override
-    public void subscribe(Observer observer) {
+    public void update(String context) {
         // TODO Auto-generated method stub
-        System.out.println("Subscribed to smart home simulator");
-    }
-
-    @Override
-    public void unsubscribe(Observer observer) {
-        // TODO Auto-generated method stub
-        System.out.println("Unsubscribed to smart home simulator");
-    }
-
-    @Override
-    public void notifyObservers() {
-        // TODO Auto-generated method stub
-        System.out.println("Notified the observers");
+        System.out.println("Updated the observer");
     }
     
 }
