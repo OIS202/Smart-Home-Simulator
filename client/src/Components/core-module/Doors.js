@@ -25,7 +25,7 @@ export default function Doors(props) {
   useEffect(() => {
     if (awayState) {
       // If Away Mode is turned ON
-      toggleAll("doors"); // Close all doors
+      toggleAll("doors", true); // Close all doors
     }
   }, [awayState, toggleAll]);
 
@@ -47,9 +47,12 @@ export default function Doors(props) {
 
   const handleBtn = (btnId) => (e) => {
     e.preventDefault();
-    toggleDeviceState(btnId);
-    const newState = !deviceStates[btnId]; // Assuming this toggles the state
-    logDeviceChange("Door", btnId, newState);
+    if (!awayState) {
+      // Prevent toggling individual doors if Away Mode is active
+      toggleDeviceState(btnId);
+      const newState = !deviceStates[btnId];
+      logDeviceChange("Door", btnId, newState);
+    }
   };
   //   const { deviceStates, toggleDeviceState } = useContext(DeviceContext);
 
@@ -128,10 +131,14 @@ export default function Doors(props) {
         <FormControlLabel
           control={<Checkbox />}
           label="All Doors"
-          checked={deviceStates[11]}
+          checked={deviceStates[11]} // Assuming this represents the collective state of all doors
           onChange={() => {
-            toggleAll("doors");
+            if (!awayState) {
+              // Allow toggling "All Doors" only if Away Mode is not active
+              toggleAll("doors"); // This call might need adjustment to match your actual implementation
+            }
           }}
+          disabled={awayState} // Disable if Away Mode is active
         />
       </FormGroup>
     );
