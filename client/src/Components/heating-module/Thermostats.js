@@ -4,7 +4,7 @@ import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useContext, useState, useEffect } from 'react';
-
+import { logDeviceChange } from '../../utils/logDeviceChange';
 import {
   FormGroup,
   FormControlLabel,
@@ -58,11 +58,13 @@ export default function Thermostats(props) {
   const increaseTemp = (btnId) => (e) => {
     e.preventDefault();
     increaseTemperature(btnId);
+    logDeviceChange("Tempreature Increased", btnId, null);
   };
 
   const decreaseTemp = (btnId) => (e) => {
     e.preventDefault();
     decreaseTemperature(btnId);
+    logDeviceChange("Tempreature Decreased", btnId, null);
   };
 
   const tooCold = () => {

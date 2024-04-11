@@ -1,5 +1,6 @@
 // AddDevice.js
 import React, { useContext, useState } from "react";
+import { logDeviceChange } from '../../utils/logDeviceChange';
 import {
   Button,
   Dialog,
@@ -47,6 +48,7 @@ const SetTimer = () => {
     handleCloseAddModal();
     setCountdownState(timerSlider);
     setTimerState(timerSlider);
+    logDeviceChange("Alaram sill go off after ", timerSlider+" Seconds", null);
   };
 
   const [timerSlider, setTimerSlider] = useState(120);

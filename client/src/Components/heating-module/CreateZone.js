@@ -1,5 +1,6 @@
 // AddDevice.js
 import React, { useContext, useState } from "react";
+import { logDeviceChange } from '../../utils/logDeviceChange';
 import {
   Button,
   Dialog,
@@ -54,6 +55,7 @@ const CreateZone = () => {
     console.log("Type of Device:", type);
     console.log("Top %:", topSlider);
     console.log("Left %:", leftSlider);
+    logDeviceChange("Zone created", null, null);
 
     handleCloseAddModal();
     // addDevices({

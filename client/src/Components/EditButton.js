@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { logDeviceChange } from '../utils/logDeviceChange';
 import {
   Button,
   Dialog,
@@ -20,8 +21,11 @@ import {
 } from "@mui/material";
 
 const windows = [
-  { id: 1, location: "Living Room" },
-  { id: 2, location: "Kitchen" },
+  { id: 1, location: "Master Bedroom" },
+  { id: 2, location: "Kid Bedroom" },
+  { id: 3, location: "Living Room" },
+  { id: 4, location: "Kitchen" },
+  { id: 5, location: "Garage" },
 ];
 const objectsToBlock = ["Chair", "Table", "Box", "None"];
 
@@ -72,10 +76,12 @@ const EditButton = () => {
 
   const handleUserLocationChange = (email, newLocation) => {
     setUserLocations((prev) => ({ ...prev, [email]: newLocation }));
+    logDeviceChange("User location was changed to:  ", newLocation+" The user is: "+email, null);
   };
 
   const handleWindowBlockChange = (windowId, event) => {
     setWindowBlocks((prev) => ({ ...prev, [windowId]: event.target.value }));
+    logDeviceChange("The window:  ", windowId+" is now blocked", null);
   };
 
   const handleSave = async () => {
