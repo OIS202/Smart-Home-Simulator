@@ -118,7 +118,7 @@ public class HouseService {
         houseRepository.save(house);
     }
 
-    private void checkAndHandleSpecialTemperatureConditions(ObjectId houseId, double oldTemperature,
+    void checkAndHandleSpecialTemperatureConditions(ObjectId houseId, double oldTemperature,
             double newTemperature, Instant lastUpdateTimestamp, Instant updateTimestamp) {
         // Get the house by ID
         House house = houseRepository.findById(houseId)
