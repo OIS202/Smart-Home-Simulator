@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { logDeviceChange } from '../utils/logDeviceChange';
 import {
   Button,
   Dialog,
@@ -72,10 +73,12 @@ const EditButton = () => {
 
   const handleUserLocationChange = (email, newLocation) => {
     setUserLocations((prev) => ({ ...prev, [email]: newLocation }));
+    logDeviceChange("User location was changed to:  ", newLocation+" The user is: "+email, null);
   };
 
   const handleWindowBlockChange = (windowId, event) => {
     setWindowBlocks((prev) => ({ ...prev, [windowId]: event.target.value }));
+    logDeviceChange("The window:  ", windowId+" is now blocked", null);
   };
 
   const handleSave = async () => {
