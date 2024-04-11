@@ -9,9 +9,14 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +36,9 @@ public class RoomServiceTest {
 
     @InjectMocks
     private RoomService roomService;
+
+    @Captor
+    ArgumentCaptor<Room> roomCaptor;
 
     private Room exampleRoom;
     private Room exampleRoomNoZoneID;
@@ -108,6 +116,29 @@ public class RoomServiceTest {
 
         assertThat(rooms).isNotEmpty(); // Verifies that rooms are indeed returned
         assertThat(rooms.get(0).getZoneId()).isNull(); // Correctly checks that the returned room is unassigned
+    }
+
+    @Test
+    void updateRoomTemperature_success() {
+        ObjectId roomId = new ObjectId();
+        double newTemperature = 25.0;
+        Instant updateTimestamp = Instant.now();
+
+        Room existingRoom = new Room(); // Assuming a constructor or setters to initialize
+        existingRoom.setActualTemp(20.0); // Initial temperature
+        existingRoom.setLastUpdateTimestamp(Instant.now().minusSeconds(3600)); // Initial timestamp
+
+        when(roomRepository.findById(roomId)).thenReturn(Optional.of(existingRoom));
+
+        roomService.updateRoomTemperature(roomId, newTemperature, updateTimestamp);
+
+        ArgumentCaptor<Room> roomArgumentCaptor = ArgumentCaptor.forClass(Room.class);
+        verify(roomRepository).save(roomArgumentCaptor.capture());
+
+        Room updatedRoom = roomArgumentCaptor.getValue();
+        assertEquals(newTemperature, updatedRoom.getActualTemp(), "The room temperature should be updated.");
+        assertEquals(updateTimestamp, updatedRoom.getLastUpdateTimestamp(),
+                "The room update timestamp should be updated.");
     }
 
 }
